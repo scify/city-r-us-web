@@ -1,61 +1,54 @@
-@extends('app')
+<!DOCTYPE html>
+<?php  $lang = "auth/login."; ?> {{--  resource label path --}}     
+<html>
+    <head>
+        <!-- Title -->
+        <title>{{trans($lang.'title')}}| {{trans($lang.'logIn')}} </title>
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+        @include('template.default.headerIncludes')
+    </head>
+    <body class="page-login">
+        <main class="page-content">
+            <div class="page-inner">
+                <div id="main-wrapper">
+                    <div class="row">
+                        <div class="col-md-3 center">
+                            <div class="login-box">
+                                <div class="text-center">
+                                <a href="{{ url('/') }}"><img src="{{ asset('img/logo.jpg') }}" class="logo"/></a>
+                                </div>
+                                   @if (count($errors) > 0)
+                                		<div class="alert alert-danger">
+                                			<ul>
+                                				@foreach ($errors->all() as $error)
+                                					<li>{{ $error }}</li>
+                                				@endforeach
+                                			</ul>
+                                		</div>
+                                	@endif
+                                	<form class="m-t-md" role="form" method="POST" action="{{ url('/auth/login') }}">
+                                		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password" placeholder="Password" />
+                                        </div>
+                                        <div class="form-group">
+                                        			<label><input type="checkbox" name="remember"> {{trans($lang.'remember')}}</label>
+                                        </div>
+                                       <button type="submit" class="btn btn-success btn-block">{{trans($lang.'entrance')}}</button>
+                                        <div class="form-group">
+                                            <a href="{{ url('/password/email') }}" class="display-block text-center m-t-md text-sm">{{trans($lang.'forgotPass')}}</a>
+                                        </div>
+                                   </form>
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Login</button>
-
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-@endsection
+                            </div>
+                        </div>
+                    </div><!-- Row -->
+                </div><!-- Main Wrapper -->
+            </div><!-- Page Inner -->
+        </main><!-- Page Content -->
+         @include('template.default.footerIncludes')
+    </body>
+</html>
