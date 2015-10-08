@@ -44,7 +44,25 @@ class Authenticate {
 			}
 		}
 
+
+        //dd($request->email);
+
+        $this->getToken();
+
 		return $next($request);
 	}
+    
+    private function getToken(){
+
+        $curl = curl_init();
+        curl_setopt ($curl, CURLOPT_URL, "http://city-r-us-service/api/v1/authenticate");
+        $result = curl_exec ($curl);
+        curl_close ($curl);
+
+        dd($result);
+
+        return;
+
+    }
 
 }

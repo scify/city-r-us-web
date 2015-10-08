@@ -3,24 +3,24 @@
 <div class="page-sidebar sidebar">
     <div class="page-sidebar-inner slimscroll">
         <ul class="menu accordion-menu">
-            <li class=" {{ Request::is('/') ? 'active open' : '' }}">
+            <li class="">
                 <a href="{{url('/')}}" class="waves-effect waves-button">
                     <i class="fa fa-dashboard fa-2x"></i>
                     <p>{{trans($lang.'dashboard')}}</p>
                 </a>
             </li>
-            <li class="droplink {{ Request::is('units*') ? 'active open' : '' }}">
+            <li class="droplink">
                 <a class="waves-effect waves-button">
                     <i class="fa fa-home fa-2x"></i>
-                    <p>{{trans($lang.'units')}}</p>
+                    <p>{{trans($lang.'missions')}}</p>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="{{ Request::is('units') || Request::is('units/one*') ? 'active' : '' }}"><a href="{{ url('units') }}">{{trans($lang.'showUnits')}}</a></li>
-                    <li class="{{ Request::is('units/create') ? 'active' : '' }}"><a href="{{ url('units/create') }}">{{trans($lang.'createUnit')}}</a></li>
+                    <li class=""><a href="{{ url('units') }}">{{trans($lang.'showMissions')}}</a></li>
+                    <li class=""><a href="{{ url('units/create') }}">{{trans($lang.'createMission')}}</a></li>
                 </ul>
             </li>
-            <li class="droplink {{ Request::is('actions*') ? 'active open' : '' }}">
+           {{-- <li class="droplink {{ Request::is('actions*') ? 'active open' : '' }}">
                 <a href="#" class="waves-effect waves-button">
                     <i class="fa fa-bullseye fa-2x"></i>
                     <p>{{trans($lang.'actions')}}</p>
@@ -72,7 +72,7 @@
                     <i class="fa fa-tree fa-2x"></i>
                     <p>{{trans($lang.'tree')}}</p>
                 </a>
-            </li>
+            </li>--}}
         </ul>
     </div>
     <!-- Page Sidebar Inner -->
