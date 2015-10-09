@@ -8,3 +8,9 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+
+
+
+/* Missions Routes */
+Route::get('/missions', 'MissionController@index');

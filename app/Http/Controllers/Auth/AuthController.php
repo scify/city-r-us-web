@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
 
+    protected $redirectPath = '/';
 	/*
 	|--------------------------------------------------------------------------
 	| Registration & Login Controller
@@ -33,6 +34,8 @@ class AuthController extends Controller {
 		$this->registrar = $registrar;
 
 		$this->middleware('guest', ['except' => 'getLogout']);
-	}
+        $this->middleware('getJWT', ['only' => ['postLogin']]);
+
+    }
 
 }

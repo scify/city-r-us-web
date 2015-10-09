@@ -4,7 +4,6 @@
 <head>
     <!-- Title -->
     <title>{{trans($lang.'title')}} | Δημιουργία Λογαριασμού </title>
-
     @include('template.default.headerIncludes')
 </head>
 
@@ -17,17 +16,10 @@
                     <div class="login-box">
                         <div class="text-center">
                             <a href="{{ url('/') }}"><img src="{{ asset('img/logo.jpg') }}" class="logo"/></a>
-                        </div>                                   @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
                         </div>
-                        @endif
-                        <form class="m-t-md" role="form" method="POST" action="{{ url('/auth/register') }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="alert alert-danger" id="errors"></div>
+                        <form class="m-t-md" role="form" id="registrationForm">
+                            {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Όνομα" />
                             </div>
@@ -49,5 +41,6 @@
     </div><!-- Page Inner -->
 </main><!-- Page Content -->
 @include('template.default.footerIncludes')
+<script src="{{ asset('/js/pages/register.js')}}"></script>
 </body>
 </html>
