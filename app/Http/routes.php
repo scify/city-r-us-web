@@ -14,3 +14,8 @@ Route::controllers([
 
 /* Missions Routes */
 Route::get('/missions', 'MissionController@index');
+
+
+
+/* Users Routes */
+Route::get('/users', 'UserController@index');

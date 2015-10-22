@@ -16,10 +16,27 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class=""><a href="{{ url('units') }}">{{trans($lang.'showMissions')}}</a></li>
-                    <li class=""><a href="{{ url('units/create') }}">{{trans($lang.'createMission')}}</a></li>
+                    <li class=""><a href="{{ url('missions') }}">{{trans($lang.'showMissions')}}</a></li>
+                    <li class=""><a href="{{ url('missions/create') }}">{{trans($lang.'createMission')}}</a></li>
                 </ul>
             </li>
+
+            <li class="droplink">
+                <a class="waves-effect waves-button">
+                    <i class="fa fa-user fa-2x"></i>
+                    <p>{{trans($lang.'users')}}</p>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class=""><a href="{{ url('users') }}">{{trans($lang.'showUsers')}}</a></li>
+                    <li class=""><a href="{{ url('users/create') }}">{{trans($lang.'createUser')}}</a></li>
+                </ul>
+            </li>
+
+
+
+
+
            {{-- <li class="droplink {{ Request::is('actions*') ? 'active open' : '' }}">
                 <a href="#" class="waves-effect waves-button">
                     <i class="fa fa-bullseye fa-2x"></i>

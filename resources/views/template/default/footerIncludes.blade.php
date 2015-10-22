@@ -2,6 +2,7 @@
 <script src="{{ asset('/plugins/jquery/jquery-2.1.3.min.js')}}"></script>
 <script src="{{ asset('/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{ asset('/plugins/jquery-blockui/jquery.blockui.js')}}"></script>
+<script src="{{ asset('/plugins/jquery-cookie/jquery-cookie.js')}}"></script>
 <script src="{{ asset('/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{ asset('/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.el.js')}}"></script>

@@ -8,6 +8,10 @@ return [
     'showMissions' => 'Προβολή Αποστολών',
     'createMission' => 'Δημιουργία Αποστολής',
 
+    'users' => 'Χρήστες',
+    'showUsers' => 'Προβολή Χρηστών',
+    'createUser' => 'Δημιουργία Χρήστη',
+
 
 
 ];

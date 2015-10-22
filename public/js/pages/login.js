@@ -1,48 +1,64 @@
 $("#errors").hide();
 
-$("#loginForm").submit(function () {
+$("#loginForm").submit(function (e) {
+
+    e.preventDefault();
+    e.returnValue = false;
 
     if (validate()) {
 
         var url = $('meta[name=apiUrl]').attr('content') + '/users/login';
-
-        console.log($("#loginForm").serialize())
-        console.log(url);
 
         $.ajax({
             type: "POST",
             url: url,
             // dataType: 'jsonp',
             data: $("#loginForm").serialize(), // serializes the form's elements.
-            success: function (data) {
-                $("#errors").hide();
+            success: function (response) {
 
-                //if the user was successfully created, then save the token to browser's local storage
-                localStorage.setItem('jwt_token', data.token);
+                if(response.success) {
+                    $("#errors").hide();
 
-                //redirect to login
-                window.location.href = $('meta[name=url]').attr('content') + "/dashboard";
-            },
-            error: function (data) {
-                console.log(data);
-                if (data.responseJSON != null) {
-                    var msg = '<ul>';
+                    console.log('success');
 
-                    if (data.responseJSON.error == 'invalid_credentials')
-                        msg += '<li>Τα στοιχεία δεν αντιστοιχούν σε κανένα χρήστη.</li>';
-                    if (data.responseJSON.error == 'could_not_create_token')
-                        msg += '<li>Σφάλμα</li>';
+                    console.log(response.data.token);
+                    //if the user was successfully created, then save the token to browser's local storage
+                    localStorage.setItem('jwt_token', response.data.token);
 
-                    msg += '</ul>';
+                    //redirect to login
+                    //window.location.href = $('meta[name=url]').attr('content') + "/dashboard";
 
-                    $("#errors").html(msg);
-                    $("#errors").show();
+
                 }
+                else{
+                    console.log('error');
+                    if (response.errors != null) {
+                        var msg = '<ul>';
+
+                        $.each(response.errors, function( i, error ) {
+
+                            if (error == 'invalid_credentials')
+                                msg += '<li>Τα στοιχεία δεν αντιστοιχούν σε κανένα χρήστη.</li>';
+                            if (error == 'could_not_create_token')
+                                msg += '<li>Σφάλμα</li>';
+                        });
+
+                        msg += '</ul>';
+
+                        $("#errors").html(msg);
+                        $("#errors").show();
+                    }
+                    return false;
+                }
+            },
+            complete: function() {
+                // make sure that you are no longer handling the submit event; clear handler
+                $("#loginForm").off('submit');
+                // actually submit the form
+                $("#loginForm").submit();
             }
         });
-
     }
-    return false; // avoid to execute the actual submit of the form.
 });
 
 

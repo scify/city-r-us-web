@@ -196,6 +196,10 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
 
+        /**
+         * Services created for the app
+         */
+        'JWTService' => 'App\Services\Facades\JWTService',
 
     ],
 

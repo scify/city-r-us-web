@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\Facades\JWTService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller {
 
@@ -34,8 +36,54 @@ class AuthController extends Controller {
 		$this->registrar = $registrar;
 
 		$this->middleware('guest', ['except' => 'getLogout']);
-        $this->middleware('getJWT', ['only' => ['postLogin']]);
+      //  $this->middleware('setJwt', ['only' => ['postLogin']]);
+     //   $this->middleware('unsetJWT', ['only' => ['getLogout']]);
 
     }
 
+    /**
+     * Override the default postLogin method
+     * to add JWT support.
+     *
+     * @param Request $request
+     * @return $this
+     */
+    public function postLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email', 'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if ($this->auth->attempt($credentials, $request->has('remember')))
+        {
+            //if the login is successful, save the jwt at a cookie
+            JWTService::setCookie();
+
+            return redirect()->intended($this->redirectPath());
+        }
+
+        return redirect($this->loginPath())
+            ->withInput($request->only('email', 'remember'))
+            ->withErrors([
+                'email' => $this->getFailedLoginMessage(),
+            ]);
+    }
+
+    /**
+     * Override the default getLogout method.
+     * After logging out, unset/forget the jwt cookie.
+     *
+     * @return $this
+     */
+    public function getLogout()
+    {
+        //unset the cookie
+        JWTService::unsetCookie();
+
+        $this->auth->logout();
+
+        return redirect('/');
+    }
 }

@@ -18,7 +18,7 @@
                             <a href="{{ url('/') }}"><img src="{{ asset('img/logo.jpg') }}" class="logo"/></a>
                         </div>
                         <div class="alert alert-danger" id="errors"></div>
-                        <form class="m-t-md" role="form" id="loginForm">
+                        <form class="m-t-md" role="form" action="{{ url('/auth/login') }}">
                             {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
 
                             <div class="form-group">
