@@ -57,6 +57,6 @@
                 </div><!-- Main Wrapper -->
             </div><!-- Page Inner -->
 </main><!-- Page Content -->
-@include('...template.default.footerIncludes')
+@include('template.default.footerIncludes')
 </body>
 </html>
