@@ -135,15 +135,17 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
+        'Illuminate\Html\HtmlServiceProvider',
 
-		/*
-		 * Application Service Providers...
-		 */
+        /*
+         * Application Service Providers...
+         */
 		'App\Providers\AppServiceProvider',
 		'App\Providers\BusServiceProvider',
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+        'App\Providers\MacroServiceProvider',
+        'App\Providers\RouteServiceProvider',
 
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
 
@@ -194,6 +196,8 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+        'Html'      => 'Illuminate\Html\HtmlFacade',
+        'Form'      => 'Illuminate\Html\FormFacade',
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
 
         /**

@@ -5,7 +5,7 @@ class JWTService {
 
     public function setCookie() {
 
-        $baseUrl = "http://city-r-us-service/api/v1/users/login";
+        $baseUrl = "http://city-r-us-service/api/v1/users/authenticate";
 
         $email = \Auth::user()->email;
         $password = \Request::get('password');
