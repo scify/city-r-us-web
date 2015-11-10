@@ -15,7 +15,7 @@
                 <div class="col-md-3 center">
                     <div class="login-box">
                         <div class="text-center">
-                            <a href="{{ url('/') }}"><img src="{{ asset('img/logo.jpg') }}" class="logo"/></a>
+                            <a href="{{ url('/') }}"><img src="{{ asset('img/logo.png') }}" class="logo"/></a>
                         </div>
                         <div class="alert alert-danger" id="errors"></div>
                         <form class="m-t-md" role="form" action="{{ url('/auth/login') }}">

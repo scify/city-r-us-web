@@ -9,6 +9,7 @@
             'size' =>
             '5x5', 'id' => 'description']) !!}
         </div>
+        <div class="alert alert-danger" id="errors"></div>
         <div class="form-group text-right">
             {!! Form::submit($submitButtonText, ['class' => 'btn btn-success', 'id' => 'saveMission']) !!}
         </div>

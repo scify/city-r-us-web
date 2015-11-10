@@ -23,10 +23,12 @@
         <link href="{{ asset('/plugins/slidepushmenus/css/component.css')}}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('/plugins/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('/plugins/data-tables/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('/plugins/data-tables/extras/tabletools/css/dataTables.tableTools.min.css') }}" rel="stylesheet" type="text/css"/>
 
         <!-- Theme Styles -->
         <link href="{{ asset('/css/modern.css')}}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('/css/themes/blue.css')}}" class="theme-color" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('/css/themes/white.css')}}" class="theme-color" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('/css/custom.css')}}" rel="stylesheet" type="text/css"/>
 
 

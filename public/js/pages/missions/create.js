@@ -1,33 +1,29 @@
 $("#errors").hide();
-
-$("#loginForm").submit(function (e) {
+console.log('aaa')
+$("#createMission").submit(function (e) {
+    console.log('submit')
 
     e.preventDefault();
     e.returnValue = false;
 
     if (validate()) {
 
-        var url = $('meta[name=apiUrl]').attr('content') + '/users/login';
+        var url = $('meta[name=apiUrl]').attr('content') + '/missions/store';
 
         $.ajax({
             type: "POST",
             url: url,
-            // dataType: 'jsonp',
-            data: $("#loginForm").serialize(), // serializes the form's elements.
+            data: $("#createMission").serialize(), // serializes the form's elements.
+            headers: {
+                "Authorization": "Bearer " + $.cookie("jwtToken")
+            },
             success: function (response) {
 
                 if(response.success) {
                     $("#errors").hide();
 
-                    console.log('success');
-
-                    console.log(response.data.token);
-                    //if the user was successfully created, then save the token to browser's local storage
-                    localStorage.setItem('jwt_token', response.data.token);
-
                     //redirect to login
-                    //window.location.href = $('meta[name=url]').attr('content') + "/dashboard"
-
+                    window.location.href = $('meta[name=url]').attr('content') + "/dashboard"
                 }
                 else{
                     console.log('error');
@@ -36,7 +32,7 @@ $("#loginForm").submit(function (e) {
 
                         $.each(response.errors, function( i, error ) {
 
-                            if (error == 'invalid_credentials')
+                            if (error == '')
                                 msg += '<li>Τα στοιχεία δεν αντιστοιχούν σε κανένα χρήστη.</li>';
                             if (error == 'could_not_create_token')
                                 msg += '<li>Σφάλμα</li>';
@@ -66,16 +62,11 @@ function validate() {
 
     var msg = '<ul>';
     var isValid = true;
-    var email = $("input[name=email]").val();
-    var password = $("input[name=password]").val();
+    var name = $("input[name=name]").val();
 
 
-    if (!email || !email.trim()) {
-        msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Email".</li>';
-        isValid = false;
-    }
-    if (!password || !password.trim()) {
-        msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Κωδικός".</li>';
+    if (!name || !name.trim()) {
+        msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Όνομα".</li>';
         isValid = false;
     }
 

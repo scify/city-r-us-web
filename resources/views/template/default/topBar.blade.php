@@ -7,7 +7,7 @@
                         </a>
                     </div>
                     <div class="logo-box">
-                      <img src="{{ asset('img/logo_vertical.png') }}" style="height:100%;"/>
+                      <img src="{{ asset('img/logo.png') }}""/>
                     </div>
                     <!-- Logo Box -->
                     <div class="topmenu-outer">

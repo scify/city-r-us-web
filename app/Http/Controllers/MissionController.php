@@ -27,13 +27,4 @@ class MissionController extends Controller {
         return view('main.missions.edit');
     }
 
-
-    public function store(MissionRequest $request) {
-
-        $mission = Mission::create($request->all());
-
-        return $mission;
-
-       // return Redirect::route('action/one', ['id' => $action->id]);
-    }
 }

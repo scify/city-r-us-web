@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        {!! Form::open(['method' => 'POST', 'action' => ['MissionController@store']]) !!}
+                        {!! Form::open(['method' => 'POST',  'id' => 'createMission']) !!}
                         @include('main.missions.partials._form', ['submitButtonText' => 'Αποθήκευση'])
                         {!! Form::close() !!}
                     </div>
@@ -33,5 +33,9 @@
         </div>
     </div>
 </div>
-
 @stop
+
+
+@section('footerScripts')
+<script src="{{ asset('/js/pages/missions/create.js')}}"></script>
+@append

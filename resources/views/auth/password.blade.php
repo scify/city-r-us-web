@@ -15,7 +15,7 @@
                 <div class="col-md-3 center">
                     <div class="login-box">
                         <div class="text-center">
-                            <a href="{{ url('/') }}"><img src="{{ asset('img/logo.jpg') }}" class="logo"/></a>
+                            <a href="{{ url('/') }}"><img src="{{ asset('img/logo.png') }}" class="logo"/></a>
                         </div>
                         @if (session('status'))
                         <div class="alert alert-success">

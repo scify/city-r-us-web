@@ -1,4 +1,4 @@
-# City-r-us Web 
+# City-R-US Web 
 
 ### Starting the project
 
