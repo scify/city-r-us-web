@@ -11,7 +11,7 @@
 @section('bodyContent')
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="panel panel-white">
             <div class="panel-heading clearfix">
                 <h4 class="panel-title">Στοιχεία αποστολής</h4>
@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        {!! Form::open(['method' => 'POST',  'id' => 'createMission']) !!}
+                        {!! Form::open(['method' => 'POST',  'id' => 'createMission', 'files'=>true]) !!}
                         @include('main.missions.partials._form', ['submitButtonText' => 'Αποθήκευση'])
                         {!! Form::close() !!}
                     </div>

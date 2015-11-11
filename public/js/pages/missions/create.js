@@ -1,5 +1,4 @@
 $("#errors").hide();
-console.log('aaa')
 $("#createMission").submit(function (e) {
     console.log('submit')
 
@@ -18,12 +17,14 @@ $("#createMission").submit(function (e) {
                 "Authorization": "Bearer " + $.cookie("jwtToken")
             },
             success: function (response) {
+                console.log(response)
 
                 if(response.success) {
                     $("#errors").hide();
 
+
                     //redirect to login
-                    window.location.href = $('meta[name=url]').attr('content') + "/dashboard"
+                  //  window.location.href = $('meta[name=url]').attr('content') + "/dashboard"
                 }
                 else{
                     console.log('error');
@@ -67,6 +68,10 @@ function validate() {
 
     if (!name || !name.trim()) {
         msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Όνομα".</li>';
+        isValid = false;
+    }
+    if (!$("input[name='type']:checked").val()) {
+        msg += '<li>Παρακαλώ επιλέξτε τύπο αποστολής.</li>';
         isValid = false;
     }
 
