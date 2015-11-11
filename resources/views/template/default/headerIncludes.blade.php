@@ -4,8 +4,8 @@
         <meta name="keywords" content="admin,dashboard"/>
         <meta name="author" content="Steelcoders"/>
         <meta name="_token" content="{{ csrf_token() }}" />
-        <meta name="apiUrl" content="http://city-r-us-service/api/v1" />
-        <meta name="url" content="http://city-r-us-web" />
+        <meta name="apiUrl" content="{{ env('API_URL') }}" />
+        <meta name="url" content="{{ env('WEB_URL') }}" />
 
         <link rel="icon" type="image/png" href="{{ asset('favicon.ico')}}">
 
