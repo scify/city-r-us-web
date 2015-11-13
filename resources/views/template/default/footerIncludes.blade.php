@@ -15,6 +15,8 @@
 <script src="{{ asset('/plugins/chartsjs/Chart.min.js')}}"></script>
 <script src="{{ asset('/plugins/data-tables/js/jquery.dataTables.js')}}"></script>
 <script src="{{ asset('/plugins/data-tables/extras/tabletools/js/dataTables.tableTools.min.js')}}"></script>
+<script src="{{ asset('/plugins/handlebars/handlebars-v4.0.4.js')}}"></script>
 <script src="{{ asset('/js/modern.js')}}"></script>
 <script src="{{ asset('/js/custom.js')}}"></script>
 <script src="{{ asset('/js/pages/dashboard.js')}}"></script>
+<script src="{{ asset('/js/handlebarsHelpers.js')}}"></script>

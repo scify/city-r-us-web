@@ -1,13 +1,17 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-3">
+        <div class="form-group">
+            {!! Form::formInput('files[]', 'Ανέβασμα εικόνας:', $errors, ['class' => 'form-control', 'type' =>
+            'file'])
+            !!}
+            <small class="help-blocκ">Το αρχείο δεν πρέπει να ξεπερνά σε μέγεθος τα 10mb.</small>
+        </div>
+    </div>
+
+    <div class="col-md-9">
         <div class="form-group">
             {!! Form::formInput('name', 'Όνομα:', $errors, ['class' => 'form-control', 'id' =>
             'name', 'required' => 'true']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::formInput('description', 'Περιγραφή:', $errors, ['class' => 'form-control', 'type' => 'textarea',
-            'size' =>
-            '5x5', 'id' => 'description']) !!}
         </div>
         <div class="form-group">
             <p>Τύπος αποστολής:</p>
@@ -23,10 +27,9 @@
             </label>
         </div>
         <div class="form-group">
-            {!! Form::formInput('files[]', 'Ανέβασμα εικόνας:', $errors, ['class' => 'form-control', 'type' =>
-            'file'])
-            !!}
-            <small class="help-blocκ">Το αρχείο δεν πρέπει να ξεπερνά σε μέγεθος τα 10mb.</small>
+            {!! Form::formInput('description', 'Περιγραφή:', $errors, ['class' => 'form-control', 'type' => 'textarea',
+            'size' =>
+            '5x5', 'id' => 'description']) !!}
         </div>
         <div class="alert alert-danger" id="errors"></div>
         <div class="form-group text-right">
@@ -34,4 +37,6 @@
         </div>
     </div>
 </div>
+
+
 

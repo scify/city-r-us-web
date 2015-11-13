@@ -19,15 +19,12 @@ $("#createMission").submit(function (e) {
             success: function (response) {
                 console.log(response)
 
-                if(response.success) {
+                if(response.status=='success') {
                     $("#errors").hide();
-
-
                     //redirect to login
-                  //  window.location.href = $('meta[name=url]').attr('content') + "/dashboard"
+                    window.location.href = $('meta[name=url]').attr('content') + "/missions"
                 }
                 else{
-                    console.log('error');
                     if (response.errors != null) {
                         var msg = '<ul>';
 

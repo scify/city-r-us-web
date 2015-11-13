@@ -10,15 +10,30 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-white">
-            <div class="panel-heading clearfix">
-                <h4 class="panel-title">Αποστολές</h4>
-            </div>
-            <div class="panel-body">
-                @include('main.missions.partials._table')
-            </div>
-        </div>
+                @include('main.missions.partials._all')
     </div>
 </div>
 
 @stop
+
+@section('footerScripts')
+<script>
+    var MISSIONS ={
+        handlerData:function(response){
+            console.log(response.message)
+            var templateSource = $("#template").html(),
+                template = Handlebars.compile(templateSource),
+                html = template(response.message);
+            $('#container').html(html);
+        },
+        load : function(){
+            $.ajax({
+                url: $('meta[name=apiUrl]').attr('content') + '/missions',
+                method:'get',
+                success:this.handlerData
+            });
+        }
+    };
+    MISSIONS.load();
+</script>
+@append

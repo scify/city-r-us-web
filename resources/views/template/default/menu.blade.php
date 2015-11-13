@@ -1,6 +1,6 @@
 <?php  $lang = "templates/menu."; ?> {{--  resource label path --}}
 
-<div class="page-sidebar sidebar">
+<div class="sidebar horizontal-bar">
     <div class="page-sidebar-inner slimscroll">
         <ul class="menu accordion-menu">
             <li class="">

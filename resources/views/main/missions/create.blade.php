@@ -11,7 +11,7 @@
 @section('bodyContent')
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading clearfix">
                 <h4 class="panel-title">Στοιχεία αποστολής</h4>

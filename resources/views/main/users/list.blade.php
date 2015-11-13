@@ -13,7 +13,11 @@ users
 
 
 @section('footerScripts')
+<script src="{{ asset('/js/pages/jwt.js')}}"></script>
+
 <script>
+
+    checkJWT();
 
     var url = $('meta[name=apiUrl]').attr('content') + '/users';
 

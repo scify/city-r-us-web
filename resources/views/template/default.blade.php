@@ -9,8 +9,8 @@
 </head>
 
 
-<body class="page-header-fixed" data-url="{!! URL::to('/') !!}">
-<main class="page-content content-wrap">
+<body class="pace-done page-horizontal-bar compact-menu" data-url="{!! URL::to('/') !!}">
+<main class="page-content content-wrap container">
     <!-- Navbar/TopBar -->
     @include('template.default.topBar')
 
