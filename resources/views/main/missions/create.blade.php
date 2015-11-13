@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        {!! Form::open(['method' => 'POST',  'id' => 'createMission', 'files'=>true]) !!}
+                        {!! Form::open(['method' => 'POST',  'action' => 'MissionController@storeFile', 'id' => 'createMission', 'files'=>true]) !!}
                         @include('main.missions.partials._form', ['submitButtonText' => 'Αποθήκευση'])
                         {!! Form::close() !!}
                     </div>

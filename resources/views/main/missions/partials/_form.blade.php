@@ -1,9 +1,7 @@
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
-            {!! Form::formInput('files[]', 'Ανέβασμα εικόνας:', $errors, ['class' => 'form-control', 'type' =>
-            'file'])
-            !!}
+            {!! Form::formInput('file', 'Ανέβασμα εικόνας:', $errors, ['class' => 'form-control', 'type' =>'file'])!!}
             <small class="help-blocκ">Το αρχείο δεν πρέπει να ξεπερνά σε μέγεθος τα 10mb.</small>
         </div>
     </div>

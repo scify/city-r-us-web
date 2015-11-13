@@ -17,12 +17,12 @@ $("#createMission").submit(function (e) {
                 "Authorization": "Bearer " + $.cookie("jwtToken")
             },
             success: function (response) {
-                console.log(response)
+                console.log(response);
 
                 if(response.status=='success') {
                     $("#errors").hide();
                     //redirect to login
-                    window.location.href = $('meta[name=url]').attr('content') + "/missions"
+                    //window.location.href = $('meta[name=url]').attr('content') + "/missions"
                 }
                 else{
                     if (response.errors != null) {
@@ -44,12 +44,15 @@ $("#createMission").submit(function (e) {
                     return false;
                 }
             },
-            complete: function() {
-                // make sure that you are no longer handling the submit event; clear handler
-                $("#loginForm").off('submit');
-                // actually submit the form
-                $("#loginForm").submit();
+            error: function (response) {
+                console.log(response);
             }
+           /* complete: function() {
+                // make sure that you are no longer handling the submit event; clear handler
+                $("#createMission").off('submit');
+                // actually submit the form
+                $("#createMission").submit();
+            }*/
         });
     }
 });
