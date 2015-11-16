@@ -1,8 +1,7 @@
 <?php namespace App\Services;
 
 /**
- * Thie class wraps the curl functionality in order to
- * reuse code.
+ * This class wraps the curl functionality in order to reuse code.
  *
  * Class Curl
  * @package App\Services
@@ -19,7 +18,7 @@ class Curl {
         // Set some options, such as the url
         // And also set the method to POST
         curl_setopt_array($curl, [
-            CURLOPT_URL => $this->baseUrl . $url . $this->stringify($params),
+            CURLOPT_URL => $this->baseUrl . $url . '?' . $this->stringify($params),
             CURLOPT_POST => 0,
             CURLOPT_RETURNTRANSFER => true
 
@@ -38,14 +37,13 @@ class Curl {
 
         // Get cURL resource
         $curl = curl_init();
-
         // Set some options, such as the url
         // And also set the method to POST
         curl_setopt_array($curl, [
-            CURLOPT_URL => $this->baseUrl . $url . $this->stringify($params),
+            CURLOPT_URL => $this->baseUrl . $url,
             CURLOPT_POST => 1,
-            CURLOPT_RETURNTRANSFER => true
-
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $this->stringify($params)
         ]);
 
         // Send the request & save response to $resp
@@ -65,7 +63,7 @@ class Curl {
      * @return string
      */
     private function stringify($array) {
-        $string = '?';
+        $string = '';
         foreach ($array as $key => $value) {
             $string .= $key . '=' . $value . '&';
         }

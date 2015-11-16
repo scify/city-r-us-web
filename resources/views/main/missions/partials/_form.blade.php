@@ -1,5 +1,10 @@
 <div class="row">
     <div class="col-md-3">
+        @if (isset($mission) && $mission->img_name)
+        <div class="thumbnail">
+        <img src="{{ asset('/uploads/missions/'.$mission->img_name) }}"/>
+        </div>
+        @endif
         <div class="form-group">
             {!! Form::formInput('file', 'Ανέβασμα εικόνας:', $errors, ['class' => 'form-control', 'type' =>'file'])!!}
             <small class="help-blocκ">Το αρχείο δεν πρέπει να ξεπερνά σε μέγεθος τα 10mb.</small>
@@ -15,13 +20,23 @@
             <p>Τύπος αποστολής:</p>
             <label>
                 Διαδρομή
+                @if (isset($mission) && $mission->type->name=='route')
+                {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
+                => 'route', 'checked' => 'true']) !!}
+                @else
                 {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'route', 'checked' => 'false']) !!}
+                @endif
             </label>
             <label>
                 Καταγραφή σημείου στο χάρτη
+                @if (isset($mission) && $mission->type->name=='location')
+                {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
+                => 'location', 'checked' => 'true']) !!}
+                @else
                 {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'location', 'checked' => 'false']) !!}
+                @endif
             </label>
         </div>
         <div class="form-group">

@@ -7,7 +7,6 @@ $("#registrationForm").submit(function () {
         var url = $('meta[name=apiUrl]').attr('content') + '/users/register';
 
         console.log($("#registrationForm").serialize())
-        console.log(url);
 
         $.ajax({
             type: "POST",

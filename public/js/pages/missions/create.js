@@ -21,7 +21,6 @@ $("#createMission").submit(function (e) {
 
                 if(response.status=='success') {
                     $("#errors").hide();
-                    //redirect to login
                     //window.location.href = $('meta[name=url]').attr('content') + "/missions"
                 }
                 else{
@@ -29,9 +28,6 @@ $("#createMission").submit(function (e) {
                         var msg = '<ul>';
 
                         $.each(response.errors, function( i, error ) {
-
-                            if (error == '')
-                                msg += '<li>Τα στοιχεία δεν αντιστοιχούν σε κανένα χρήστη.</li>';
                             if (error == 'could_not_create_token')
                                 msg += '<li>Σφάλμα</li>';
                         });
@@ -46,13 +42,13 @@ $("#createMission").submit(function (e) {
             },
             error: function (response) {
                 console.log(response);
-            }
-           /* complete: function() {
+            },
+           complete: function() {
                 // make sure that you are no longer handling the submit event; clear handler
                 $("#createMission").off('submit');
                 // actually submit the form
                 $("#createMission").submit();
-            }*/
+            }
         });
     }
 });

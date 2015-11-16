@@ -3,14 +3,17 @@
 
 use App\Http\Requests\MissionRequest;
 use App\Models\Mission;
+use App\Services\Curl;
 use App\Services\MissionService;
 
 class MissionController extends Controller {
 
     private $missionService;
+    private $curl;
 
     public function __construct() {
         $this->missionService = new MissionService();
+        $this->curl = new Curl();
     }
 
     /**
@@ -26,18 +29,29 @@ class MissionController extends Controller {
         return view('main.missions.create');
     }
 
-    public function edit() {
-        return view('main.missions.edit');
+    public function edit($id) {
+        $data = $this->curl->get('/missions/byId', ['id' => $id]);
+        if ($data->status == 'success')
+            $mission = $data->message->mission;
+        else{
+            $mission = null;
+            //handle error
+        }
+
+        return view('main.missions.edit', compact('mission'));
+    }
+
+    public function show($id) {
+        return view('main.missions.show', compact('id'));
     }
 
     public function storeFile() {
 
         $file = \Input::file('file');
         $flag = false;
-
         if ($file != null) {
             $flag = true;
-            $filename = public_path() . '/assets/uploads/missions/' . $file->getClientOriginalName();
+            $filename = public_path() . '/uploads/missions/' . $file->getClientOriginalName();
 
             //if file already exists, redirect back with error message
             if (file_exists($filename)) {
@@ -63,13 +77,11 @@ class MissionController extends Controller {
                 return \Redirect::back();
             }
         }
-
         //dd(\Input::all());
         //store file to db and file system
-        if ($file != null && $flag == true)
-            dd($this->missionService->storeFile($file, \Request::get('name')));
+            $id = $this->missionService->storeFile($file, \Request::get('name'), $flag);
 
-        return view('main.missions.create');
+        return \Redirect::route('mission/profile', ['id' => $id]);
     }
 
 }

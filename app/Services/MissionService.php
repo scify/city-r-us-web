@@ -13,23 +13,25 @@ class MissionService {
      * save the file to the file system
      * and update the missions table to add the image path.
      */
-    public function storeFile($file, $name) {
-        //first check that mission alreasy exists and retrieve it
+    public function storeFile($file, $name, $flag) {
+        //first check that mission already exists and retrieve it
         $mission = $this->curl->get('/missions/byName', ['name' => $name]);
 
-        if ($mission != null) {
-            dd('aaaa');
-            //then make an update to the mission
-            $mission = $this->curl->post('/missions/' . $mission->id . 'update',
-                [   'id' => $mission->id,
+        if ($mission != null && $file != null && $flag == true ) {
+            //save the filename to the db
+            $id = $this->curl->post('/missions/' . $mission->id . '/update',
+                ['id' => $mission->id,
                     'img_name' => $file->getClientOriginalName()
                 ]);
-            return $mission;
 
-        } else return 'mission not found';
+            //save the file to the file system
+            $path = public_path() . '/uploads/missions';
+            $fileName = $file->getClientOriginalName();
 
+            $file->move($path, $fileName); // uploading file to given path
 
-        //return $this->curl->post();
-
+        }
+        dd($mission);
+        return $mission->id;
     }
 }

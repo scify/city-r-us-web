@@ -1,12 +1,14 @@
-<div id="container" ></div>
+<div id="container"></div>
 
 <script id="template" type="text/x-handlebars-template">
+    {{#each missions}}
+    {{#moduloIf @index 4}}
     <div class="row">
-        {{#each missions}}
+    {{/moduloIf}}
         <div class="col-sm-3 col-md-3">
             <div class="thumbnail">
-                <a href="#">
-                    <img src="http://city-r-us-web/img/mission.png" alt="{{this.name}}">
+                <a href="{{this.url}}">
+                    <img src="{{this.img_name}}" alt="{{this.name}}">
                 </a>
                 <div class="caption">
                     <h3>{{this.name}}</h3>
@@ -20,6 +22,9 @@
                 </div>
             </div>
         </div>
-        {{/each}}
+        {{#moduloIf @index 4}}
+        </div>
+        {{/moduloIf}}
+    {{/each}}
     </div>
 </script>

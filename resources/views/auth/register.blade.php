@@ -20,6 +20,7 @@
                         <div class="alert alert-danger" id="errors"></div>
                         <form class="m-t-md" role="form" id="registrationForm">
                             {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                            <input type="hidden" name="role" value="web">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Όνομα" />
                             </div>
