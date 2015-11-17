@@ -88,6 +88,34 @@ class MissionController extends Controller {
     }
 
     /**
+     * Delete a mission and its image
+     *
+     * @param $id
+     */
+    public function delete($id) {
+
+        $mission = $this->curl->get('/missions/byId', ['id' => $id])->message;
+
+
+        //if there are users participating in the mission, do not delete
+        if (sizeof($mission->users) > 0) {
+            \Session::flash('flash_message', 'Η αποστολή δεν μπορεί να διαγραφεί γιατί συμμετέχουν χρήστες σε αυτή.');
+            \Session::flash('flash_type', 'alert-danger');
+
+            return \Redirect::back()->withInput();
+        }
+
+        $filename = public_path() . '/assets/uploads/volunteers/' . $mission->img_name;
+
+        //if the file exists, delete it from the filesystem
+        if (file_exists($filename))
+            unlink($filename);
+
+        return;
+    }
+
+
+    /**
      * Removes the image for a certain mission
      *
      * @param $id
@@ -104,7 +132,7 @@ class MissionController extends Controller {
     public function updateImg($id) {
         $file = \Input::file('file');
 
-        if($file!=null) {
+        if ($file != null) {
             $validateFile = $this->fileService->validateImage($file);
 
             if (!$validateFile['error']) {

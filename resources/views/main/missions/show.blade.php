@@ -23,11 +23,11 @@
         </div>
     </div>
 </div>
-
-
 @stop
 
+
 @section('footerScripts')
+<script src="{{ asset('/js/pages/missions/delete.js')}}"></script>
 <script>
     var MISSIONS = {
             handlerData: function (response) {

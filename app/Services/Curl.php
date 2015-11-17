@@ -33,7 +33,7 @@ class Curl {
 
     }
 
-    public function post($url, $params) {
+    public function post($url, $params, $headers = null) {
 
         // Get cURL resource
         $curl = curl_init();
@@ -45,6 +45,9 @@ class Curl {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => $this->stringify($params)
         ]);
+
+        if ($headers != null)
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
         // Send the request & save response to $resp
         $response = curl_exec($curl);

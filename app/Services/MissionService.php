@@ -45,17 +45,20 @@ class MissionService {
 
         $mission = $this->curl->get('/missions/byId', ['id' => $id])->message;
 
-        if ($mission != null) {
+        if ($mission != null && !empty($mission->img_name)) {
             //delete the file from the file system
             $filename = public_path() . '/uploads/missions/' . $mission->img_name;
-            unlink($filename);
 
+            if (file_exists($filename)) {
+                //delete the old file from the file system
+                unlink($filename);
+            }
             //make the img_name column null
             $id = $this->curl->post('/missions/' . $mission->id . '/update',
                 ['id' => $mission->id,
                     'img_name' => ''
-                ]);
-
+                ],
+                ['Authorization: Bearer ' . $_COOKIE['jwtToken']]);
         }
         return $mission->id;
     }
@@ -93,7 +96,8 @@ class MissionService {
             $id = $this->curl->post('/missions/' . $mission->id . '/update',
                 ['id' => $mission->id,
                     'img_name' => $file->getClientOriginalName()
-                ]);
+                ],
+                ['Authorization: Bearer ' . $_COOKIE['jwtToken']]);
         }
 
         return $id;

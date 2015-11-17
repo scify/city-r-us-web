@@ -27,7 +27,7 @@
             </div>
             <div class="text-right">
             <a href="{{ this.editUrl }}" class="btn btn-success"> Επεξεργασία</a>
-            <button onclick="" class="btn btn-danger">Διαγραφή</button>
+            <button onclick="deleteMission({{ this.id }})" class="btn btn-danger">Διαγραφή</button>
             </div>
         </div>
         {{else}}
