@@ -8,6 +8,10 @@
         <div class="form-group">
             {!! Form::formInput('file', 'Ανέβασμα εικόνας:', $errors, ['class' => 'form-control', 'type' =>'file'])!!}
             <small class="help-blocκ">Το αρχείο δεν πρέπει να ξεπερνά σε μέγεθος τα 10mb.</small>
+            @if (isset($mission) && $mission->img_name)
+            <br/><small>Η ανεβασμένη εικόνα θα αντικατασταθεί.</small>
+            <p><a href="{{ url('missions/'.$mission->id.'/img/remove') }}" class="text-danger">Αφαίρεση εικόνας</a></p>
+            @endif
         </div>
     </div>
 
@@ -21,20 +25,20 @@
             <label>
                 Διαδρομή
                 @if (isset($mission) && $mission->type->name=='route')
-                {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
+                {!! Form::formInput('mission_type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'route', 'checked' => 'true']) !!}
                 @else
-                {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
+                {!! Form::formInput('mission_type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'route', 'checked' => 'false']) !!}
                 @endif
             </label>
             <label>
                 Καταγραφή σημείου στο χάρτη
                 @if (isset($mission) && $mission->type->name=='location')
-                {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
+                {!! Form::formInput('mission_type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'location', 'checked' => 'true']) !!}
                 @else
-                {!! Form::formInput('type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
+                {!! Form::formInput('mission_type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'location', 'checked' => 'false']) !!}
                 @endif
             </label>

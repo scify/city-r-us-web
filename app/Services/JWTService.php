@@ -29,8 +29,8 @@ class JWTService {
         curl_close($curl);
 
         if (json_decode($resp) != null)
-            setcookie("jwtToken", json_decode($resp)->message->token, time() + 7200, '/');
-        // $cookie = \Cookie::make('jwtToken', json_decode($resp)->data->token, null, null, null, false, false);
+          setcookie("jwtToken", json_decode($resp)->message->token, time() + 7200, '/');
+         $cookie = \Cookie::make('jwtToken', json_decode($resp)->message->token, null, null, null, false, false);
 
         return;
     }

@@ -5,11 +5,9 @@ Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
 ]);
-
-
 
 
 /* Missions Routes */
@@ -19,7 +17,8 @@ Route::get('/missions/{id}', ['as' => 'mission/profile', 'uses' => 'MissionContr
 Route::get('/missions/edit/{id}', 'MissionController@edit');
 Route::post('/missions/storeFile', 'MissionController@storeFile');
 Route::post('/missions/update', 'MissionController@update');
-
+Route::get('/missions/{id}/img/remove', 'MissionController@removeImg');
+Route::post('/missions/{id}/img/update', 'MissionController@updateImg');
 
 
 /* Users Routes */

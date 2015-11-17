@@ -24,10 +24,10 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        {!! Form::model($mission, ['method' => 'POST', 'action' => ['MissionController@update', 'id' => $mission->id]]) !!}
+                        {!! Form::model($mission, ['method' => 'POST', 'action' => ['MissionController@updateImg', 'id' => $mission->id], 'id' => 'editMission', 'files'=>true]) !!}
                         @include('main.missions.partials._form', ['submitButtonText' => 'Αποθήκευση', 'mission' => $mission])
+                        {!! Form::hidden('id', $mission->id, ['id' => 'mission_id']) !!}
                         {!! Form::close() !!}
-                        {!! Form::hidden('mission_id', $mission->id, ['id' => 'mission_id']) !!}
                     </div>
                 </div>
             </div>
@@ -37,3 +37,7 @@
 
 @stop
 
+
+@section('footerScripts')
+<script src="{{ asset('/js/pages/missions/edit.js')}}"></script>
+@append

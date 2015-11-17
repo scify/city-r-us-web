@@ -35,7 +35,7 @@
                 var mission;
 
                 if (response.status == 'success') {
-                    mission = response.message.mission;
+                    mission = response.message;
 
                     //correctly set the img path
                     if (mission.img_name == null || mission.img_name == '')

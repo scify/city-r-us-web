@@ -1,5 +1,5 @@
 $("#errors").hide();
-$("#createMission").submit(function (e) {
+$("#editMission").submit(function (e) {
     console.log('submit')
 
     e.preventDefault();
@@ -7,12 +7,12 @@ $("#createMission").submit(function (e) {
 
     if (validate()) {
 
-        var url = $('meta[name=apiUrl]').attr('content') + '/missions/store';
+        var url = $('meta[name=apiUrl]').attr('content') + '/missions/' + $("#mission_id").val() + '/update';
 
         $.ajax({
             type: "POST",
             url: url,
-            data: $("#createMission").serialize(), // serializes the form's elements.
+            data: $("#editMission").serialize(), // serializes the form's elements.
             headers: {
                 "Authorization": "Bearer " + $.cookie("jwtToken")
             },
@@ -45,9 +45,9 @@ $("#createMission").submit(function (e) {
             },
            complete: function() {
                 // make sure that you are no longer handling the submit event; clear handler
-                $("#createMission").off('submit');
+                $("#editMission").off('submit');
                 // actually submit the form
-                $("#createMission").submit();
+                $("#editMission").submit();
             }
         });
     }
