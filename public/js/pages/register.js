@@ -11,15 +11,9 @@ $("#registrationForm").submit(function () {
         $.ajax({
             type: "POST",
             url: url,
-            // dataType: 'jsonp',
             data: $("#registrationForm").serialize(), // serializes the form's elements.
             success: function (data) {
                 $("#errors").hide();
-
-                //if the user was successfully created, then save the token to browser's local storage
-                localStorage.setItem('jwt_token', data.token);
-
-                //redirect to login
                 window.location.href = $('meta[name=url]').attr('content') + "/auth/login";
             },
             error: function (data) {
@@ -35,6 +29,8 @@ $("#registrationForm").submit(function () {
                     $("#errors").html(msg);
                     $("#errors").show();
                 }
+                else
+                    alert("An error occurred" + data);
             }
         });
 
