@@ -8,7 +8,13 @@
  */
 class Curl {
 
-    private $baseUrl = "http://city-r-us-service/api/v1";
+    private $baseUrl = "";
+
+    function __construct()
+    {
+        $this->baseUrl = env("API_URL");
+    }
+
 
     public function get($url, $params) {
 
