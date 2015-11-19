@@ -82,7 +82,7 @@ class MissionController extends Controller {
         }
 
         //store file to db and file system
-        $id = $this->missionService->storeFile($file, \Request::get('name'), $flag);
+        $id = $this->missionService->storeFile($file, \Request::get('id'), $flag);
 
         return \Redirect::route('mission/profile', ['id' => $id]);
     }
@@ -130,14 +130,14 @@ class MissionController extends Controller {
      * @return mixed
      */
     public function updateImg($id) {
-        $file = \Input::file('file');
+        $file = \Request::file('file');
 
         if ($file != null) {
             $validateFile = $this->fileService->validateImage($file);
 
             if (!$validateFile['error']) {
                 //if image is valid, update it
-                $this->missionService->updateImg($id, $file);
+               $this->missionService->updateImg($id, $file);
             } else {
                 //else, redirect back with message
                 \Session::flash('flash_message', $validateFile['message']);

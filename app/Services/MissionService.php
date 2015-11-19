@@ -13,9 +13,9 @@ class MissionService {
      * save the file to the file system
      * and update the missions table to add the image path.
      */
-    public function storeFile($file, $name, $flag) {
+    public function storeFile($file, $id, $flag) {
         //first check that mission already exists and retrieve it
-        $mission = $this->curl->get('/missions/byName', ['name' => $name])->message;
+        $mission = $this->curl->get('/missions/byId', ['id' => $id])->message;
 
         if ($mission != null && $file != null && $flag == true) {
             //save the filename to the db
@@ -92,12 +92,12 @@ class MissionService {
             $fileName = $file->getClientOriginalName();
             $file->move($path, $fileName);
 
+            //TODO: check if token is null/not set
             //update the img_name column
-            $id = $this->curl->post('/missions/' . $mission->id . '/update',
+            $id = $this->curl->post('/missions/update',
                 ['id' => $mission->id,
                     'img_name' => $file->getClientOriginalName()
-                ],
-                ['Authorization: Bearer ' . $_COOKIE['jwtToken']]);
+                ]);
         }
 
         return $id;

@@ -19,31 +19,15 @@ $("#createMission").submit(function (e) {
             success: function (response) {
                 console.log(response);
 
-                if(response.status=='success') {
-                    $("#errors").hide();
-                    //window.location.href = $('meta[name=url]').attr('content') + "/missions"
-                }
-                else{
-                    if (response.errors != null) {
-                        var msg = '<ul>';
-
-                        $.each(response.errors, function( i, error ) {
-                            if (error == 'could_not_create_token')
-                                msg += '<li>Σφάλμα</li>';
-                        });
-
-                        msg += '</ul>';
-
-                        $("#errors").html(msg);
-                        $("#errors").show();
-                    }
-                    return false;
-                }
+                $("#mission_id").val(response.message);
+                console.log('aaa');
+                console.log('mission_id ' + $("#mission_id").val());
             },
             error: function (response) {
-                console.log(response);
+                if (response.status == 400 && JSON.parse(response.responseText).error == 'token_not_provided')
+                    console.log('token not provided');
             },
-           complete: function() {
+            complete: function () {
                 // make sure that you are no longer handling the submit event; clear handler
                 $("#createMission").off('submit');
                 // actually submit the form

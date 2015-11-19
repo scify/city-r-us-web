@@ -34,7 +34,6 @@ class Curl {
     }
 
     public function post($url, $params, $headers = null) {
-
         // Get cURL resource
         $curl = curl_init();
         // Set some options, such as the url
@@ -54,6 +53,8 @@ class Curl {
 
         // Close request to clear up some resources
         curl_close($curl);
+
+        $test = $response;
 
         return json_decode($response);
     }

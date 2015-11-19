@@ -41,9 +41,10 @@ $("#editMission").submit(function (e) {
                 }
             },
             error: function (response) {
-                console.log(response);
+                if (response.status == 400 && JSON.parse(response.responseText).error == 'token_not_provided')
+                    console.log('token not provided');
             },
-           complete: function() {
+            complete: function() {
                 // make sure that you are no longer handling the submit event; clear handler
                 $("#editMission").off('submit');
                 // actually submit the form
