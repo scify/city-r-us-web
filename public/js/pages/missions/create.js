@@ -6,34 +6,8 @@ $("#createMission").submit(function (e) {
     e.returnValue = false;
 
     if (validate()) {
-
-        var url = $('meta[name=apiUrl]').attr('content') + '/missions/store';
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $("#createMission").serialize(), // serializes the form's elements.
-            headers: {
-                "Authorization": "Bearer " + $.cookie("jwtToken")
-            },
-            success: function (response) {
-                console.log(response);
-
-                $("#mission_id").val(response.message);
-                console.log('aaa');
-                console.log('mission_id ' + $("#mission_id").val());
-            },
-            error: function (response) {
-                if (response.status == 400 && JSON.parse(response.responseText).error == 'token_not_provided')
-                    console.log('token not provided');
-            },
-            complete: function () {
-                // make sure that you are no longer handling the submit event; clear handler
-                $("#createMission").off('submit');
-                // actually submit the form
-                $("#createMission").submit();
-            }
-        });
+        $("#createMission").off('submit');
+        $("#createMission").submit();
     }
 });
 

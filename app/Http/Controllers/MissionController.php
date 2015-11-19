@@ -33,6 +33,7 @@ class MissionController extends Controller {
     }
 
     public function edit($id) {
+
         $data = $this->curl->get('/missions/byId', ['id' => $id]);
         if ($data->status == 'success')
             $mission = $data->message;
@@ -40,7 +41,6 @@ class MissionController extends Controller {
             $mission = null;
             //handle error
         }
-
         return view('main.missions.edit', compact('mission'));
     }
 
@@ -48,44 +48,55 @@ class MissionController extends Controller {
         return view('main.missions.show', compact('id'));
     }
 
-    public function storeFile() {
+
+    public function store(){
+
+        $id = $this->missionService->storeMission();
 
         $file = \Input::file('file');
-        $flag = false;
+
         if ($file != null) {
-            $flag = true;
-            $filename = public_path() . '/uploads/missions/' . $file->getClientOriginalName();
+            $validateFile = $this->fileService->validateImage($file);
 
-            //if file already exists, redirect back with error message
-            if (file_exists($filename)) {
-                \Session::flash('flash_message', 'Το αρχείο ' . $file->getClientOriginalName() . ' υπάρχει ήδη.');
-                \Session::flash('flash_type', 'alert-danger');
-
-                return \Redirect::back()->withInput();
-            }
-
-            //if file exceeds maximum allowed size, redirect back with error message
-            if ($file->getSize() > 10000000) {
-                \Session::flash('flash_message', 'Το αρχείο ' . $file->getClientOriginalName() . ' ξεπερνά σε μέγεθος τα 10mb.');
-                \Session::flash('flash_type', 'alert-danger');
-
-                return \Redirect::back()->withInput();
-            }
-            $allowed = array('gif', 'png', 'jpg', 'jpeg');
-            //if file is not an image, redirect back with an error
-            if (!in_array($file->getClientOriginalExtension(), $allowed)) {
-                \Session::flash('flash_message', 'Το αρχείο ' . $file->getClientOriginalName() . ' δεν είναι εικόνα.');
+            if (!$validateFile['error']) {
+               $this->missionService->storeImg($id, $file);
+            } else {
+                //else, redirect back with message
+                \Session::flash('flash_message', $validateFile['message']);
                 \Session::flash('flash_type', 'alert-danger');
 
                 return \Redirect::back()->withInput();
             }
         }
 
-        //store file to db and file system
-        $id = $this->missionService->storeFile($file, \Request::get('id'), $flag);
-
-        return \Redirect::route('mission/profile', ['id' => $id]);
+        return view('main.missions.show', compact('id'));
     }
+
+
+    public function update(){
+
+        $id = $this->missionService->updateMission();
+
+        $file = \Input::file('file');
+
+        if ($file != null) {
+            $validateFile = $this->fileService->validateImage($file);
+
+            if (!$validateFile['error']) {
+                $this->missionService->storeImg($id, $file);
+            } else {
+                //else, redirect back with message
+                \Session::flash('flash_message', $validateFile['message']);
+                \Session::flash('flash_type', 'alert-danger');
+
+                return \Redirect::back()->withInput();
+            }
+        }
+
+        return view('main.missions.show', compact('id'));
+    }
+
+
 
     /**
      * Delete a mission and its image
@@ -124,29 +135,4 @@ class MissionController extends Controller {
         $this->missionService->removeImg($id);
         return \Redirect::route('mission/profile', ['id' => $id]);
     }
-
-    /**
-     * Update a certain mission's image
-     * @return mixed
-     */
-    public function updateImg($id) {
-        $file = \Request::file('file');
-
-        if ($file != null) {
-            $validateFile = $this->fileService->validateImage($file);
-
-            if (!$validateFile['error']) {
-                //if image is valid, update it
-               $this->missionService->updateImg($id, $file);
-            } else {
-                //else, redirect back with message
-                \Session::flash('flash_message', $validateFile['message']);
-                \Session::flash('flash_type', 'alert-danger');
-
-                return \Redirect::back()->withInput();
-            }
-        }
-        return \Redirect::route('mission/profile', ['id' => $id]);
-    }
-
 }

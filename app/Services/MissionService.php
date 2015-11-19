@@ -3,36 +3,68 @@
 class MissionService {
 
     private $curl;
+    private $jwtService;
 
     public function __construct() {
         $this->curl = new Curl();
+        $this->jwtService = new JWTService();
     }
+
+
+    /**
+     * Store a mission
+     *
+     * @return mixed
+     */
+    public function storeMission() {
+        $response = $this->curl->post('/missions/store',
+            [
+                'name' => \Request::get('name'),
+                'description' => \Request::get('description')
+            ],
+            ['Authorization: Bearer ' . $this->jwtService->getCookie()]);
+
+        return $response->message;
+    }
+
+    /**
+     * Update a mission
+     * 
+     * @return mixed
+     */
+    public function updateMission() {
+        //make the img_name column null
+        $response = $this->curl->post('/missions/update', \Request::all(), ['Authorization: Bearer ' . $this->jwtService->getCookie()]);
+
+        return $response->message;
+    }
+
 
     /**
      * After a mission has been created,
      * save the file to the file system
      * and update the missions table to add the image path.
      */
-    public function storeFile($file, $id, $flag) {
+    public function storeImg($id, $file) {
         //first check that mission already exists and retrieve it
-        $mission = $this->curl->get('/missions/byId', ['id' => $id])->message;
 
-        if ($mission != null && $file != null && $flag == true) {
+        if ($file != null) {
             //save the filename to the db
-            $id = $this->curl->post('/missions/' . $mission->id . '/update',
-                ['id' => $mission->id,
+            $id = $this->curl->post('/missions/' . $id . '/update',
+                ['id' => $id,
                     'img_name' => $file->getClientOriginalName()
-                ]);
+                ],
+                ['Authorization: Bearer ' . $this->jwtService->getCookie()]);
 
             //save the file to the file system
             $path = public_path() . '/uploads/missions';
             $fileName = $file->getClientOriginalName();
 
             $file->move($path, $fileName); // uploading file to given path
-
         }
-        return $mission->id;
+        return $id;
     }
+
 
     /**
      * Remove the image for a certain mission.
@@ -53,12 +85,14 @@ class MissionService {
                 //delete the old file from the file system
                 unlink($filename);
             }
+
+
             //make the img_name column null
             $id = $this->curl->post('/missions/' . $mission->id . '/update',
                 ['id' => $mission->id,
                     'img_name' => ''
                 ],
-                ['Authorization: Bearer ' . $_COOKIE['jwtToken']]);
+                ['Authorization: Bearer ' . $this->jwtService->getCookie()]);
         }
         return $mission->id;
     }
@@ -97,7 +131,8 @@ class MissionService {
             $id = $this->curl->post('/missions/update',
                 ['id' => $mission->id,
                     'img_name' => $file->getClientOriginalName()
-                ]);
+                ],
+                ['Authorization: Bearer ' . $_COOKIE['jwtToken']]);
         }
 
         return $id;

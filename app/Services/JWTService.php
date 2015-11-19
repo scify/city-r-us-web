@@ -3,9 +3,20 @@
 class JWTService {
 
 
+    public function getCookie() {
+        //check if the JWT cookie is set
+        if (!isset($_COOKIE['jwtToken']) || $_COOKIE['jwtToken'] == null || $_COOKIE['jwtToken'] == '')
+            $jwt = $this->jwtService->setCookie();
+        else
+            $jwt = $_COOKIE['jwtToken'];
+
+        return $jwt;
+    }
+
+
     public function setCookie() {
 
-        $baseUrl = env("API_URL")."/users/authenticate";
+        $baseUrl = env("API_URL") . "/users/authenticate";
 
         $email = \Auth::user()->email;
         $password = \Request::get('password');
@@ -27,17 +38,18 @@ class JWTService {
 
         // Close request to clear up some resources
         curl_close($curl);
+//        dd($resp);
 
         if (json_decode($resp) != null)
-          setcookie("jwtToken", json_decode($resp)->message->token, time() + 7200, '/');
-         $cookie = \Cookie::make('jwtToken', json_decode($resp)->message->token, null, null, null, false, false);
+            setcookie("jwtToken", json_decode($resp)->message->token, time() + 7200, '/');
+        $cookie = \Cookie::make('jwtToken', json_decode($resp)->message->token, null, null, null, false, false);
 
-        return;
+        return json_decode($resp)->message->token;
     }
 
 
     public function unsetCookie() {
-        setcookie("jwtToken", null, null,  '/');
+        setcookie("jwtToken", null, null, '/');
         return;
     }
 

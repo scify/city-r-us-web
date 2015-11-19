@@ -60,8 +60,6 @@ class Curl {
         // Close request to clear up some resources
         curl_close($curl);
 
-        $test = $response;
-
         return json_decode($response);
     }
 

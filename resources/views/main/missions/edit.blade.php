@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        {!! Form::model($mission, ['method' => 'POST', 'action' => ['MissionController@updateImg', 'id' => $mission->id], 'id' => 'editMission', 'files'=>true]) !!}
+                        {!! Form::model($mission, ['method' => 'POST', 'action' => ['MissionController@update', 'id' => $mission->id], 'id' => 'editMission', 'files'=>true]) !!}
                         @include('main.missions.partials._form', ['submitButtonText' => 'Αποθήκευση', 'mission' => $mission])
                         {!! Form::hidden('id', $mission->id, ['id' => 'mission_id']) !!}
                         {!! Form::close() !!}
