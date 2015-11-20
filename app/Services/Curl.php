@@ -42,6 +42,7 @@ class Curl {
     public function post($url, $params, $headers = null) {
         // Get cURL resource
         $curl = curl_init();
+
         // Set some options, such as the url
         // And also set the method to POST
         curl_setopt_array($curl, [

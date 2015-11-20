@@ -199,6 +199,7 @@ return [
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
+        'Carbon'      => 'Carbon\Carbon',
 
         /**
          * Services created for the app

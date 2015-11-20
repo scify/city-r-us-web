@@ -17,6 +17,7 @@ class MissionController extends Controller {
         $this->missionService = new MissionService();
         $this->fileService = new FileService();
         $this->curl = new Curl();
+        $this->middleware('auth');
     }
 
     /**
@@ -45,37 +46,26 @@ class MissionController extends Controller {
     }
 
     public function show($id) {
-        return view('main.missions.show', compact('id'));
+
+        $data = $this->curl->get('/missions/byId', ['id' => $id]);
+        if ($data->status == 'success')
+            $mission = $data->message;
+        else {
+            $mission = null;
+            //handle error
+        }
+
+        return view('main.missions.show', compact('mission'));
     }
 
 
-    public function store(){
+    public function store() {
 
         $id = $this->missionService->storeMission();
 
-        $file = \Input::file('file');
-
-        if ($file != null) {
-            $validateFile = $this->fileService->validateImage($file);
-
-            if (!$validateFile['error']) {
-               $this->missionService->storeImg($id, $file);
-            } else {
-                //else, redirect back with message
-                \Session::flash('flash_message', $validateFile['message']);
-                \Session::flash('flash_type', 'alert-danger');
-
-                return \Redirect::back()->withInput();
-            }
+        if ($id == 'logout') {
+            return \Redirect::route('/');
         }
-
-        return view('main.missions.show', compact('id'));
-    }
-
-
-    public function update(){
-
-        $id = $this->missionService->updateMission();
 
         $file = \Input::file('file');
 
@@ -93,36 +83,65 @@ class MissionController extends Controller {
             }
         }
 
-        return view('main.missions.show', compact('id'));
+        return \Redirect::route('mission/profile', ['id' => $id]);
     }
 
+
+    public function update() {
+
+        $id = $this->missionService->updateMission();
+
+        if ($id == 'logout') {
+            return \Redirect::route('/');
+        } else {
+            $file = \Input::file('file');
+
+            if ($file != null) {
+                $validateFile = $this->fileService->validateImage($file);
+
+                if (!$validateFile['error']) {
+                    $this->missionService->storeImg($id, $file);
+                } else {
+                    //else, redirect back with message
+                    \Session::flash('flash_message', $validateFile['message']);
+                    \Session::flash('flash_type', 'alert-danger');
+
+                    return \Redirect::back()->withInput();
+                }
+            }
+
+            return \Redirect::route('mission/profile', ['id' => $id]);
+        }
+    }
 
 
     /**
      * Delete a mission and its image
      *
      * @param $id
+     * @return mixed
      */
     public function delete($id) {
 
-        $mission = $this->curl->get('/missions/byId', ['id' => $id])->message;
+        $result = $this->missionService->deleteMission($id);
 
-
-        //if there are users participating in the mission, do not delete
-        if (sizeof($mission->users) > 0) {
+        if ($result == 'logout') {
+            return \Redirect::route('/');
+        } else if ($result == 'has_users') {
             \Session::flash('flash_message', 'Η αποστολή δεν μπορεί να διαγραφεί γιατί συμμετέχουν χρήστες σε αυτή.');
             \Session::flash('flash_type', 'alert-danger');
 
             return \Redirect::back()->withInput();
+        } else if($result!=null){
+            $filename = public_path() . '/assets/uploads/volunteers/' . $result;
+
+            //if the file exists, delete it from the filesystem
+            if (file_exists($filename))
+                unlink($filename);
+
+            return view('main.missions.list');
         }
-
-        $filename = public_path() . '/assets/uploads/volunteers/' . $mission->img_name;
-
-        //if the file exists, delete it from the filesystem
-        if (file_exists($filename))
-            unlink($filename);
-
-        return;
+        return view('main.missions.list');
     }
 
 

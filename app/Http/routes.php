@@ -1,7 +1,7 @@
 <?php
 
 
-Route::get('/', 'HomeController@index');
+Route::get('/', ['as' => '/', 'uses' => 'HomeController@index']);
 Route::get('/dashboard', 'HomeController@dashboard');
 
 Route::controllers([
