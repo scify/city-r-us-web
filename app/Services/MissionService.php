@@ -169,7 +169,7 @@ class MissionService {
     public function deleteMission($id){
 
         $mission = $this->curl->get('/missions/byId', ['id' => $id]);
-        
+
         if(!isset($mission->code)) {
             $mission = $mission->message;
             //if there are users participating in the mission, do not delete

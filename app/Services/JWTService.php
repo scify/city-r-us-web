@@ -64,6 +64,9 @@ class JWTService {
             if ($response != null && $response->status != 'error') {
                 $jwt = $response->message->token;
                 setcookie("jwtToken", $jwt, time() + 60*60*24*365, '/');
+                setcookie("test", 'test', time() + 7200, '/');
+                $_COOKIE['jwtToken'] = $jwt;
+                $_COOKIE['test'] = 'test';
                 // $cookie = \Cookie::make('jwtToken', $response->message->token, null, null, null, false, false);
             }
             return $jwt;
