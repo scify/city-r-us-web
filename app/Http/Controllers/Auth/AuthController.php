@@ -56,9 +56,9 @@ class AuthController extends Controller {
         if ($this->auth->attempt($credentials, $request->has('remember')))
         {
             //if the login is successful, save the jwt at a cookie
-            JWTService::setCookie();
+            $jwt = JWTService::setCookie();
 
-            return redirect()->intended($this->redirectPath());
+            return redirect()->intended($this->redirectPath())->withCookie(cookie()->forever('jwtToken', $jwt));
         }
 
         return redirect($this->loginPath())

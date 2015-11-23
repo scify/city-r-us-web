@@ -63,9 +63,9 @@ class JWTService {
 
             if ($response != null && $response->status != 'error') {
                 $jwt = $response->message->token;
-                $domain = (env('IS_LOCAL') == 'true') ? '' : env('WEB_URL');
+                /*$domain = (env('IS_LOCAL') == 'true') ? '' : env('WEB_URL');
                 setcookie("jwtToken", $jwt, time() + 60*60*24*365, '/', $domain);
-                $_COOKIE['jwtToken'] = $jwt;
+                $_COOKIE['jwtToken'] = $jwt;*/
             }
             return $jwt;
     }
