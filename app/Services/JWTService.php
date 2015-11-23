@@ -16,13 +16,14 @@ class JWTService {
      */
     public function getCookie() {
         //check if the JWT cookie is set
-        if (!isset($_COOKIE['jwtToken']) || $_COOKIE['jwtToken'] == null || $_COOKIE['jwtToken'] == '') {
+
+        if (\Cookie::get('jwtToken') == null || \Cookie::get('jwtToken') == '') {
            \Auth::logout();
             \Session::flush();
             return 'logout';
         }
         else
-            $jwt = $_COOKIE['jwtToken'];
+            $jwt = \Cookie::get('jwtToken');
 
         return $jwt;
     }

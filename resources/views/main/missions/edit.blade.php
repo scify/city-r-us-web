@@ -23,12 +23,18 @@
             </div>
             <div class="panel-body">
                 <div class="row">
+                    @if ($mission!=null)
                     <div class="col-md-12">
                         {!! Form::model($mission, ['method' => 'POST', 'action' => ['MissionController@update', 'id' => $mission->id], 'id' => 'editMission', 'files'=>true]) !!}
                         @include('main.missions.partials._form', ['submitButtonText' => 'Αποθήκευση', 'mission' => $mission])
                         {!! Form::hidden('id', $mission->id, ['id' => 'mission_id']) !!}
                         {!! Form::close() !!}
                     </div>
+                    @else
+                    <div class="col-sm-12 col-md-12">
+                        <p>Η αποστολή δεν βρέθηκε</p>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

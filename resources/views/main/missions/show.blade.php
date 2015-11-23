@@ -15,11 +15,10 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
+                        @if ($mission!=null)
                         <div id="missionId" data-id="{{ $mission->id }}" style="display:none;"></div>
                         <div id="container"></div>
-
                         <div class="row">
-                            @if ($mission!=null)
                             <div class="col-sm-3 col-md-3">
                                 <div class="thumbnail">
                                     @if($mission->img_name!=null && $mission->img_name!='')
@@ -54,12 +53,12 @@
                                     {!! Form::close() !!}
                                 </div>
                             </div>
-                            @else
-                            <div class="col-sm-12 col-md-12">
-                                <p>Η αποστολή δεν βρέθηκε</p>
-                            </div>
-                            @endif
                         </div>
+                        @else
+                        <div class="col-sm-12 col-md-12">
+                            <p>Η αποστολή δεν βρέθηκε</p>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

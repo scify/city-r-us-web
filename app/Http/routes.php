@@ -11,7 +11,7 @@ Route::controllers([
 
 
 /* Missions Routes */
-Route::get('/missions', 'MissionController@index');
+Route::get('/missions', ['as' => 'missions', 'uses' => 'MissionController@index']);
 Route::get('/missions/create', 'MissionController@create');
 Route::get('/missions/{id}', ['as' => 'mission/profile', 'uses' => 'MissionController@show']);
 Route::get('/missions/edit/{id}', 'MissionController@edit');

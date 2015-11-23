@@ -52,7 +52,6 @@ class MissionController extends Controller {
             $mission = $data->message;
         else {
             $mission = null;
-            //handle error
         }
 
         return view('main.missions.show', compact('mission'));
@@ -139,9 +138,9 @@ class MissionController extends Controller {
             if (file_exists($filename))
                 unlink($filename);
 
-            return view('main.missions.list');
+            return \Redirect::route('missions');
         }
-        return view('main.missions.list');
+        return \Redirect::route('missions');
     }
 
 
