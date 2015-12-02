@@ -229,7 +229,7 @@
           </div>
           <footer>
               <div class="container">
-                  <p class="text-center no-s">2015 &copy; Modern by Steelcoders.</p>
+                  <p class="text-center no-s">2015 &copy; SciFY</p>
               </div>
           </footer>
 
