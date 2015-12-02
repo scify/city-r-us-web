@@ -2,7 +2,7 @@
 
 
 Route::get('/', ['as' => '/', 'uses' => 'HomeController@index']);
-Route::get('/dashboard', 'HomeController@dashboard');
+Route::get('/dashboard', 'AdminController@dashboard');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
