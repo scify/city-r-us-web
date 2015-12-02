@@ -244,7 +244,7 @@
          <script src="{{ asset('/plugins/smoothscroll/smoothscroll.js')}}"></script>
          <script src="{{ asset('/plugins/tabstylesinspiration/js/cbpfwtabs.js')}}"></script>
          <script src="{{ asset('/plugins/pricing-tables/js/main.js')}}"></script>
-         <script src="{{ asset('/js/landing.js')}}"></script>
+         <script src="{{ asset('/js/pages/home/landing.js')}}"></script>
 
       </body>
 </html>
