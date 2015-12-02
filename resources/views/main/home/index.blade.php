@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <title>Modern | Landing Page</title>
+        <title>City-R-US | Η πόλη είμαστε εμείς!</title>
 
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
@@ -38,15 +38,13 @@
                           <span class="sr-only">Toggle navigation</span>
                           <span class="fa fa-bars"></span>
                       </button>
-                      <a class="navbar-brand" href="#">Modern</a>
+                      <a class="navbar-brand" href="#">City-R-US</a>
                   </div>
                   <div id="navbar" class="navbar-collapse collapse navbar-right">
                       <ul class="nav navbar-nav">
-                          <li><a href="#home">Home</a></li>
-                          <li><a href="#features">Features</a></li>
-                          <li><a href="#pricing">Pricing</a></li>
-                          <li><a href="#contact">Contact</a></li>
-                          <li><a href="http://themeforest.net/item/modern-responsive-admin-dashboard-template/11004840" target="_blank">Download</a></li>
+                          <li><a href="#home">Αρχική</a></li>
+                          <li><a href="/">Δες τον χάρτη</a></li>
+
                       </ul>
                   </div>
               </div>
@@ -57,10 +55,11 @@
               <div class="container">
                   <div class="row">
                       <div class="home-text col-md-8">
-                          <h1 class="wow fadeInDown" data-wow-delay="1.5s" data-wow-duration="1.5s" data-wow-offset="10">Responsive Admin Dashboard Template.</h1>
-                          <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.<br>Aenean commodo ligula eget dolor.</p>
-                          <a href="http://themeforest.net/item/modern-responsive-admin-dashboard-template/11004840" target="_blank" class="btn btn-default btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Download</a>
-                          <a href="http://lambdathemes.in/modern/" target="_blank" class="btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Live Preview</a>
+                          <h1 class="wow fadeInDown" data-wow-delay="1.5s" data-wow-duration="1.5s" data-wow-offset="10">Η πόλη είμαστε εμείς!</h1>
+                          <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">
+                          Πάρε μέρος σε αποστολές στην Αθήνα <br>Βελτίωσε την πόλη σου</p>
+                          <a href="https://play.google.com/apps/testing/gr.scify.cityrus" target="_blank" class="btn btn-default btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Κατέβασε την εφαρμογή</a>
+                          <a href="#" target="_blank" class="btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Χάρτης με αποτελέσματα</a>
                       </div>
                       <div class="scroller">
                           <div class="mouse"><div class="wheel"></div></div>
@@ -75,7 +74,7 @@
                       <div class="feature-icon">
                           <i class="fa fa-laptop"></i>
                       </div>
-                      <h2>Fully Responsive</h2>
+                      <h2>Βρες αποστολές</h2>
                       <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies</p>
                       <p><a class="btn btn-link" href="#" role="button">View details &raquo;</a></p>
                   </div>
@@ -83,7 +82,7 @@
                       <div class="feature-icon">
                           <i class="fa fa-lightbulb-o"></i>
                       </div>
-                      <h2>Creative Design</h2>
+                      <h2>Ανέβασε διαδρομή</h2>
                       <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies</p>
                       <p><a class="btn btn-link" href="#" role="button">View details &raquo;</a></p>
                   </div>
@@ -91,7 +90,7 @@
                       <div class="feature-icon">
                           <i class="fa fa-support"></i>
                       </div>
-                      <h2>Free Support</h2>
+                      <h2>Δες τον χάρτη της πόλης</h2>
                       <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies</p>
                       <p><a class="btn btn-link" href="#" role="button">View details &raquo;</a></p>
                   </div>
@@ -104,7 +103,7 @@
                           <img src="{{ asset('img/home/iphone.png') }}" class="iphone-img" alt="">
                       </div>
                       <div class="col-sm-8 wow fadeInRight" data-wow-delay="0.5s" data-wow-duration="1.5s" data-wow-offset="10">
-                          <h1>The Power You Need</h1>
+                          <h1>Λίγα λογια για την εφαρμογή</h1>
                           <p>Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis. Nullam sagittis. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero.</p>
                           <ul class="list-unstyled features-list-2">
                               <li><i class="fa fa-diamond icon-state-success m-r-xs icon-md"></i>Unique design</li>
@@ -133,7 +132,7 @@
                                   </nav>
                                   <div class="content-wrap">
                                       <section class="content-current">
-                                          <h1>Responsive Design</h1>
+                                          <h1>Πρότεινε μια αποστολή</h1>
                                           <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.<br>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.</p></section>
                                       <section><p>
                                           <h1>Cross-browser Compatible</h1>
