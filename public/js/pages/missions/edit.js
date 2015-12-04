@@ -18,10 +18,15 @@ function validate() {
     var msg = '<ul>';
     var isValid = true;
     var name = $("input[name=name]").val();
+    var description = $("textarea[name=description]").val();
 
 
     if (!name || !name.trim()) {
         msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Όνομα".</li>';
+        isValid = false;
+    }
+   if (!description || !description.trim()) {
+        msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Περιγραφή".</li>';
         isValid = false;
     }
     if (!$("input[name='mission_type']:checked").val()) {

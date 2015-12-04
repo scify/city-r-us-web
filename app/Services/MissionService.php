@@ -1,5 +1,6 @@
 <?php namespace App\Services;
 
+
 class MissionService {
 
     private $curl;
@@ -19,7 +20,7 @@ class MissionService {
     public function storeMission() {
 
         $jwt = $this->jwtService->getCookie();
-        if ($jwt == 'logout')
+        if ($jwt == null)
             return 'logout';
 
         $response = $this->curl->post('/missions/store',
@@ -28,6 +29,9 @@ class MissionService {
                 'description' => \Request::get('description')
             ],
             ['Authorization: Bearer ' . $jwt]);
+
+        if (isset($response->error))
+            return 'logout';
 
         return $response->message;
     }
@@ -38,7 +42,6 @@ class MissionService {
      * @return mixed
      */
     public function updateMission() {
-        //make the img_name column null
         $jwt = $this->jwtService->getCookie();
         if ($jwt == 'logout')
             return 'logout';
@@ -50,7 +53,6 @@ class MissionService {
             \Session::flush();
             return 'logout';
         }
-
         return $response->message;
     }
 
@@ -82,7 +84,6 @@ class MissionService {
             $file->move($path, $fileName); // uploading file to given path
         }
         return $id;
-
     }
 
 

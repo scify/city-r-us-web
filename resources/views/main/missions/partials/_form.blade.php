@@ -21,7 +21,7 @@
             'name', 'required' => 'true']) !!}
         </div>
         <div class="form-group">
-            <p>Τύπος αποστολής:</p>
+            <p>Τύπος αποστολής *:</p>
             <label>
                 Διαδρομή
                 @if (isset($mission) && $mission->type->name=='route')
@@ -45,8 +45,7 @@
         </div>
         <div class="form-group">
             {!! Form::formInput('description', 'Περιγραφή:', $errors, ['class' => 'form-control', 'type' => 'textarea',
-            'size' =>
-            '5x5', 'id' => 'description']) !!}
+            'size' => '5x5', 'id' => 'description', 'required' => 'true']) !!}
         </div>
         <div class="alert alert-danger" id="errors"></div>
         <div class="form-group text-right">

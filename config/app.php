@@ -205,7 +205,6 @@ return [
          * Services created for the app
          */
         'JWTService' => 'App\Services\Facades\JWTService',
-
     ],
 
 ];

@@ -63,6 +63,8 @@ class MissionController extends Controller {
         $id = $this->missionService->storeMission();
 
         if ($id == 'logout') {
+            \Auth::logout();
+            \Session::flush();
             return \Redirect::route('/');
         }
 
