@@ -11,6 +11,7 @@
 
 @section('footerScripts')
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp;sensor=false;libraries=places;language=en-US"></script>
+<script src="{{ asset('/plugins/googleMapsOverlappingMarker/oms.min.js')}}"></script>
   <script src="{{ asset('/js/activityonmap.js')}}"></script>
    <script src="{{ asset('/js/pages/home/map.js')}}"></script>
 
@@ -19,13 +20,20 @@
 @section('bodyContent')
        @include('template.public.topBar',["navClass" => 'whiteHeader', "active" => "map"])
 
-          <div class="map-controls">
 
-          </div>
 
 <div id="map-section">
-        <div id="map-filter">
-
+    <div id="map-filter">
+      <div id="filters">
+           <h1>Eπιλογή αποστολής</h1>
+            <div id="missions">
+                <div data-mission-id="1" class="mission active">Αποστολή 1</div>
+                <div data-mission-id="2" class="mission">Αποστολή 2</div>
+                <div data-mission-id="3" class="mission">Αποστολή 3</div>
+                <div data-mission-id="4" class="mission">Αποστολή 4</div>
+                <div data-mission-id="5" class="mission">Αποστολή 5</div>
+            </div>
+       </div>
     </div>
     <div data-marker-team="http://wp12464876.server-he.de/mod/scify/images/marker_new_teams.png"
          data-marker-event="http://wp12464876.server-he.de/mod/scify/images/marker_events.png"
@@ -35,14 +43,6 @@
          data-zoom ="12"
          data-no-events-message="No events found"
          id="map-container">
-
      </div>
-
 </div>
-
-      <footer>
-          <div class="container">
-              <p class="text-center no-s">2015 &copy; SciFY </p>
-          </div>
-      </footer>
 @stop
