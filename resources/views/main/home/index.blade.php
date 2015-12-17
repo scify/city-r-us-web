@@ -27,7 +27,7 @@
 @stop
 
 @section('bodyContent')
- @include('template.public.topBar',["navClass" => 'navbar-fixed-top'])
+ @include('template.public.topBar',["navClass" => 'navbar-fixed-top', "active" => "home"])
 
           <div class="home" id="home">
               <div class="overlay"></div>

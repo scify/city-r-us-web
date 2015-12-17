@@ -9,10 +9,17 @@
                   </div>
                   <div id="navbar" class="navbar-collapse collapse navbar-right">
                       <ul class="nav navbar-nav">
-                          <li class="active"><a href="#home">Αρχική</a></li>
-                          <li><a href="/">Δες τον χάρτη</a></li>
 
+                        @if( $active=="home")
+                           <li class="active"><a href="#home">Αρχική</a></li>
+                           <li ><a href="{{action("HomeController@citymap")}}">Δες τον χάρτη</a></li>
+                        @else
+                           <li><a href="{{ action("HomeController@index") }}">Αρχική</a></li>
+                           <li class="active" ><a href="{{action("HomeController@citymap")}}">Δες τον χάρτη</a></li>
+                        @endif
                       </ul>
                   </div>
               </div>
           </nav>
+
+

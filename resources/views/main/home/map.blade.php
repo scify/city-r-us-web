@@ -14,7 +14,7 @@
 @stop
 
 @section('bodyContent')
-       @include('template.public.topBar',["navClass" => 'whiteHeader'])
+       @include('template.public.topBar',["navClass" => 'whiteHeader', "active" => "map"])
 
           <div class="map-controls">
 
