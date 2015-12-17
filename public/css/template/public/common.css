@@ -110,7 +110,7 @@ a:focus {
 }
 
 .btn-success {
-    background-color: #22BAA0;
+    background-color: rgb(45, 87, 130);
     color: #fff;
     border: 1px solid transparent;
 }
@@ -225,7 +225,7 @@ input[disabled] {
 }
 
 .form-group.has-success .form-control:focus {
-    border: 1px solid #22BAA0;
+    border: 1px solid rgb(45, 87, 130);
     background: #fff;
 }
 
@@ -240,7 +240,7 @@ input[disabled] {
 }
 
 .form-group.has-success label {
-    color: #22BAA0;
+    color: rgb(45, 87, 130);
 }
 
 .form-group.has-warning label {
@@ -587,7 +587,7 @@ ol.linenums {
 }
 
 .icon-state-success {
-    color: #22BAA0;
+    color: rgb(45, 87, 130);
 }
 
 .icon-state-info {
@@ -672,7 +672,7 @@ ol.linenums {
 
     .navbar ul li.active a {
         background: transparent;
-        border-top: 2px solid #22BAA0;
+        border-top: 2px solid rgb(45, 87, 130);
         padding-top: 18px;
     }
 

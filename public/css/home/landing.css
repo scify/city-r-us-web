@@ -187,8 +187,8 @@ html {
     text-align: center;
     line-height: 100px;
     font-size: 40px;
-    color: #22BAA0;
-    border: 2px solid #22BAA0;
+    color: rgb(45, 87, 130);
+    border: 2px solid rgb(45, 87, 130);
     width: 100px;
     height: 100px;
     font-size: 35px;
@@ -199,7 +199,7 @@ html {
 }
 
 .features-list .col-sm-4:hover .feature-icon {
-    background: #22BAA0;
+    background: rgb(45, 87, 130);
     color: #fff;
 }
 
@@ -215,7 +215,7 @@ html {
 }
 
 .features-list .col-sm-4 .btn-link {
-    color: #22BAA0;
+    color: rgb(45, 87, 130);
 }
 
 .features-list .col-sm-4 p {

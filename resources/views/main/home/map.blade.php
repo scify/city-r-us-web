@@ -10,7 +10,10 @@
 @stop
 
 @section('footerScripts')
-  <script src="{{ asset('/js/pages/home/map.js')}}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp;sensor=false;libraries=places;language=en-US"></script>
+  <script src="{{ asset('/js/activityonmap.js')}}"></script>
+   <script src="{{ asset('/js/pages/home/map.js')}}"></script>
+
 @stop
 
 @section('bodyContent')
@@ -19,13 +22,27 @@
           <div class="map-controls">
 
           </div>
-          <div class="map-container">
 
-           </div>
+<div id="map-section">
+        <div id="map-filter">
 
-          <footer>
-              <div class="container">
-                  <p class="text-center no-s">2015 &copy; SciFY | <a href="https://commons.wikimedia.org/wiki/File:Athens_-_Monastiraki_square_and_station_-_20060508.jpg" target="_blank">Πηγή εικόνας background</a></p>
-              </div>
-          </footer>
+    </div>
+    <div data-marker-team="http://wp12464876.server-he.de/mod/scify/images/marker_new_teams.png"
+         data-marker-event="http://wp12464876.server-he.de/mod/scify/images/marker_events.png"
+         data-marker-team-old="http://wp12464876.server-he.de/mod/scify/images/marker_older_teams.png"
+         data-lat="37.979725"
+         data-long="23.710935"
+         data-zoom ="12"
+         data-no-events-message="No events found"
+         id="map-container">
+
+     </div>
+
+</div>
+
+      <footer>
+          <div class="container">
+              <p class="text-center no-s">2015 &copy; SciFY </p>
+          </div>
+      </footer>
 @stop
