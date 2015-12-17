@@ -1,8 +1,9 @@
 <?php
 
-
+Route::get('/city-map', 'HomeController@citymap');
 Route::get('/', ['as' => '/', 'uses' => 'HomeController@index']);
 Route::get('/dashboard', 'AdminController@dashboard');
+
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

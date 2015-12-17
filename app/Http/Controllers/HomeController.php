@@ -35,7 +35,7 @@ class HomeController extends Controller {
 
     public function citymap()
     {
-        return view('map');
+        return view('main.home.map');
     }
 
 }

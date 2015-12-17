@@ -19,6 +19,7 @@
         <link href="{{ asset('/plugins/animate/animate.css')}}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/plugins/tabstylesinspiration/css/tabs.css')}}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/plugins/tabstylesinspiration/css/tabstyles.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('/css/template/public/common.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('/css/home/landing.css') }}" rel="stylesheet" type="text/css"/>
         <script src="{{ asset('/plugins/pricing-tables/js/modernizr.js') }}"></script>
 
@@ -30,25 +31,8 @@
         <![endif]-->
 
     </head>
-    <body data-spy="scroll" data-target="#header">
-          <nav id="header" class="navbar navbar-fixed-top">
-              <div class="container">
-                  <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                          <span class="sr-only">Toggle navigation</span>
-                          <span class="fa fa-bars"></span>
-                      </button>
-                      <a class="navbar-brand" href="#">City-R-US</a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse navbar-right">
-                      <ul class="nav navbar-nav">
-                          <li><a href="#home">Αρχική</a></li>
-                          <li><a href="/">Δες τον χάρτη</a></li>
-
-                      </ul>
-                  </div>
-              </div>
-          </nav>
+    <body>
+           @include('template.public.topBar',["navClass" => 'navbar-fixed-top'])
 
           <div class="home" id="home">
               <div class="overlay"></div>
@@ -59,7 +43,7 @@
                           <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">
                           Πάρε μέρος σε αποστολές στην Αθήνα <br>Βελτίωσε την πόλη σου</p>
                           <a href="https://play.google.com/apps/testing/gr.scify.cityrus" target="_blank" class="btn btn-default btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Κατέβασε την εφαρμογή</a>
-                          <a href="#" target="_blank" class="btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Χάρτης με αποτελέσματα</a>
+                          <a href="{{ action("HomeController@citymap") }}" target="_blank" class="btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Χάρτης με αποτελέσματα</a>
                       </div>
                       <div class="scroller">
                           <div class="mouse"><div class="wheel"></div></div>
