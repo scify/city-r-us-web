@@ -26,13 +26,18 @@
     <div id="map-filter">
       <div id="filters">
            <h1>Eπιλογή αποστολής</h1>
-            <div id="missions">
-                <div data-mission-id="1" class="mission active">Αποστολή 1</div>
-                <div data-mission-id="2" class="mission">Αποστολή 2</div>
-                <div data-mission-id="3" class="mission">Αποστολή 3</div>
-                <div data-mission-id="4" class="mission">Αποστολή 4</div>
-                <div data-mission-id="5" class="mission">Αποστολή 5</div>
-            </div>
+           @if ($missions->status=="success")
+           <div id="missions">
+            @foreach($missions->message->missions as $m)
+               <div data-mission-id="{{ $m->id }}" data-type="{{ $m->type_id }}" class="mission" title="{{ $m->description }}">{{ $m->name }}</div>
+            @endforeach
+           </div>
+           @else
+           <div>
+            Συνέβει ένα λάθος κατά την φόρτωση αποστολών...
+           </div>
+           @endif
+
        </div>
     </div>
     <div data-marker-team="http://wp12464876.server-he.de/mod/scify/images/marker_new_teams.png"

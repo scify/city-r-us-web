@@ -190,4 +190,9 @@ class MissionService {
         }
         return;
     }
+
+    public function getMissions()
+    {
+        return $this->curl->get('/missions',[]);
+    }
 }

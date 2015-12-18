@@ -35,7 +35,9 @@ class HomeController extends Controller {
 
     public function citymap()
     {
-        return view('main.home.map');
+        $missionService = new \App\Services\MissionService();
+        $missions = $missionService->getMissions();
+        return view('main.home.map',compact("missions"));
     }
 
 }
