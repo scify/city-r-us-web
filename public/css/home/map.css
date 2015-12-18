@@ -12,9 +12,12 @@ html,body {height:100%;}
 }
 
 #map-section {
-    height: 100%;
+    bottom: 0;
+    left: 0;
     margin-top: 60px;
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 #map-filter {
