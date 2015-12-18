@@ -10,10 +10,11 @@
 @stop
 
 @section('footerScripts')
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp;sensor=false;libraries=places;language=en-US"></script>
-<script src="{{ asset('/plugins/googleMapsOverlappingMarker/oms.min.js')}}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEahTQQgG0h61XN8n5LNS4NTx5NsbWaXg&callback="></script>
+  <script src="{{ asset('/plugins/googleMapsOverlappingMarker/oms.min.js')}}"></script>
   <script src="{{ asset('/js/activityonmap.js')}}"></script>
-   <script src="{{ asset('/js/pages/home/map.js')}}"></script>
+  <script src="{{ asset('/js/pages/home/map.js')}}"></script>
+
 
 @stop
 

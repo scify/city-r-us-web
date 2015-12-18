@@ -3,6 +3,7 @@ scify = window.scify || {};
 scify.ActivityOnMap = function (mapId, markericon,lat, long,zoom, loadObservationsTemplateUrl) {
     this.mapId = mapId;
     this.markers = [];
+    this.paths =[];
     this.markericon = markericon;
     this.map = null;
     this.oms = null; //https://github.com/jawj/OverlappingMarkerSpiderfier
@@ -17,7 +18,7 @@ scify.ActivityOnMap.prototype = function () {
     var getMapStyles = function () {
             return [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}]
         },
-        clearMarkers = function(){
+        clearMarkersAndPaths = function(){
             this.oms.clearMarkers(); // Removes every marker from being tracked.
             //remove listeners on markers
            // this.oms.clearListeners(mapTeamOnMap);
@@ -26,8 +27,14 @@ scify.ActivityOnMap.prototype = function () {
                 this.markers[i].setMap(null);
             }
             this.markers = [];
+
+            for (var i = 0; i < this.paths.length; i++) {
+                this.paths[i].setMap(null);
+            }
+            this.paths = [];
+
         },
-        displayMissionDataAsMarkers = function(devices){
+        displayLocationData = function(devices){
             var instance = this;
             var marker = null;
             $.each(devices, function (deviceIndex, device) {
@@ -47,6 +54,35 @@ scify.ActivityOnMap.prototype = function () {
                 // instance.oms.addListener('click',mapTeamOnMap);
             });
         },
+        displayRouteData = function(devices){
+            var instance = this;
+            var path = null;
+            $.each(devices, function (deviceIndex, device) {
+                $.each(device.observations, function (observationIndex, observation) {
+                    if (observation.measurements.length>1) //this should never happen. ROute data have always more than one location measurement attached
+                    {
+                        var coordinates = [];
+                        $.each(observation.measurements, function (index, element) {
+                            coordinates.push({lat:parseFloat(element.latitude) , lng:parseFloat(element.longitude)});
+                        });
+
+                        path = new google.maps.Polyline({
+                            path: coordinates,
+                            geodesic: true,
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 1.0,
+                            strokeWeight: 2
+                        });
+
+                        path.setMap(instance.map);
+                        instance.paths.push(path);
+                    }
+
+                });
+                //add listeners on markers
+                // instance.oms.addListener('click',mapTeamOnMap);
+            });
+        },
         displayGenericErrorMsg = function(){
             alert("Συνέβει ενα σφάλμα κατα την φόρτωση των δεδομένων");
         },
@@ -58,18 +94,17 @@ scify.ActivityOnMap.prototype = function () {
             $(".mission.active").removeClass("active");
             mission.addClass("active");
 
-            clearMarkers.call(instance );
+            clearMarkersAndPaths.call(instance );
             $.ajax({
                 url: instance.loadObservationsTemplateUrl.replace("{id}",missionId),
                 success: function (data) {
                     if (data.status =="success")
                     {
                         if (data.message.type_id==1)
-                            displayMissionDataAsMarkers.call(instance,data.message.devices);
+                            displayLocationData.call(instance,data.message.devices);
                         else
-                            displayGenericErrorMsg();
+                            displayRouteData.call(instance,data.message.devices);
                     }
-
                     else
                         displayGenericErrorMsg();
                 },
@@ -83,7 +118,7 @@ scify.ActivityOnMap.prototype = function () {
             var myLatlng = new google.maps.LatLng(instance.lat,instance.long);
             var mapOptions = {
                 zoom: instance.zoom,
-                scrollwheel: false,
+                scrollwheel: true,
                 panControl: true,
                 panControlOptions: {position: google.maps.ControlPosition.TOP_RIGHT},
                 zoomControl: true,
