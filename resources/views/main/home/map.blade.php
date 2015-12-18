@@ -29,7 +29,7 @@
            @if ($missions->status=="success")
            <div id="missions">
             @foreach($missions->message->missions as $m)
-               <div data-mission-id="{{ $m->id }}" data-type="{{ $m->type_id }}" class="mission" title="{{ $m->description }}">{{ $m->name }}</div>
+               <div data-id="{{ $m->id }}" data-type="{{ $m->type_id }}" class="mission" title="{{ $m->description }}">{{ $m->name }}</div>
             @endforeach
            </div>
            @else
@@ -41,12 +41,10 @@
        </div>
     </div>
     <div data-marker-team="http://wp12464876.server-he.de/mod/scify/images/marker_new_teams.png"
-         data-marker-event="http://wp12464876.server-he.de/mod/scify/images/marker_events.png"
-         data-marker-team-old="http://wp12464876.server-he.de/mod/scify/images/marker_older_teams.png"
          data-lat="37.979725"
          data-long="23.710935"
          data-zoom ="12"
-         data-no-events-message="No events found"
+         data-template-url="{{ url('/') }}/missions/{id}/observations"
          id="map-container">
      </div>
 </div>

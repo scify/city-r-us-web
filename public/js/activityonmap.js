@@ -1,6 +1,6 @@
 scify = window.scify || {};
 
-scify.ActivityOnMap = function (mapId, markericon,lat, long,zoom) {
+scify.ActivityOnMap = function (mapId, markericon,lat, long,zoom, loadObservationsTemplateUrl) {
     this.mapId = mapId;
     this.markers = [];
     this.markericon = markericon;
@@ -9,6 +9,7 @@ scify.ActivityOnMap = function (mapId, markericon,lat, long,zoom) {
     this.lat= lat;
     this.long = long;
     this.zoom =zoom;
+    this.loadObservationsTemplateUrl= loadObservationsTemplateUrl; //this should contain a parameter ({id}) that will be replaces with the mission id
 
 };
 scify.ActivityOnMap.prototype = function () {
@@ -26,22 +27,28 @@ scify.ActivityOnMap.prototype = function () {
             }
             this.markers = [];
         },
-        displayMissionDataAsMarkers = function(response){
+        displayMissionDataAsMarkers = function(devices){
             var instance = this;
             var marker = null;
-            $.each(response.result, function (index, element) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(element.lat, element.lng),
-                    title: element.displayName,
-                    icon: instance.markericon,
-                    team: element,
-                    map: instance.map
-                });
-                instance.oms.addMarker(marker);
-                instance.markers.push(marker);
+            $.each(devices, function (deviceIndex, device) {
+                    $.each(device.observations, function (observationIndex, observation) {
+                        $.each(observation.measurements, function (index, element) {
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(element.latitude, element.longitude),
+                                title: element.displayName,
+                                //icon: instance.markericon,
+                                map: instance.map
+                            });
+                            instance.oms.addMarker(marker);
+                            instance.markers.push(marker);
+                        });
+                    });
+                //add listeners on markers
+                // instance.oms.addListener('click',mapTeamOnMap);
             });
-            //add listeners on markers
-            // instance.oms.addListener('click',mapTeamOnMap);
+        },
+        displayGenericErrorMsg = function(){
+            alert("Συνέβει ενα σφάλμα κατα την φόρτωση των δεδομένων");
         },
         getMissionData = function(e){
 
@@ -53,10 +60,21 @@ scify.ActivityOnMap.prototype = function () {
 
             clearMarkers.call(instance );
             $.ajax({
-                url: (window.location.pathname + 'services/api/rest/json/?method=group.all'),
+                url: instance.loadObservationsTemplateUrl.replace("{id}",missionId),
                 success: function (data) {
-                    //if mission type is locations display on map
-                    displayMissionDataAsMarkers.call(data,instance);
+                    if (data.status =="success")
+                    {
+                        if (data.message.type_id==1)
+                            displayMissionDataAsMarkers.call(instance,data.message.devices);
+                        else
+                            displayGenericErrorMsg();
+                    }
+
+                    else
+                        displayGenericErrorMsg();
+                },
+                error: function(){
+                    displayGenericErrorMsg();
                 }
             });
         },
@@ -80,9 +98,8 @@ scify.ActivityOnMap.prototype = function () {
                 nearbyDistance:25
             });
 
-
             $("#filters").on("click",".mission",getMissionData.bind(instance));
-
+            $("#filters").find(".mission").first().trigger("click");
         }
 
     return {

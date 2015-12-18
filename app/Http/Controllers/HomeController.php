@@ -40,4 +40,6 @@ class HomeController extends Controller {
         return view('main.home.map',compact("missions"));
     }
 
+
+
 }

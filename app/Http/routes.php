@@ -13,6 +13,7 @@ Route::controllers([
 
 /* Missions Routes */
 Route::get('/missions', ['as' => 'missions', 'uses' => 'MissionController@index']);
+Route::get('/missions/{id}/observations','MissionController@getObservations');
 Route::get('/missions/create', 'MissionController@create');
 Route::get('/missions/{id}', ['as' => 'mission/profile', 'uses' => 'MissionController@show']);
 Route::get('/missions/edit/{id}', 'MissionController@edit');

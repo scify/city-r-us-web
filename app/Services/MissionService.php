@@ -195,4 +195,9 @@ class MissionService {
     {
         return $this->curl->get('/missions',[]);
     }
+
+    public function getObservations($missionid)
+    {
+        return $this->curl->get('/missions/'.$missionid."/observations",[]);
+    }
 }

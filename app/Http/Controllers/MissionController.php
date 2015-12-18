@@ -17,7 +17,7 @@ class MissionController extends Controller {
         $this->missionService = new MissionService();
         $this->fileService = new FileService();
         $this->curl = new Curl();
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'getObservations']);
     }
 
     /**
@@ -155,4 +155,18 @@ class MissionController extends Controller {
         $this->missionService->removeImg($id);
         return \Redirect::route('mission/profile', ['id' => $id]);
     }
+
+    /**
+     * Get observation data for a given mission
+     *
+     * @param $id
+     * @return json
+     */
+    public function getObservations($id)
+    {
+        $missionService = new \App\Services\MissionService();
+        $missionWithData= $missionService->getObservations($id);
+        return response()->json($missionWithData);
+    }
+
 }
