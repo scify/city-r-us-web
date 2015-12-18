@@ -2,7 +2,7 @@
 Part of the [Radical project](http://www.radical-project.eu/) CityRUs brings an innovative way to connect a Municipality with its citizens and motivate citizens to get involved in city issues. With CityRUs, a City council asks its citizens to contribute to missions of common interest that can improve life in the city (points accessible by people with disabilities, something nice to see or do, points of interest, nice walks or bike rides…). The citizen's contributions are publicly displayed on a public map for all to use. What is more, citizens can suggest new missions, report troubles and even get awarded for the involvement.
 
 This github project contains the code for the [Athens Municipatily](http://go.scify.gr/cityrus-web) website, that enables city administrators to define missions and citizens to view their contributions.<br/><br/>
-You can find the related service [here](http://go.scify.gr/cityrus-service)<br/>
+You can find the related service [here](http://go.scify.gr/cityrus-service)<br/><br/>
 and the mobile application [here](https://play.google.com/store/apps/details?id=gr.scify.cityrus)<br/>
 ### Starting the project
 
