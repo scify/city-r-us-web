@@ -113,6 +113,12 @@ scify.ActivityOnMap.prototype = function () {
                 }
             });
         },
+        displayEvents = function(){
+            displayGenericErrorMsg();
+        },
+        displayPois = function(){
+            displayGenericErrorMsg();
+        },
         init = function () {
             var instance = this;
             var myLatlng = new google.maps.LatLng(instance.lat,instance.long);
@@ -120,9 +126,9 @@ scify.ActivityOnMap.prototype = function () {
                 zoom: instance.zoom,
                 scrollwheel: true,
                 panControl: true,
-                panControlOptions: {position: google.maps.ControlPosition.TOP_RIGHT},
+                panControlOptions: {position: google.maps.ControlPosition.BOTTOM_RIGHT},
                 zoomControl: true,
-                zoomControlOptions: {position: google.maps.ControlPosition.RIGHT_TOP},
+                zoomControlOptions: {position: google.maps.ControlPosition.RIGHT_BOTTOM},
                 center: myLatlng,
                 styles: getMapStyles()
             }
@@ -135,6 +141,8 @@ scify.ActivityOnMap.prototype = function () {
 
             $("#filters").on("click",".mission",getMissionData.bind(instance));
             $("#filters").find(".mission").first().trigger("click");
+            $("#show-events").click(displayEvents.bind(instance));
+            $("#show-pois").click(displayPois.bind(instance));
         }
 
     return {

@@ -61,7 +61,30 @@ html,body {height:100%;}
     /*background-color:  rgba(178, 197, 208, 0.56);*/
 /*}*/
 
-.mission:hover, .mission.active
+.mission:hover, .mission.active, #pois-events a:hover, #pois-events a.active
 {
     background-color: #F15A59;
 }
+
+#pois-events {
+    height: 40px;
+    position: absolute;
+    right: 20px;
+    text-align: right;
+    top: 10px;
+
+    z-index: 100;
+}
+
+#pois-events a {
+    background-color: gray;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 10px;
+    text-decoration: none;
+    padding:10px;
+
+}
+

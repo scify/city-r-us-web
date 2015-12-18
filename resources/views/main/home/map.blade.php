@@ -14,8 +14,6 @@
   <script src="{{ asset('/plugins/googleMapsOverlappingMarker/oms.min.js')}}"></script>
   <script src="{{ asset('/js/activityonmap.js')}}"></script>
   <script src="{{ asset('/js/pages/home/map.js')}}"></script>
-
-
 @stop
 
 @section('bodyContent')
@@ -24,6 +22,10 @@
 
 
 <div id="map-section">
+    <div id="pois-events">
+        <a id="show-events" href="javascript:void(0)">δείτε δράσεις στην περιοχή</a>
+        <a id="show-pois" href="javascript:void(0)">δείτε σημεία ενδιαφέροντος στην περιοχή</a>
+    </div>
     <div id="map-filter">
       <div id="filters">
            <h1>Eπιλογή αποστολής</h1>
