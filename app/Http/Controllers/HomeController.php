@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Services\Curl;
+
 class HomeController extends Controller {
 
 	/*
@@ -12,15 +14,15 @@ class HomeController extends Controller {
 	| controllers, you are free to modify or remove it as you desire.
 	|
 	*/
-
+    private $curl;
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct(){
 		$this->middleware('guest');
+        $this->curl = new Curl();
 	}
 
 	/**
@@ -37,9 +39,16 @@ class HomeController extends Controller {
     {
         $missionService = new \App\Services\MissionService();
         $missions = $missionService->getMissions();
+
         return view('main.home.map',compact("missions"));
     }
 
+    public function getVenues(){
+        $venues = $this->curl->get("/map/venues",[
+            "lat" => \Request::get("lat"),
+            "lon" => \Request::get("lon")]);
+        return $venues;
+    }
 
 
 }

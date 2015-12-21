@@ -94,7 +94,7 @@ scify.ActivityOnMap.prototype = function () {
             $(".mission.active").removeClass("active");
             mission.addClass("active");
 
-            clearMarkersAndPaths.call(instance );
+            clearMarkersAndPaths.call(instance);
             $.ajax({
                 url: instance.loadObservationsTemplateUrl.replace("{id}",missionId),
                 success: function (data) {
