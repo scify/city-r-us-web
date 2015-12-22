@@ -12,8 +12,24 @@
 @section('footerScripts')
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEahTQQgG0h61XN8n5LNS4NTx5NsbWaXg&callback="></script>
   <script src="{{ asset('/plugins/googleMapsOverlappingMarker/oms.min.js')}}"></script>
-  <script src="{{ asset('/js/activityonmap.js')}}"></script>
-  <script src="{{ asset('/js/pages/home/map.js')}}"></script>
+  <script src="{{ asset('/js/pages/home/activityonmap.js')}}"></script>
+  <script>
+    $(function(){
+
+        var mapActivity = new scify.ActivityOnMap( $("#map-container"),
+            $("#map-container").data("marker-team"),
+            parseFloat($("#map-container").data("lat")),
+            parseFloat($("#map-container").data("long")),
+            parseFloat($("#map-container").data("zoom")),
+            $("#map-container").data("template-url")
+        )
+
+        mapActivity.init();
+
+    })
+  </script>
+
+
 @stop
 
 @section('bodyContent')
