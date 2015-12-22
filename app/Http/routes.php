@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/city-map/venues', 'HomeController@getVenues');
+Route::get('/city-map/events', 'HomeController@getEvents');
 Route::get('/city-map', 'HomeController@citymap');
 Route::get('/', ['as' => '/', 'uses' => 'HomeController@index']);
 Route::get('/dashboard', 'AdminController@dashboard');

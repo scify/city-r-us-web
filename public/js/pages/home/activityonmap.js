@@ -87,7 +87,6 @@ scify.ActivityOnMap.prototype = function () {
             alert("Συνέβει ενα σφάλμα κατα την φόρτωση των δεδομένων");
         },
         getMissionData = function(e){
-
             var instance = this;
             var mission = $(e.target);
             var missionId = mission.data("id");
@@ -113,12 +112,43 @@ scify.ActivityOnMap.prototype = function () {
                 }
             });
         },
+        // Display the near by events from getEvents API function
         displayEvents = function(){
-            displayGenericErrorMsg();
+            alert(instance.map.getCenter());
+            $.ajax({
+                //url here with api results and center of map
+                success: function (data) {
+                    if (data.status =="success"){
+                        //    get the center of the map and display the api results points
+                    }
+                    else{
+                        displayGenericErrorMsg();
+                    }
+                },
+                error: function(){
+                    displayGenericErrorMsg();
+                }
+            });
         },
+        // "Show points of interest on click from getVenues API function"
         displayPois = function(){
-            displayGenericErrorMsg();
+            alert(instance.map.getCenter());
+            $.ajax({
+                //url here with api results and center of map
+                success: function (data) {
+                    if (data.status =="success"){
+                    //    get the center of the map and display the api results points
+                    }
+                    else{
+                        displayGenericErrorMsg();
+                    }
+                },
+                error: function(){
+                    displayGenericErrorMsg();
+                }
+            });
         },
+
         init = function () {
             var instance = this;
             var myLatlng = new google.maps.LatLng(instance.lat,instance.long);
@@ -133,6 +163,7 @@ scify.ActivityOnMap.prototype = function () {
                 styles: getMapStyles()
             }
             instance.map = new google.maps.Map(instance.mapId[0], mapOptions);
+
             instance.oms = new OverlappingMarkerSpiderfier(instance.map, { markersWontMove:true,
                 markersWontHide:true,
                 keepSpiderfied:true,

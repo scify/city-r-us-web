@@ -39,7 +39,7 @@ class HomeController extends Controller {
     {
         $missionService = new \App\Services\MissionService();
         $missions = $missionService->getMissions();
-
+//        return $missions;
         return view('main.home.map',compact("missions"));
     }
 
@@ -48,6 +48,13 @@ class HomeController extends Controller {
             "lat" => \Request::get("lat"),
             "lon" => \Request::get("lon")]);
         return $venues;
+    }
+
+    public function getEvents(){
+        $events = $this->curl->get("/map/events",[
+            "lat" => \Request::get("lat"),
+            "lon" => \Request::get("lon")]);
+        return $events;
     }
 
 
