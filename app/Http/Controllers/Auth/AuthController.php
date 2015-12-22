@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller {
 
-    protected $redirectPath = '/';
+    protected $redirectPath = '/dashboard';
 	/*
 	|--------------------------------------------------------------------------
 	| Registration & Login Controller
