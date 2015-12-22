@@ -1,17 +1,10 @@
 <?php namespace App\Http\Controllers;
 
+use App\Services\Curl;
+
 class HomeController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Welcome Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
-	|
-	*/
+	private $curl;
 
 	/**
 	 * Create a new controller instance.
@@ -21,6 +14,7 @@ class HomeController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('guest');
+        $this->curl = new Curl();
 	}
 
 	/**
@@ -38,6 +32,23 @@ class HomeController extends Controller {
         $missionService = new \App\Services\MissionService();
         $missions = $missionService->getMissions();
         return view('main.home.map',compact("missions"));
+    }
+
+
+    public function getVenues(){
+        $venues = $this->curl->get("/map/venues", [
+            "lat" => \Request::get("lat"),
+            "lon" => \Request::get("lon")]);
+
+        return '['.$venues.']';
+        var_dump($venues);
+
+        foreach($venues as $ven){
+            return $ven->name;
+
+        }
+
+        return $venues;
     }
 
 
