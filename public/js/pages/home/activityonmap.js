@@ -4,7 +4,7 @@ scify.ActivityOnMap = function (mapId, markericon,lat, long,zoom, loadObservatio
     this.mapId = mapId;
     this.markers = [];
     this.markersEvents = [];
-    this.markersVenues = [];
+    this.markersPoIs = [];
     this.paths =[];
     this.markericon = markericon;
     this.map = null;
@@ -62,10 +62,10 @@ scify.ActivityOnMap.prototype = function () {
             //remove listeners on markers
             // this.oms.clearListeners(mapTeamOnMap);
 
-            for (var i = 0; i < this.markersVenues.length; i++) {
-                this.markersVenues[i].setMap(null);
+            for (var i = 0; i < this.markersPoIs.length; i++) {
+                this.markersPoIs[i].setMap(null);
             }
-            this.markersVenues = [];;
+            this.markersPoIs = [];;
         },
 
         displayLocationData = function(devices){
@@ -189,6 +189,7 @@ scify.ActivityOnMap.prototype = function () {
                 }
             });
             $("#hideEvents").removeClass("hide");
+            $("#show-events").addClass("greenBack");
         },
         // Sets the map on all markers in the array.
         hideEventMarkers = function () {
@@ -196,6 +197,7 @@ scify.ActivityOnMap.prototype = function () {
             for (var i = 0; i < instance.markersEvents.length; i++) {
                 instance.markersEvents[i].setMap(null);
             }
+            $("#hideEvents").addClass("hide");
         },
 
         /**
@@ -231,7 +233,7 @@ scify.ActivityOnMap.prototype = function () {
                             }
                         })(marker, i));
                         instance.oms.addMarker(marker);
-                        instance.markersVenues.push(marker);
+                        instance.markersPoIs.push(marker);
                     }
                     //}
                     //else{
@@ -243,6 +245,15 @@ scify.ActivityOnMap.prototype = function () {
                 }
             })
             $("#hidePoIs").removeClass("hide");
+            $("#show-pois").addClass("purpleBack");
+        },
+
+        hidePoIsMarkers = function () {
+            var instance = this;
+            for (var i = 0; i < instance.markersPoIs.length; i++) {
+                instance.markersPoIs[i].setMap(null);
+            }
+            $("#hidePoIs").addClass("hide");
         },
 
         /**
@@ -274,6 +285,7 @@ scify.ActivityOnMap.prototype = function () {
             $("#show-events").click(displayEvents.bind(instance));
             $("#hideEvents").click(hideEventMarkers.bind(instance));
             $("#show-pois").click(displayPoI.bind(instance));
+            $("#hidePoIs").click(hidePoIsMarkers.bind(instance));
         }
 
     return {

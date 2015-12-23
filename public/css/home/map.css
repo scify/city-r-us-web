@@ -91,11 +91,14 @@ html,body {height:100%;}
     width: 245px;
     text-align: center;
     margin-bottom: 10px;
-
 }
 
 .purpleBack{
     background-color: #8E67FD !important;
+}
+
+.greenBack{
+    background-color: #409685 !important;
 }
 
 #hideEvents, #hidePoIs{
