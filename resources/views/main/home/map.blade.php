@@ -17,12 +17,14 @@
     $(function(){
 
         var mapActivity = new scify.ActivityOnMap( $("#map-container"),
-            $("#map-container").data("marker-team"),
+            $("#map-container").data("marker-icon"),
             parseFloat($("#map-container").data("lat")),
             parseFloat($("#map-container").data("long")),
             parseFloat($("#map-container").data("zoom")),
-            $("#map-container").data("template-url")
-        )
+            $("#map-container").data("template-url"),
+              $("#map-container").data("city-events"),
+              $("#map-container").data("city-venues")
+        );
 
         mapActivity.init();
 
@@ -37,10 +39,18 @@
 
 
 
-<div id="map-section">
+<div id="map-section" data-url="{!! env('WEB_URL') !!}">
     <div id="pois-events">
-        <a id="show-events" href="javascript:void(0)">δείτε δράσεις στην περιοχή</a>
-        <a id="show-pois" href="javascript:void(0)">δείτε σημεία ενδιαφέροντος στην περιοχή</a>
+        <div class="row">
+            <a id="show-events" href="javascript:void(0)">Δράσεις στην περιοχή</a>
+            <a id="hideEvents" class="hide" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+
+
+        <div class="row">
+            <a id="show-pois" href="javascript:void(0)">Σημεία ενδιαφέροντος στην περιοχή</a>
+            <a id="hidePoIs" class="hide"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
     </div>
     <div id="map-filter">
       <div id="filters">
@@ -59,12 +69,14 @@
 
        </div>
     </div>
-    <div data-marker-team="http://wp12464876.server-he.de/mod/scify/images/marker_new_teams.png"
+    <div data-marker-icon=""
          data-lat="37.979725"
          data-long="23.710935"
          data-zoom ="12"
          data-template-url="{{ url('/') }}/missions/{id}/observations"
-         id="map-container">
+         id="map-container"
+         data-city-events = "{{action("HomeController@getEvents")}}"
+         data-city-venues = "{{action("HomeController@getVenues")}}">
      </div>
 </div>
 @stop
