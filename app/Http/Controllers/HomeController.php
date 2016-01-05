@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Services\Curl;
+use App\Services\MissionService;
 
 class HomeController extends Controller {
 
@@ -37,9 +38,8 @@ class HomeController extends Controller {
 
     public function citymap()
     {
-        $missionService = new \App\Services\MissionService();
+        $missionService = new MissionService();
         $missions = $missionService->getMissions();
-//        return $missions;
         return view('main.home.map',compact("missions"));
     }
 

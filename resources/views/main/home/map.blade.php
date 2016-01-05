@@ -73,7 +73,7 @@
          data-lat="37.979725"
          data-long="23.710935"
          data-zoom ="12"
-         data-template-url="{{ url('/') }}/missions/{id}/observations"
+         data-template-url="{{ env('API_URL') }}/missions/{id}/observations"
          id="map-container"
          data-city-events = "{{action("HomeController@getEvents")}}"
          data-city-venues = "{{action("HomeController@getVenues")}}">

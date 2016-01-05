@@ -131,7 +131,8 @@ scify.ActivityOnMap.prototype = function () {
             $.ajax({
                 url: instance.loadObservationsTemplateUrl.replace("{id}",missionId),
                 success: function (data) {
-                    if (data.status =="success")
+                    console.log(instance.loadObservationsTemplateUrl)
+                    if (data!=null && data.status =="success")
                     {
                         if (data.message.type_id==1)
                             displayLocationData.call(instance,data.message.devices);
