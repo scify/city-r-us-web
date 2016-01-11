@@ -18,7 +18,7 @@
                     {{#ifCond type.name '==' 'location'}}
                     <p>Τύπος: Καταγραφή σημείου στο χάρτη </p>
                     {{/ifCond}}
-                    <p class="small text-right">12 contributors</p>
+                    <p class="small text-right">{{this.users.length}} συμμετέχοντες</p>
                 </div>
             </div>
         </div>

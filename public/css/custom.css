@@ -10,3 +10,8 @@ img.logo{width:40%;}
     border:none;
 
 }
+
+.logo-box span{
+    font-size: 16px;
+    font-weight: 600;
+}

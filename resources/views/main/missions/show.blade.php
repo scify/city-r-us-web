@@ -41,7 +41,7 @@
                                     @if($mission->description!=null)
                                     <p>Περιγραφή: {{ $mission->description }}</p>
                                     @endif
-                                    <p class="small text-right">12 contributors</p>
+                                    <p>{{sizeof($mission->users)}} συμμετέχοντες</p>
                                 </div>
                                 <div class="text-right">
                                     <a href="{{ url('/missions/edit/'.$mission->id) }}" class="btn btn-success">

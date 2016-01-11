@@ -26,7 +26,8 @@ class MissionService {
         $response = $this->curl->post('/missions/store',
             [
                 'name' => \Request::get('name'),
-                'description' => \Request::get('description')
+                'description' => \Request::get('description'),
+                'mission_type' => \Request::get('mission_type')
             ],
             ['Authorization: Bearer ' . $jwt]);
 
@@ -155,7 +156,6 @@ class MissionService {
             $path = public_path() . '/uploads/missions';
             $fileName = $file->getClientOriginalName();
             $file->move($path, $fileName);
-
 
             //update the img_name column
             $id = $this->curl->post('/missions/update',
