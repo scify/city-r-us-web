@@ -12,6 +12,7 @@
 @section('footerScripts')
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEahTQQgG0h61XN8n5LNS4NTx5NsbWaXg&callback="></script>
   <script src="{{ asset('/plugins/googleMapsOverlappingMarker/oms.min.js')}}"></script>
+  <script src="{{ asset('/plugins/googleMapsMarkerClusterer/markerclusterer.js')}}"></script>
   <script src="{{ asset('/js/pages/home/activityonmap.js')}}"></script>
   <script>
     $(function(){
