@@ -63,7 +63,7 @@ scify.ActivityOnMap.prototype = function () {
         },
 
         /**
-         * Clears all markers seaved in an array
+         * Clears all markers saved in an array
          * @param markers
          */
         clearMarkersEvents = function () {
@@ -79,7 +79,7 @@ scify.ActivityOnMap.prototype = function () {
         },
 
         /**
-         * Clears all markers seaved in an array
+         * Clears all markers saved in an array
          * @param markers
          */
         clearMarkersVenues = function () {
@@ -97,6 +97,7 @@ scify.ActivityOnMap.prototype = function () {
         displayLocationData = function (devices) {
             var instance = this;
             var marker = null;
+
             $.each(devices, function (deviceIndex, device) {
                 $.each(device.observations, function (observationIndex, observation) {
                     $.each(observation.measurements, function (index, element) {
@@ -110,12 +111,14 @@ scify.ActivityOnMap.prototype = function () {
                         instance.oms.addMarker(marker);
                         instance.markers.push(marker);
 
-                        instance.mc.addMarkers(instance.markers);
+
                     });
                 });
                 //add listeners on markers
                 // instance.oms.addListener('click',mapTeamOnMap);
             });
+            instance.mc.clearMarkers();
+            instance.mc.addMarkers(instance.markers);
         },
         displayRouteData = function (devices) {
             var instance = this;
@@ -127,11 +130,23 @@ scify.ActivityOnMap.prototype = function () {
                         var coordinates = [];
                         $.each(observation.measurements, function (index, element) {
                             coordinates.push({lat: parseFloat(element.latitude), lng: parseFloat(element.longitude)});
+
+                            if (index == 0 || index == observation.measurements.length - 1) {
+                                var icon = baseUrl + '/img/marker.png';
+                                marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(element.latitude, element.longitude),
+                                    title: element.displayName,
+                                    icon: icon,
+                                    map: instance.map
+                                });
+                                instance.oms.addMarker(marker);
+                                instance.markers.push(marker);
+                            }
                         });
                         path = new google.maps.Polyline({
                             path: coordinates,
                             geodesic: true,
-                            strokeColor: '#FF0000',
+                            strokeColor: '#3B6FA4',
                             strokeOpacity: 1.0,
                             strokeWeight: 2
                         });
@@ -142,6 +157,7 @@ scify.ActivityOnMap.prototype = function () {
                 //add listeners on markers
                 // instance.oms.addListener('click',mapTeamOnMap);
             });
+            instance.mc.clearMarkers();
         },
 
         displayGenericErrorMsg = function () {
@@ -156,6 +172,7 @@ scify.ActivityOnMap.prototype = function () {
             mission.addClass("active");
 
             clearMarkersAndPaths.call(instance);
+
             $.ajax({
                 url: instance.loadObservationsTemplateUrl.replace("{id}", missionId),
                 success: function (data) {
@@ -181,12 +198,14 @@ scify.ActivityOnMap.prototype = function () {
             var instance = this;
             var marker = null;
             maCenterLatLng = {lat: instance.map.getCenter().lat(), lng: instance.map.getCenter().lng()};
-            //alert(instance.map.getCenter().lng());
-            //clearMarkersEvents.call(instance);
+            clearMarkersAndPaths.call(instance);
+
+            $(".loading").show();
             $.ajax({
                 //url here with api results and center of map
                 url: instance.loadEventsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                 success: function (data) {
+                    $(".loading").hide();
                     var i;
                     var iconGreen = baseUrl + '/img/marker_green.png';
                     for (i = 0; i < data.length; i++) {
@@ -201,7 +220,6 @@ scify.ActivityOnMap.prototype = function () {
                         google.maps.event.addListener(marker, 'click', (function (marker, i) {
                             return function () {
                                 var start_time = formatDate(data[i].start_time);
-
 
                                 var content = "<div style='text-align:center;'><strong>" +
                                     data[i].title + "</strong><br/>" + data[i].venue_name + "<br/>" + data[i].venue_address + "<br/>" +
@@ -218,11 +236,12 @@ scify.ActivityOnMap.prototype = function () {
                                 infowindow.open(instance.map, marker);
                             }
                         })(marker, i));
+
                         instance.oms.addMarker(marker);
                         instance.markersEvents.push(marker);
 
+                        instance.mc.clearMarkers();
                         instance.mc.addMarkers(instance.markersEvents);
-
                     }
                 },
                 error: function () {
@@ -251,10 +270,15 @@ scify.ActivityOnMap.prototype = function () {
             maCenterLatLng = {lat: instance.map.getCenter().lat(), lng: instance.map.getCenter().lng()};
 
             clearMarkersVenues.call(instance);
+            clearMarkersAndPaths.call(instance);
+
+            $(".loading").show();
+
             $.ajax({
                 //url here with api results and center of map
                 url: instance.loadVenuestsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                 success: function (data) {
+                    $(".loading").hide();
                     //if (data.status =="success"){
                     var i;
                     var iconPurple = baseUrl + '/img/marker_purple.png';
@@ -277,6 +301,7 @@ scify.ActivityOnMap.prototype = function () {
                         instance.oms.addMarker(marker);
                         instance.markersPoIs.push(marker);
 
+                        instance.mc.clearMarkers();
                         instance.mc.addMarkers(instance.markersPoIs);
                     }
                     //}
@@ -330,7 +355,7 @@ scify.ActivityOnMap.prototype = function () {
         instance.map = new google.maps.Map(instance.mapId[0], mapOptions);
 
         var mcOptions = {gridSize: 50, maxZoom: 15};
-        instance.mc = new MarkerClusterer(instance.map,  [], mcOptions);
+        instance.mc = new MarkerClusterer(instance.map, [], mcOptions);
 
         instance.oms = new OverlappingMarkerSpiderfier(instance.map, {
             markersWontMove: true,

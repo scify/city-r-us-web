@@ -80,4 +80,6 @@
          data-city-venues = "{{action("HomeController@getVenues")}}">
      </div>
 </div>
+
+<div class="loading"></div>
 @stop
