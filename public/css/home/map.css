@@ -52,6 +52,19 @@ html,body {height:100%;}
 
 }
 
+#period {
+    padding: 2%;
+}
+
+.datepick-wrapper {
+    margin-bottom: 2%;
+}
+
+#period .datepicker {
+    padding: 0;
+    width: 80%;
+}
+
 
 .mission {
     background-color: rgba(54,106,169,0.9);
