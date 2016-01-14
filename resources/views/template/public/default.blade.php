@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Raleway:500,400,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:500,400,300' rel='stylesheet' type='text/css'>
         <link href="{{ asset('/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('/plugins/fontawesome/css/font-awesome.css')}}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('/css/template/public/common.css') }}" rel="stylesheet" type="text/css"/>
