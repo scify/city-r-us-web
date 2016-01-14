@@ -291,6 +291,7 @@ ul.features-list-2 li {
     padding: 20px 0;
     margin-top: 20px;
     background: #f7f7f7;
+    overflow: hidden;
 }
 
 #contact textarea {
