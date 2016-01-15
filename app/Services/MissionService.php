@@ -191,9 +191,16 @@ class MissionService {
         return;
     }
 
-    public function getMissions()
+    public function getMissions($from, $to)
     {
-        return $this->curl->get('/missions',[]);
+        $data = [];
+        if (!is_null($from)) {
+            $data['from'] = $from;
+        }
+        if (!is_null($to)) {
+            $data['to'] = $to;
+        }
+        return $this->curl->get('/missions',$data);
     }
 
     public function getObservations($missionid)

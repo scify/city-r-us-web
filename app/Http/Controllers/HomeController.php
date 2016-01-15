@@ -1,27 +1,30 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Services\Curl;
 use App\Services\MissionService;
 
 class HomeController extends Controller {
-
     /*
-    |--------------------------------------------------------------------------
-    | Welcome Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller renders the "marketing page" for the application and
-    | is configured to only allow guests. Like most of the other sample
-    | controllers, you are free to modify or remove it as you desire.
-    |
-    */
+      |--------------------------------------------------------------------------
+      | Welcome Controller
+      |--------------------------------------------------------------------------
+      |
+      | This controller renders the "marketing page" for the application and
+      | is configured to only allow guests. Like most of the other sample
+      | controllers, you are free to modify or remove it as you desire.
+      |
+     */
+
     private $curl;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(){
+    public function __construct() {
         //$this->middleware('guest');
         $this->curl = new Curl();
     }
@@ -31,31 +34,35 @@ class HomeController extends Controller {
      *
      * @return Response
      */
-    public function index()
-    {
+    public function index() {
         return view('main.home.index');
     }
 
-    public function citymap()
-    {
+    public function citymap() {
+        $from = $to = null;
+        if (isset($_GET['from'])) {
+            $from = $_GET['from'];
+        }
+        if (isset($_GET['to'])) {
+            $to = $_GET['to'];
+        }
         $missionService = new MissionService();
-        $missions = $missionService->getMissions();
-        return view('main.home.map',compact("missions"));
+        $missions = $missionService->getMissions($from, $to);
+        return view('main.home.map', compact("missions"));
     }
 
-    public function getVenues(){
-        $venues = $this->curl->get("/map/venues",[
+    public function getVenues() {
+        $venues = $this->curl->get("/map/venues", [
             "lat" => \Request::get("lat"),
             "lon" => \Request::get("lon")]);
         return $venues;
     }
 
-    public function getEvents(){
-        $events = $this->curl->get("/map/events",[
+    public function getEvents() {
+        $events = $this->curl->get("/map/events", [
             "lat" => \Request::get("lat"),
             "lon" => \Request::get("lon")]);
         return $events;
     }
-
 
 }

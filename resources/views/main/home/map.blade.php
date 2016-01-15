@@ -18,7 +18,7 @@
     <script src="{{ asset('/js/pages/home/activityonmap.js')}}"></script>
     <script>
         $(function () {
-            $('.datepicker').datepicker({autoclose: true, format: 'dd/mm/yyyy'});
+            $('.datepicker').datepicker({autoclose: true, format: 'dd/mm/yyyy', clearBtn: true});
 
             var mapActivity = new scify.ActivityOnMap($("#map-container"),
                     $("#map-container").data("marker-icon"),
@@ -63,25 +63,27 @@
                     </div>
                     <h1>Eπιλογή Περιόδου</h1>
                     <div id="period">
-                        <div class="datepick-wrapper">
-                            Από:
-                            <div class="input-group date datepicker">
-                                <input type="text" class="form-control">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-th"></i>
-                                </span>
+                        <form action="#">
+                            <div class="datepick-wrapper">
+                                Από:
+                                <div id="from-date" class="input-group date datepicker">
+                                    <input name="from" type="text" class="form-control">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-th"></i>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="datepick-wrapper">
-                            Έως:
-                            <div class="input-group date datepicker">
-                                <input type="text" class="form-control">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-th"></i>
-                                </span>
+                            <div class="datepick-wrapper">
+                                Έως:
+                                <div id="to-date" class="input-group date datepicker">
+                                    <input name="to" type="text" class="form-control">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-th"></i>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <input type="button" class="btn btn-danger" value="Ανανέωση">
+                            <input type="submit" class="btn btn-danger" value="Ανανέωση">
+                        </form>
                     </div>
                 @else
                     <div>
