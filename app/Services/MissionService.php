@@ -200,7 +200,7 @@ class MissionService {
         if (!is_null($to)) {
             $data['to'] = $to;
         }
-        return $this->curl->get('/missions',$data);
+        return $this->curl->get('/missions', $data);
     }
 
     public function getObservations($missionid)

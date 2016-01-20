@@ -18,7 +18,32 @@
     <script src="{{ asset('/js/pages/home/activityonmap.js')}}"></script>
     <script>
         $(function () {
-            $('.datepicker').datepicker({autoclose: true, format: 'dd/mm/yyyy', clearBtn: true});
+            $('.datepicker').datepicker({autoclose: true, format: 'dd-mm-yyyy', clearBtn: true});
+            
+            var query = location.search;
+            var fromInd = query.indexOf("from");
+            var fromEnd = query.indexOf("&", fromInd);
+            var toInd = query.indexOf("to");
+            var toEnd = query.indexOf("&", toInd);
+            if (fromInd !== -1) {
+                if (fromEnd === -1) {
+                    fromEnd = query.length;
+                }
+                var tokens = query.substring(fromInd, fromEnd).split("=")[1].split("-");
+                console.log(tokens);
+                if (tokens.length === 3) {
+                    $('.datepicker.from').datepicker('update', new Date(tokens[2] + "/" + tokens[1] + "/" + tokens[0]));
+                }
+            }
+            if (toInd !== -1) {
+                if (toEnd === -1) {
+                    toEnd = query.length;
+                }
+                var tokens = query.substring(toInd, toEnd).split("=")[1].split("-");
+                if (tokens.length === 3) {
+                    $('.datepicker.to').datepicker('update', new Date(tokens[2] + "/" + tokens[1] + "/" + tokens[0]));
+                }
+            }
 
             var mapActivity = new scify.ActivityOnMap($("#map-container"),
                     $("#map-container").data("marker-icon"),
@@ -66,7 +91,7 @@
                         <form action="#">
                             <div class="datepick-wrapper">
                                 Από:
-                                <div id="from-date" class="input-group date datepicker">
+                                <div id="from-date" class="input-group date datepicker from">
                                     <input name="from" type="text" class="form-control">
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-th"></i>
@@ -75,7 +100,7 @@
                             </div>
                             <div class="datepick-wrapper">
                                 Έως:
-                                <div id="to-date" class="input-group date datepicker">
+                                <div id="to-date" class="input-group date datepicker to">
                                     <input name="to" type="text" class="form-control">
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-th"></i>
