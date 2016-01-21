@@ -44,6 +44,12 @@ html {
     background: rgba(0,0,0,0.8);
 }
 
+.admin-entry {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
 .home-text {
     position: absolute;
     top: 50%;

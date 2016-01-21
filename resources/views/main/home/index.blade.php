@@ -33,6 +33,7 @@
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
+                <a href="{{ action("AdminController@index") }}" class="admin-entry btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Περιβάλλον Διαχειριστή</a>
                 <div class="home-text col-md-8">
                     <h1 class="wow fadeInDown" data-wow-delay="1.5s" data-wow-duration="1.5s" data-wow-offset="10">Η πόλη είμαστε εμείς!</h1>
                     <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">
