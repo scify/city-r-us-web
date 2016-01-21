@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-3">
+<!--    <div class="col-md-3">
         @if (isset($mission) && $mission->img_name)
         <div class="thumbnail">
         <img src="{{ asset('/uploads/missions/'.$mission->img_name) }}"/>
@@ -13,9 +13,9 @@
             <p><a href="{{ url('missions/'.$mission->id.'/img/remove') }}" class="text-danger">Αφαίρεση εικόνας</a></p>
             @endif
         </div>
-    </div>
+    </div>-->
 
-    <div class="col-md-9">
+    <div class="col-md-12">
         <div class="form-group">
             {!! Form::formInput('name', 'Όνομα:', $errors, ['class' => 'form-control', 'id' =>
             'name', 'required' => 'true']) !!}
