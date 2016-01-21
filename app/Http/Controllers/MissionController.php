@@ -65,7 +65,7 @@ class MissionController extends Controller {
         if ($id == 'logout') {
             \Auth::logout();
             \Session::flush();
-            return \Redirect::route('/');
+            return \Redirect::route('admin/home');
         }
 
         $file = \Input::file('file');
@@ -93,7 +93,7 @@ class MissionController extends Controller {
         $id = $this->missionService->updateMission();
 
         if ($id == 'logout') {
-            return \Redirect::route('/');
+            return \Redirect::route('admin/home');
         } else {
             $file = \Input::file('file');
 
@@ -127,7 +127,7 @@ class MissionController extends Controller {
         $result = $this->missionService->deleteMission($id);
 
         if ($result == 'logout') {
-            return \Redirect::route('/');
+            return \Redirect::route('admin/home');
         } else if ($result == 'has_users') {
             \Session::flash('flash_message', 'Η αποστολή δεν μπορεί να διαγραφεί γιατί συμμετέχουν χρήστες σε αυτή.');
             \Session::flash('flash_type', 'alert-danger');
