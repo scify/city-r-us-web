@@ -133,7 +133,7 @@ class MissionController extends Controller {
             \Session::flash('flash_type', 'alert-danger');
 
             return \Redirect::back()->withInput();
-        } else if($result!=null){
+        } else if($result!=null && strlen($result) > 0){
             $filename = public_path() . '/assets/uploads/volunteers/' . $result;
 
             //if the file exists, delete it from the filesystem

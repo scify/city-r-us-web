@@ -49,7 +49,7 @@ class MissionService {
 
         $response = $this->curl->post('/missions/update', \Request::all(), ['Authorization: Bearer ' . $jwt]);
 
-        if(isset($response->error)) {
+        if(isset($response->error) || $response->status === "error") {
             \Auth::logout();
             \Session::flush();
             return 'logout';
@@ -183,7 +183,7 @@ class MissionService {
                 return 'logout';
 
             //update the img_name column
-            $response = $this->curl->post('/missions/delete/' . $id, ['id' => $id],
+            $response = $this->curl->post('/missions/' . $id . '/delete', [],
                 ['Authorization: Bearer ' . $jwt]);
 
             return $mission->img_name;
