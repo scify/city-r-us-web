@@ -28,7 +28,7 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class=""><a href="#">{{trans($lang.'showUsers')}}</a></li>
+                    <li class=""><a href="{{ url('users') }}">{{trans($lang.'showUsers')}}</a></li>
                 </ul>
             </li>
         </ul>

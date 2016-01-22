@@ -1,42 +1,23 @@
 @extends('template.default')
 @section('title')
-users
+Χρήστες
 @stop
 @section('pageTitle')
-users
+Χρήστες
 @stop
 
 @section('bodyContent')
 
+<div class="row">
+    <div class="col-md-3">
+        @include('main.users.partials._filters')
+    </div>
+    <div class="col-md-9">
+        @include('main.users.partials._list')
+    </div>
+</div>
 
 @stop
 
-
 @section('footerScripts')
-<script src="{{ asset('/js/pages/jwt.js')}}"></script>
-
-<script>
-
-    checkJWT();
-
-    var url = $('meta[name=apiUrl]').attr('content') + '/users';
-
-    var token = $.cookie("jwtToken");
-
-    $.ajax({
-        url: url,
-        type: "GET",
-       headers: {
-            'authorization': 'bearer ' + token
-        },
-        success: function () {
-            // console.log('Cookie received!');
-        },
-        error: function () {
-            // console.log('Problem with cookie');
-        }
-    });
-</script>
-
-
 @append
