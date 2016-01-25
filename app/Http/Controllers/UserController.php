@@ -1,17 +1,13 @@
 <?php namespace App\Http\Controllers;
 
 use App\Services\Curl;
-use App\Services\MissionService;
 
 class UserController extends Controller{
     
-    private $userService;
-    private $missionService;
     private $curl;
 
     public function __construct()
     {
-        $this->missionService = new MissionService();
         $this->curl = new Curl();
         $this->middleware('auth');
     }
@@ -23,8 +19,24 @@ class UserController extends Controller{
      */
     public function index()
     {
-        $users = $this->curl->get('/users', []);
-        $missions = $this->curl->get('/missions', []);
-        return view('main.users.list', ['missions' => $missions->message->missions, 'users' => $users->message->users]);
+        $users = $this->curl->get('/users/withScores', [])->message->users;
+        $missions = $this->curl->get('/missions', [])->message->missions;
+        $userInfo = [];
+        foreach ($users as $user) {
+            $curUser = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'total' => 0
+            ];
+            foreach ($missions as $mission) {
+                $curUser[$mission->id] = 0;
+            }
+            foreach ($user->observation_points as $observation) {
+                $curUser[$observation->mission_id] = $curUser[$observation->mission_id] + intval($observation->points);
+                $curUser['total'] = $curUser['total'] + intval($observation->points);
+            }
+            $userInfo[] = $curUser;
+        }
+        return view('main.users.list', ['missions' => $missions, 'users' => $userInfo]);
     }
 }
