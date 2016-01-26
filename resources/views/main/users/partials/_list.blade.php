@@ -11,6 +11,7 @@
             {{$user['value']}}
         </div>
         <div class="send-mail">
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true" title="Send e-mail"></span>
         </div>
     </div>
     @endforeach
