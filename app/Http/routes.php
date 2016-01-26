@@ -26,3 +26,4 @@ Route::post('/missions/{id}/img/update', 'MissionController@updateImg');
 
 /* Users Routes */
 Route::get('/users', 'UserController@index');
+Route::get('/users/{mission}', 'UserController@index');

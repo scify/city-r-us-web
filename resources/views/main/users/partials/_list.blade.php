@@ -1,9 +1,17 @@
-<div id="container">
-    
+<div id='user-list'>
+    <h1 class="name">Όνομα</h1>
+    <h1 class="score">Βαθμολογία</h1>
+    <h1 class="send-mail">Email</h1>
     @foreach ($users as $user)
-    
-    <pre>{{var_dump($user)}}</pre>
-    
+    <div class="user">
+        <div class="name">
+            {{$user['name']}}
+        </div>
+        <div class="score">
+            {{$user['value']}}
+        </div>
+        <div class="send-mail">
+        </div>
+    </div>
     @endforeach
-    
 </div>

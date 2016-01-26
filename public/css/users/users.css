@@ -1,0 +1,66 @@
+#main-wrapper {
+    margin: 0;
+}
+
+#main-wrapper::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#user-filter {
+    display: block;
+    float: left;
+    color: black;
+    left: 0;
+    padding: 0;
+    overflow: auto;
+    width: 30%;
+    z-index: 2;
+}
+
+#user-filter h1 {
+    padding-left: 15px;
+}
+
+.mission {
+    background-color: #37D;
+    border-top: 0 none;
+    padding: 25px 15px;
+    cursor:pointer;
+    display: block;
+    color: black;
+}
+
+.mission:hover, .mission.active {
+    background-color: #2A5;
+}
+
+#user-list {
+    float: left;
+    width: 70%;
+    padding: 0 2%;
+}
+
+#user-list .name {
+    display: inline-block;
+    width: 35%;
+}
+
+#user-list .score {
+    display: inline-block;
+    width: 35%;
+}
+
+#user-list .user {
+    padding: 15px 0;
+}
+
+#user-list .user * {
+    padding-left: 2px;
+}
+
+#user-list .send-mail {
+    display: inline-block;
+    width: 29%;
+}

@@ -6,6 +6,7 @@
 
     <!-- Include css, js files-->
     @include('template.default.headerIncludes')
+    @yield('headerScripts')
 </head>
 
 
