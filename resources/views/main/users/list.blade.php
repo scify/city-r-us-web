@@ -8,6 +8,10 @@
 <link href="{{ asset('/css/users/users.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
+@section('footerScripts')
+<script src="{{ asset('/js/pages/users/send_mail.js')}}"></script>
+@stop
+
 @section('pageTitle')
 Χρήστες
 @stop

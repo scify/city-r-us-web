@@ -24,22 +24,23 @@
 }
 
 .mission {
-    background-color: #37D;
+    background-color: #7a6fbe;
     border-top: 0 none;
     padding: 25px 15px;
     cursor:pointer;
     display: block;
-    color: black;
+    color: white;
 }
 
 .mission:hover, .mission.active {
-    background-color: #2A5;
+    background-color: #409685;
 }
 
 #user-list {
     float: left;
     width: 70%;
     padding: 0 2%;
+    font-size: 1.1em;
 }
 
 #user-list .name {
@@ -63,4 +64,8 @@
 #user-list .send-mail {
     display: inline-block;
     width: 29%;
+}
+
+#user-list .send-mail span:hover {
+    cursor: pointer;
 }

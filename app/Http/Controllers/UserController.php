@@ -48,6 +48,10 @@ class UserController extends Controller {
         usort($userInfo, function ($u1, $u2) {
             return $u1['value'] > $u2['value'] ? -1 : 1;
         });
-        return view('main.users.list', ['missions' => $missions, 'users' => $userInfo]);
+        return view('main.users.list', ['missions' => $missions, 'users' => $userInfo, 'active' => $mission]);
+    }
+    
+    public function mail() {
+        return \Redirect::route('users');
     }
 }
