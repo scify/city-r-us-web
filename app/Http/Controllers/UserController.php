@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use App\Services\Curl;
 
 class UserController extends Controller {
@@ -52,6 +53,18 @@ class UserController extends Controller {
     }
     
     public function mail() {
+        $user = \Request::get('user');
+        $users = $this->curl->get('/users', [])->message->users;
+        foreach ($users as $curUser) {
+            if ($curUser->id == $user) {
+                $user = $curUser;
+                break;
+            }
+        }
+        Mail::raw(\Request::get('body'), function($message) use ($user) {
+            $message->to($user->email);
+            $message->subject(\Request::get('subject'));
+        });
         return \Redirect::route('users');
     }
 }
