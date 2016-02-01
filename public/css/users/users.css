@@ -34,6 +34,8 @@
 
 .mission:hover, .mission.active {
     background-color: #409685;
+    color: #fff;
+    text-decoration: none;
 }
 
 #user-list {

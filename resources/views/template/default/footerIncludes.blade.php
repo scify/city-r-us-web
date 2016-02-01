@@ -18,5 +18,4 @@
 <script src="{{ asset('/plugins/handlebars/handlebars-v4.0.4.js')}}"></script>
 <script src="{{ asset('/js/modern.js')}}"></script>
 <script src="{{ asset('/js/custom.js')}}"></script>
-<script src="{{ asset('/js/pages/dashboard.js')}}"></script>
 <script src="{{ asset('/js/handlebarsHelpers.js')}}"></script>

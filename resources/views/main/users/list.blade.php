@@ -23,5 +23,3 @@
 
 @stop
 
-@section('footerScripts')
-@append
