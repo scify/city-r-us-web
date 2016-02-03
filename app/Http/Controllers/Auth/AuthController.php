@@ -67,4 +67,10 @@ class AuthController extends Controller {
 
         return redirect('/');
     }
+
+    public function getRegister()
+    {
+        return redirect('auth/login');
+    }
+
 }

@@ -41,9 +41,6 @@
                                         <div class="form-group">
                                             <a href="{{ url('/password/email') }}" class="display-block text-center m-t-md text-sm">{{trans($lang.'forgotPass')}}</a>
                                         </div>
-                                        <div class="form-group">
-                                            <a href="{{ url('/auth/register') }}" class="display-block text-center m-t-md text-sm">{{trans($lang.'register')}}</a>
-                                        </div>
                                    </form>
                             </div>
                         </div>
