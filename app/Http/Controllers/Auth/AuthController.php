@@ -9,28 +9,12 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller {
 
-    protected $redirectPath = '/dashboard';
-	/*
-	|--------------------------------------------------------------------------
-	| Registration & Login Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller handles the registration of new users, as well as the
-	| authentication of existing users. By default, this controller uses
-	| a simple trait to add these behaviors. Why don't you explore it?
-	|
-	*/
-
 	use AuthenticatesAndRegistersUsers;
 
-	/**
-	 * Create a new authentication controller instance.
-	 *
-	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
-	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
-	 * @return void
-	 */
-	public function __construct(Guard $auth, Registrar $registrar)
+    protected $redirectTo = '/missions';
+    protected $redirectPath = '/missions';
+
+    public function __construct(Guard $auth, Registrar $registrar)
 	{
 		$this->auth = $auth;
 		$this->registrar = $registrar;
@@ -58,7 +42,7 @@ class AuthController extends Controller {
             //if the login is successful, save the jwt at a cookie
             $jwt = JWTService::setCookie();
 
-            return redirect()->intended($this->redirectPath())->withCookie(cookie()->forever('jwtToken', $jwt, 0, null, null, null, false));
+            return redirect()->to($this->redirectPath())->withCookie(cookie()->forever('jwtToken', $jwt, 0, null, null, null, false));
         }
 
         return redirect($this->loginPath())
