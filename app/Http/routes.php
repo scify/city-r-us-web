@@ -27,4 +27,4 @@ Route::post('/missions/{id}/img/update', 'MissionController@updateImg');
 /* Users Routes */
 Route::get('/users', ['as' => 'users', 'uses' => 'UserController@index']);
 Route::get('/users/{mission}', 'UserController@index');
-Route::post('/users/mail', 'UserController@mail');
+Route::post('/users/emailUser', 'UserController@emailUser');

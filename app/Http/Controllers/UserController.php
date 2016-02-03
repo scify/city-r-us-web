@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Mail;
 use App\Services\Curl;
+use Mail;
 
 class UserController extends Controller {
 
@@ -51,20 +51,17 @@ class UserController extends Controller {
         });
         return view('main.users.list', ['missions' => $missions, 'users' => $userInfo, 'active' => $mission]);
     }
-    
-    public function mail() {
-        $user = \Request::get('user');
-        $users = $this->curl->get('/users', [])->message->users;
-        foreach ($users as $curUser) {
-            if ($curUser->id == $user) {
-                $user = $curUser;
-                break;
-            }
-        }
-        Mail::raw(\Request::get('body'), function($message) use ($user) {
-            $message->to($user->email);
-            $message->subject(\Request::get('subject'));
+
+
+    public function emailUser() {
+
+        $user = $this->curl->get('/users/byId', ['id' => \Request::get('user')])->message->user;
+        $email = $user->email;
+
+        \Mail::send('emails.email_user', ['msg' => \Request::get('body'), 'user' => $user], function ($message) use ($email) {
+            $message->to($email)->subject('Μήνυμα από την εφαρμογή City-R-US!');
         });
-        return \Redirect::route('users');
+
+        return;
     }
 }

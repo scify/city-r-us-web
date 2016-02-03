@@ -30,24 +30,26 @@
                 </button>
                 <h4 class="modal-title">Αποστολή E-mail</h4>
             </div>
-            <div class="modal-body">
-                <form id="email_form" action="/users/mail" method="post">
-                    <div class="form-group">
-                        <label for="email_subject">Θέμα*:</label>
-                        <input type="text" class="form-control" id="email_subject" name="subject"/>
-                        <input type="hidden" id="email_user_id" name="user"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="email_body">Περιεχόμενο*:</label>
-                        <textarea class="form-control" id="email_body" name="body" rows="5"></textarea>
-                    </div>
-                </form>
-                <div class="text-danger"></div>
+            <div class="modal-body sendEmail">
+                {!! Form::open(['method' => 'POST', 'action' => 'UserController@emailUser', 'id' => 'emailUser']) !!}
+                <div class="form-group">
+                    <label for="email_subject">Θέμα*:</label>
+                    <input type="text" class="form-control" id="email_subject" name="subject"/>
+                    <input type="hidden" id="email_user_id" name="user"/>
+                </div>
+                <div class="form-group">
+                    <label for="email_body">Περιεχόμενο*:</label>
+                    <textarea class="form-control" id="email_body" name="body" rows="5"></textarea>
+                </div>
+                <div class="text-danger" id="error"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Άκυρο</button>
-                <input type="submit" form="email_form" class="btn btn-primary" id="sendEmail" value="Αποστολή"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Άκυρο</button>
+                <button type="button" class="btn btn-success has-spinner" id="sendEmail">
+                    <span class="spinner"><i class="icon-spin icon-refresh"></i></span> Αποστολή
+                </button>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
@@ -57,33 +59,41 @@
 
 <script>
 
+
     $("#sendEmail").click(function () {
 
         if (validate()) {
+            $(this).toggleClass('activated');
             $.ajax({
-                url: $("body").attr('data-url') + "/actions/task/create",
-                method: 'GET',
-                data: $("#createTask").serialize(),
-                success: function (result) {
-                    location.reload();
+                url: $("body").attr('data-url') + "/users/emailUser",
+                method: 'POST',
+                data: $("#emailUser").serialize(),
+                success: function (response) {
+                    $(".modal-footer").hide();
+                    $(".sendEmail").html('<p>Το μήνυμα απεστάλλει.</p>');
                 }
             });
         }
-
     });
 
 
     function validate() {
-
         var msg = '';
+        var flag = true;
 
-        if (!$("#email_subject").val() || !$("#email_subject").val().length)
+        if (!$("#email_subject").val() || !$("#email_subject").val().length) {
             msg += "<p>Συμπληρώστε το θέμα του email<p>";
+            flag = false;
+        }
 
-        if (!$("#email_subject").val() || !$("#email_subject").val().length)
+        if (!$("#email_body").val() || !$("#email_body").val().length) {
             msg += "<p>Συμπληρώστε το κείμενο του email<p>";
+            flag = false;
+        }
 
+        $("#error").html(msg);
 
+        return flag;
     }
 </script>
 @append
