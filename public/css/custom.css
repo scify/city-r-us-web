@@ -36,3 +36,8 @@ img.logo{width:40%;}
     opacity: 1;
     width: auto; /* This doesn't work, just fix for unkown width elements */
 }
+
+
+#termsAndConditions{
+    padding-top:100px;
+}

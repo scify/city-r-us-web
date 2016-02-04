@@ -6,16 +6,7 @@ use App\Services\Curl;
 use App\Services\MissionService;
 
 class HomeController extends Controller {
-    /*
-      |--------------------------------------------------------------------------
-      | Welcome Controller
-      |--------------------------------------------------------------------------
-      |
-      | This controller renders the "marketing page" for the application and
-      | is configured to only allow guests. Like most of the other sample
-      | controllers, you are free to modify or remove it as you desire.
-      |
-     */
+
 
     private $curl;
 
@@ -36,6 +27,10 @@ class HomeController extends Controller {
      */
     public function index() {
         return view('main.home.index');
+    }
+
+    public function termsAndConditions() {
+        return view('main.home.termsAndConditions');
     }
 
     public function citymap() {
