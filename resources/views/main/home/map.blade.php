@@ -30,7 +30,6 @@
                     fromEnd = query.length;
                 }
                 var tokens = query.substring(fromInd, fromEnd).split("=")[1].split("-");
-                console.log(tokens);
                 if (tokens.length === 3) {
                     $('.datepicker.from').datepicker('update', new Date(tokens[2] + "/" + tokens[1] + "/" + tokens[0]));
                 }

@@ -34,15 +34,8 @@ class HomeController extends Controller {
     }
 
     public function citymap() {
-        $from = $to = null;
-        if (isset($_GET['from'])) {
-            $from = $_GET['from'];
-        }
-        if (isset($_GET['to'])) {
-            $to = $_GET['to'];
-        }
         $missionService = new MissionService();
-        $missions = $missionService->getMissions($from, $to);
+        $missions = $missionService->getMissions();
         return view('main.home.map', compact("missions"));
     }
 
