@@ -6,16 +6,7 @@ use App\Services\Curl;
 use App\Services\MissionService;
 
 class HomeController extends Controller {
-    /*
-      |--------------------------------------------------------------------------
-      | Welcome Controller
-      |--------------------------------------------------------------------------
-      |
-      | This controller renders the "marketing page" for the application and
-      | is configured to only allow guests. Like most of the other sample
-      | controllers, you are free to modify or remove it as you desire.
-      |
-     */
+
 
     private $curl;
 
@@ -38,16 +29,13 @@ class HomeController extends Controller {
         return view('main.home.index');
     }
 
+    public function termsAndConditions() {
+        return view('main.home.termsAndConditions');
+    }
+
     public function citymap() {
-        $from = $to = null;
-        if (isset($_GET['from'])) {
-            $from = $_GET['from'];
-        }
-        if (isset($_GET['to'])) {
-            $to = $_GET['to'];
-        }
         $missionService = new MissionService();
-        $missions = $missionService->getMissions($from, $to);
+        $missions = $missionService->getMissions();
         return view('main.home.map', compact("missions"));
     }
 

@@ -3,6 +3,7 @@
 /* Guest Routes */
 Route::get('/', ['as' => '/', 'uses' => 'HomeController@index']);
 Route::get('/dashboard', ['as' => 'admin/home', 'uses' => 'AdminController@index']);
+Route::get('/termsAndConditions', 'HomeController@termsAndConditions');
 Route::get('/city-map', 'HomeController@citymap');
 Route::get('/city-map/venues', 'HomeController@getVenues');
 Route::get('/city-map/events', 'HomeController@getEvents');

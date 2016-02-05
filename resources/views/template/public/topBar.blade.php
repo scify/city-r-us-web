@@ -5,18 +5,13 @@
                           <span class="sr-only">Toggle navigation</span>
                           <span class="fa fa-bars"></span>
                       </button>
-                      <a class="navbar-brand" href="#">City-R-US</a>
+                      <a class="navbar-brand" href="{{ url('/') }}">City-R-US</a>
                   </div>
                   <div id="navbar" class="navbar-collapse collapse navbar-right">
                       <ul class="nav navbar-nav">
 
-                        @if( $active=="home")
-                           <li class="active"><a href="#home">Αρχική</a></li>
-                           <li ><a href="{{action("HomeController@citymap")}}">Δες τον χάρτη</a></li>
-                        @else
-                           <li><a href="{{ action("HomeController@index") }}">Αρχική</a></li>
-                           <li class="active" ><a href="{{action("HomeController@citymap")}}">Δες τον χάρτη</a></li>
-                        @endif
+                           <li {{ $active=="home" ? 'class=active' : ''}}><a href="#home">Αρχική</a></li>
+                           <li {{ $active=="map" ? 'class=active' : ''}}><a href="{{action("HomeController@citymap")}}">Δες τον χάρτη</a></li>
                       </ul>
                   </div>
               </div>
