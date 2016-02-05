@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <title> @yield('title') | {{trans('/default.title')}}</title>
+        <title> @yield('title') | {{trans('home_default.pageTitle')}}</title>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta charset="UTF-8">
 

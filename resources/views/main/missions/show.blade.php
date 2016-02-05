@@ -1,9 +1,9 @@
 @extends('template.default')
 @section('title')
-Προβολή αποστολής
+{{trans('admin_pages.viewMission')}}
 @stop
 @section('pageTitle')
-Προβολή αποστολής
+{{trans('admin_pages.viewMission')}}
 @stop
 
 @section('bodyContent')
@@ -34,19 +34,19 @@
                                 <div class="caption">
                                     <h3>{{ $mission->name }}</h3>
 
-                                    <p>Τύπος: {{ $mission->type->name=='location' ? 'Καταγραφή σημείου στο χάρτη' : 'Διαδρομή' }}</p>
+                                    <p>{{trans('admin_pages.viewMission')}}: {{ $mission->type->name=='location' ?  trans('admin_pages.location') : trans('admin_pages.route') }}</p>
 
-                                    <p>Ημερομηνία δημιουργίας: {{ \Carbon::parse($mission->created_at)->format('d/m/Y')
+                                    <p>{{trans('admin_pages.creationDate')}}: {{ \Carbon::parse($mission->created_at)->format('d/m/Y')
                                         }}</p>
                                     @if($mission->description!=null)
-                                    <p>Περιγραφή: {{ $mission->description }}</p>
+                                    <p>{{trans('admin_pages.description')}}: {{ $mission->description }}</p>
                                     @endif
-                                    <p>{{sizeof($mission->users)}} συμμετέχοντες</p>
+                                    <p>{{sizeof($mission->users)}} {{trans('admin_pages.contributors')}}</p>
                                 </div>
                                 <div class="text-right">
                                     <a href="{{ url('/missions/edit/'.$mission->id) }}" class="btn btn-success">
-                                        Επεξεργασία</a>
-                                    <button onclick="destroyMission({{ $mission->id }})" class="btn btn-danger">Διαγραφή
+                                        {{trans('admin_pages.edit')}}</a>
+                                    <button onclick="destroyMission({{ $mission->id }})" class="btn btn-danger">{{trans('admin_pages.delete')}}
                                     </button>
                                     {!! Form::open(['method' => 'GET', 'action' => ['MissionController@delete', 'id' => $mission->id], 'id' =>
                                     'deleteMission']) !!}
@@ -56,7 +56,7 @@
                         </div>
                         @else
                         <div class="col-sm-12 col-md-12">
-                            <p>Η αποστολή δεν βρέθηκε</p>
+                            <p>{{trans('admin_pages.missionNotFound')}}</p>
                         </div>
                         @endif
                     </div>

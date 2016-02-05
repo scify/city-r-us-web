@@ -1,7 +1,7 @@
 @extends('template.default')
 
 @section('title')
-Χρήστες
+{{trans_choice('admin_pages.users', 2)}}
 @stop
 
 @section('headerScripts')
@@ -13,7 +13,7 @@
 @stop
 
 @section('pageTitle')
-Χρήστες
+{{trans_choice('admin_pages.users', 2)}}
 @stop
 
 @section('bodyContent')

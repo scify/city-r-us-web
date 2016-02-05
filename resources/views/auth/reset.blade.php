@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- Title -->
-    <title>VoluntEasy | Login </title>
+    <title>Reset Password | City-R-US</title>
 
     @include('template.default.headerIncludes')
 </head>

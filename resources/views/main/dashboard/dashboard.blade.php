@@ -1,8 +1,8 @@
 @extends('template.default')
 @section('title')
-Αρχική
+{{trans('admin_pages.home')}}
 @stop
-@section('pageTitle')
+{{trans('admin_pages.home')}}
 Αρχική
 @stop
 
@@ -13,7 +13,7 @@
             <div class="panel-body">
                 <div class="info-box-stats">
                     <p class="counter">{{ $missions }}</p>
-                    <span class="info-box-title">{{ $missions==1 ? 'Αποστολή' : 'Αποστολές' }}</span>
+                    <span class="info-box-title">{{trans_choice('admin_pages.missions', $missions)}}</span>
                 </div>
                 <div class="info-box-icon">
                     <i class="fa fa-bullseye"></i>
@@ -26,7 +26,7 @@
             <div class="panel-body">
                 <div class="info-box-stats">
                     <p class="counter">{{ $users }}</p>
-                    <span class="info-box-title">{{ $users==1 ? 'Χρήστης' : 'Χρήστες' }}</span>
+                    <span class="info-box-title">{{trans_choice('admin_pages.users', $users)}}</span>
                 </div>
                 <div class="info-box-icon">
                     <i class="fa fa-users"></i>
@@ -39,7 +39,7 @@
             <div class="panel-body">
                 <div class="info-box-stats">
                     <p class="counter">{{ $observations }}</p>
-                    <span class="info-box-title">{{ $observations==1 ? 'Παρατήρηση' : 'Παρατηρήσεις' }}</span>
+                    <span class="info-box-title">{{trans_choice('admin_pages.observations', $observations)}}</span>
                 </div>
                 <div class="info-box-icon">
                     <i class="fa fa-map-marker"></i>

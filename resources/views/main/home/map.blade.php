@@ -1,7 +1,7 @@
 @extends('template.public.default')
 
 @section('title')
-    Ο χάρτης της πόλης
+{{ trans('home_default.city-map') }}
 @stop
 
 @section('headerScripts')
@@ -66,30 +66,30 @@
     <div id="map-section" data-url="{!! env('WEB_URL') !!}">
         <div id="pois-events">
             <div class="row">
-                <a id="show-events" href="javascript:void(0)">Δράσεις στην περιοχή</a>
+                <a id="show-events" href="javascript:void(0)">{{ trans('home_default.actionsInCity') }}</a>
                 <a id="hideEvents" class="hide" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>
             </div>
 
 
             <div class="row">
-                <a id="show-pois" href="javascript:void(0)">Σημεία ενδιαφέροντος στην περιοχή</a>
+                <a id="show-pois" href="javascript:void(0)">{{ trans('home_default.pois') }}</a>
                 <a id="hidePoIs" class="hide"><i class="glyphicon glyphicon-remove"></i></a>
             </div>
         </div>
         <div id="map-filter">
             <div id="filters">
-                <h1>Eπιλογή αποστολής</h1>
+                <h1>{{ trans('home_default.selectMission') }}</h1>
                 @if ($missions->status=="success")
                     <div id="missions">
                         @foreach($missions->message->missions as $m)
                         <div data-id="{{ $m->id }}" data-type="{{ $m->type_id }}" class="mission" title="{{ $m->description }}">{{ $m->name }}</div>
                         @endforeach
                     </div>
-                    <h1>Eπιλογή Περιόδου</h1>
+                    <h1>{{ trans('home_default.selectDate') }}</h1>
                     <div id="period">
                         <form action="#">
                             <div class="datepick-wrapper">
-                                Από:
+                                {{ trans('home_default.from') }}:
                                 <div id="from-date" class="input-group date datepicker from">
                                     <input name="from" type="text" class="form-control">
                                     <span class="input-group-addon">
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="datepick-wrapper">
-                                Έως:
+                                {{ trans('home_default.to') }}:
                                 <div id="to-date" class="input-group date datepicker to">
                                     <input name="to" type="text" class="form-control">
                                     <span class="input-group-addon">
@@ -106,12 +106,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <input type="submit" class="btn btn-danger" value="Ανανέωση">
+                            <input type="submit" class="btn btn-danger" value="{{ trans('home_default.refresh') }}">
                         </form>
                     </div>
                 @else
                     <div>
-                        Συνέβει ένα λάθος κατά την φόρτωση αποστολών...
+                      {{ trans('home_default.error') }}
                     </div>
                 @endif
             </div>

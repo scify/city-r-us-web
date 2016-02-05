@@ -1,7 +1,7 @@
 @extends('template.public.default')
 
 @section('title')
-    Αρχική
+{{ trans('home_default.home') }}
 @stop
 
 @section('headerScripts')
@@ -33,13 +33,12 @@
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
-                <a href="{{ action("AdminController@index") }}" class="admin-entry btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Περιβάλλον Διαχειριστή</a>
+                <a href="{{ action("AdminController@index") }}" class="admin-entry btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.adminInterface') }}</a>
                 <div class="home-text col-md-8">
-                    <h1 class="wow fadeInDown" data-wow-delay="1.5s" data-wow-duration="1.5s" data-wow-offset="10">Η πόλη είμαστε εμείς!</h1>
-                    <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">
-                    Πάρε μέρος σε αποστολές στην Αθήνα <br>Βελτίωσε την πόλη σου</p>
-                    <a href="https://play.google.com/apps/testing/gr.scify.cityrus" target="_blank" class="btn btn-default btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Κατέβασε την εφαρμογή</a>
-                    <a href="{{ action("HomeController@citymap") }}" target="_blank" class="btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Χάρτης με αποτελέσματα</a>
+                    <h1 class="wow fadeInDown" data-wow-delay="1.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.title') }}</h1>
+                    <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">{!! trans('home_default.subtitle') !!}</p>
+                    <a href="https://play.google.com/apps/testing/gr.scify.cityrus" target="_blank" class="btn btn-default btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.download') }}</a>
+                    <a href="{{ action("HomeController@citymap") }}" target="_blank" class="btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.map') }}</a>
                 </div>
                 <div class="scroller">
                     <div class="mouse"><div class="wheel"></div></div>
@@ -54,25 +53,21 @@
                 <div class="feature-icon">
                     <i class="fa fa-flag"></i>
                 </div>
-                <h2>Βρες αποστολές</h2>
-                <p>Ο Δήμος τις Αθήνας προτείνει αποστολές για να βελτιώσουμε την πόλη.</p>
-
+                {!! trans('home_default.feature1') !!}
             </div>
             <div class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.7s">
                 <div class="feature-icon">
                     <i class="fa fa-map-marker"></i>
                 </div>
-                <h2>Ανέβασε διαδρομή</h2>
-                <p>Μπορείς να συνεισφέρεις σ'ενα δημόσιο χάρτη, στέλνοντας είτε ενα σημείο ή μια διαδρομή (ανάλογα με την αποστολή)</p>
-
+                {!! trans('home_default.feature2') !!}
             </div>
             <div class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.9s">
                 <div class="feature-icon">
                     <i class="fa fa-globe"></i>
                 </div>
-                <h2>Δες τον χάρτη της πόλης</h2>
-                <p>Η συνεισφορά όλων των πολιτών φαίνεται σένα δημόσιο χάρτη. Κλικ <a href="/map">εδώ </a></p>
-
+                {!! trans('home_default.feature3', [
+                'link' => '<a href="'.url('/city-map').'" target="_blank">εδώ</a>'
+                ]) !!}
             </div>
         </div>
     </div>
@@ -83,15 +78,16 @@
                     <img src="{{ asset('img/home/cityrus-mobileapp.png') }}" class="iphone-img" alt="">
                 </div>
                 <div class="col-sm-8 wow fadeInRight" data-wow-delay="0.5s" data-wow-duration="1.5s" data-wow-offset="10">
-                    <h1>Λίγα λογια για την εφαρμογή</h1>
-                    <p>Το City-R-US ειναι μια εφαρμογή που επιτρέπει στους κατοίκους της Αθήνας να συμμετέχουν σε αποστολές.
-                       Επίλεξε την αποστολή που σε ενδιαφέρει και βοήθησε τη πόλη σου!
-                       Τα δεδομένα των αποστολών συλλέγονται σ'έναν δημόσιο χάρτη διαθέσιμο <a href="/map">εδώ</a></p>
+                    <h1>{{ trans('home_default.fewWords') }}</h1>
+                    {!! trans('home_default.subFewWords', [
+                    'link' => '<a href="'.url('/city-map').'" target="_blank">εδώ</a>'
+                    ]) !!}
+
                     <ul class="list-unstyled features-list-2">
-                        <li><i class="fa fa-diamond icon-state-success m-r-xs icon-md"></i>Μοντέρνα αισθητική</li>
-                        <li><i class="fa fa-check icon-state-success m-r-xs icon-md"></i>Μπορείς να προτείνεις κ εσύ αποστολές!</li>
-                        <li><i class="fa fa-cogs icon-state-success m-r-xs icon-md"></i>Επιβράβευση των πολιτών που συνεισφέρουν περισσότερο</li>
-                        <li><i class="fa fa-cloud icon-state-success m-r-xs icon-md"></i>Εύκολο στη χρήση του</li>
+                        <li><i class="fa fa-diamond icon-state-success m-r-xs icon-md"></i>{{ trans('home_default.list1') }}</li>
+                        <li><i class="fa fa-check icon-state-success m-r-xs icon-md"></i>{{ trans('home_default.list2') }}</li>
+                        <li><i class="fa fa-cogs icon-state-success m-r-xs icon-md"></i>{{ trans('home_default.list3') }}</li>
+                        <li><i class="fa fa-cloud icon-state-success m-r-xs icon-md"></i>{{ trans('home_default.list4') }}</li>
                     </ul>
                 </div>
             </div>
@@ -112,9 +108,7 @@
                             <div class="item active">
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">
-                                        <p class="text-white">Πολύ καλή ιδέα!<br> Θα είναι εξαιρετικό να έχουμε χαρτογραφημένα σημεία και διαδρομές που είναι προσβάσιμες από ΑμεΑ στην πόλη.<br> Πείτε μου πως να βοηθήσω.</p>
-                                        <span>Dr. Γιώργος Χρηστάκης
-                                               <br>Χορογράφος, <br>χορευτής σε αναπ.αμαξίδιο, <br>ιδρυτής του Χοροθεάτρου ΔΑΓΙΠΟΛΗ</span>
+                                        {!! trans('home_default.testimonial1') !!}
                                     </div>
                                 </div>
                             </div>
@@ -145,22 +139,22 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 wow rotateInUpLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.5s">
                     <a href="#contact" class="btn btn-success btn-lg btn-rounded contact-button"><i class="fa fa-envelope-o"></i></a>
-                    <h2>Πρότεινε μια αποστολή</h2>
+                    <h2>{{ trans('home_default.suggest') }}</h2>
                     <form class="m-t-md">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control input-lg contact-name" placeholder="Όνομα">
+                                    <input type="text" class="form-control input-lg contact-name" placeholder="{{ trans('home_default.name') }}">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="email" class="form-control input-lg" placeholder="Email">
+                                    <input type="email" class="form-control input-lg" placeholder="{{ trans('home_default.email') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="4=6" placeholder="Θα σας πρότεινα να..."></textarea>
+                            <textarea class="form-control" rows="4=6" placeholder="{{ trans('home_default.iWouldSuggest') }}"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-default btn-lg">Aποστολή</button>
+                        <button type="submit" class="btn btn-default btn-lg">{{ trans('home_default.submit') }}</button>
                     </form>
                 </div>
             </div>
@@ -168,10 +162,10 @@
     </div>
     <footer>
         <div class="container">
-            <p class="text-center no-s">2015 &copy; SciFY | <a href="{{ url('termsAndConditions') }}">Πολιτική Απορρήτου</a> | <a href="https://commons.wikimedia.org/wiki/File:Athens_-_Monastiraki_square_and_station_-_20060508.jpg" target="_blank">Πηγή εικόνας background</a></p>
+            <p class="text-center no-s">2015 &copy; SciFY | <a href="{{ url('termsAndConditions') }}">{{ trans('home_default.termsAndConditions') }}</a> | <a href="https://commons.wikimedia.org/wiki/File:Athens_-_Monastiraki_square_and_station_-_20060508.jpg" target="_blank">{{ trans('home_default.imageSrc') }}</a></p>
         </div>
         <div class="container text-center">
-            <p class=" no-s">Το έργο έχει λάβει χρηματοδότηση από το πρόγραμμα Ανταγωνιστικότητας και Καινοτομίας της Ευρωπαϊκής Ένωσης στο πλαίσιο συμφωνίας επιχορήγησης υπ' αριθμ. 325138.</p>
+            <p class=" no-s">{{ trans('home_default.funding') }}</p>
             <a href="http://www.radical-project.eu/" target="_blank"><img src="{{ asset('img/radical_logo.jpg') }}"></a>
             <img src="{{ asset('img/commission_europeenne_logo.jpg') }}">
         </div>

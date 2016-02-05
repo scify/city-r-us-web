@@ -1,11 +1,11 @@
 @extends('template.default')
 
 @section('title')
-Επεξεργασία Αποστολής
+{{trans('admin_pages.editMission')}}
 @stop
 
 @section('pageTitle')
-Επεξεργασία Αποστολής
+{{trans('admin_pages.editMission')}}
 @stop
 
 @section('bodyContent')
@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <div class="panel panel-white">
             <div class="panel-heading clearfix">
-                <h4 class="panel-title">Στοιχεία αποστολής</h4>
+                <h4 class="panel-title">{{ trans('admin_pages.missionDetails') }}</h4>
 
                 <div class="panel-control">
                     <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title=""
@@ -26,13 +26,13 @@
                     @if ($mission!=null)
                     <div class="col-md-12">
                         {!! Form::model($mission, ['method' => 'POST', 'action' => ['MissionController@update', 'id' => $mission->id], 'id' => 'editMission', 'files'=>true]) !!}
-                        @include('main.missions.partials._form', ['submitButtonText' => 'Αποθήκευση', 'mission' => $mission])
+                        @include('main.missions.partials._form', ['mission' => $mission])
                         {!! Form::hidden('id', $mission->id, ['id' => 'mission_id']) !!}
                         {!! Form::close() !!}
                     </div>
                     @else
                     <div class="col-sm-12 col-md-12">
-                        <p>Η αποστολή δεν βρέθηκε</p>
+                        <p>{{ trans('admin_pages.missionNotFound') }}</p>
                     </div>
                     @endif
                 </div>

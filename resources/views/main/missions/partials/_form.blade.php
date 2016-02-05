@@ -17,13 +17,13 @@
 
     <div class="col-md-12">
         <div class="form-group">
-            {!! Form::formInput('name', 'Όνομα:', $errors, ['class' => 'form-control', 'id' =>
+            {!! Form::formInput('name', trans('admin_pages.name').':', $errors, ['class' => 'form-control', 'id' =>
             'name', 'required' => 'true']) !!}
         </div>
         <div class="form-group">
-            <p>Τύπος αποστολής *:</p>
+            <p>{{ trans('admin_pages.missionType') }}: *</p>
             <label>
-                Διαδρομή
+                {{ trans('admin_pages.route') }}
                 @if (isset($mission) && $mission->type->name=='route')
                 {!! Form::formInput('mission_type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'route', 'checked' => 'true']) !!}
@@ -33,7 +33,7 @@
                 @endif
             </label>
             <label>
-                Καταγραφή σημείου στο χάρτη
+                {{ trans('admin_pages.location') }}
                 @if (isset($mission) && $mission->type->name=='location')
                 {!! Form::formInput('mission_type', '', $errors, ['class' => 'form-control', 'type' => 'radio', 'value'
                 => 'location', 'checked' => 'true']) !!}
@@ -44,12 +44,12 @@
             </label>
         </div>
         <div class="form-group">
-            {!! Form::formInput('description', 'Περιγραφή:', $errors, ['class' => 'form-control', 'type' => 'textarea',
+            {!! Form::formInput('description', trans('admin_pages.description').':', $errors, ['class' => 'form-control', 'type' => 'textarea',
             'size' => '5x5', 'id' => 'description', 'required' => 'true']) !!}
         </div>
         <div class="alert alert-danger" id="errors"></div>
         <div class="form-group text-right">
-            {!! Form::submit($submitButtonText, ['class' => 'btn btn-success', 'id' => 'saveMission']) !!}
+            {!! Form::submit(trans('admin_pages.save'), ['class' => 'btn btn-success', 'id' => 'saveMission']) !!}
         </div>
     </div>
 </div>

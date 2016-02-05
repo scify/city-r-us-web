@@ -1,5 +1,5 @@
 function destroyMission(id) {
-    if (confirm("Είστε σίγουροι ότι θέλετε να διαγράψετε την αποστολή;") == true) {
+    if (confirm(Lang.get('admin_pages.deleteMission')) == true) {
 
         $("#deleteMission").off('submit');
         $("#deleteMission").submit();

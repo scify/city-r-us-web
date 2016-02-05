@@ -1,9 +1,9 @@
 @extends('template.default')
 @section('title')
-Αποστολές
+{{trans_choice('admin_pages.missions', 2)}}
 @stop
 @section('pageTitle')
-Αποστολές
+{{trans_choice('admin_pages.missions', 2)}}
 @stop
 
 @section('bodyContent')

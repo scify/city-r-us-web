@@ -2,11 +2,9 @@
 <html>
 <head>
     <!-- Title -->
-    <title> @yield('title') | {{trans('/default.title')}}</title>
-
+    <title> @yield('title') | {{trans('admin_login.title')}}</title>
     <!-- Include css, js files-->
     @include('template.default.headerIncludes')
-    @yield('headerScripts')
 </head>
 
 
@@ -18,7 +16,7 @@
     <!--Side Menu--->
     @include('template.default.menu')
 
-    <div class="page-inner" >
+    <div class="page-inner">
         <!--Page Title & Breadcrumbs -->
         @include('template.default.pageTitle')
 

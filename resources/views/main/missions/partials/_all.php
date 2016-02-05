@@ -13,12 +13,12 @@
                 <div class="caption">
                     <h3>{{this.name}}</h3>
                     {{#ifCond type.name '==' 'route'}}
-                    <p>Τύπος: Διαδρομή</p>
+                    <p><?php echo trans('admin_pages.type') ?>: <?php echo trans('admin_pages.route') ?></p>
                     {{/ifCond}}
                     {{#ifCond type.name '==' 'location'}}
-                    <p>Τύπος: Καταγραφή σημείου στο χάρτη </p>
+                    <p><?php echo trans('admin_pages.type') ?>: <?php echo trans('admin_pages.location') ?></p>
                     {{/ifCond}}
-                    <p class="small text-right">{{this.users.length}} συμμετέχοντες</p>
+                    <p class="small text-right">{{this.users.length}} <?php echo trans('admin_pages.contributors') ?></p>
                 </div>
             </div>
         </div>

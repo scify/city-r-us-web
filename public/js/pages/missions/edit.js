@@ -22,15 +22,15 @@ function validate() {
 
 
     if (!name || !name.trim()) {
-        msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Όνομα".</li>';
+        msg += '<li>' + Lang.get('admin_pages.addName') + '</li>';
         isValid = false;
     }
-   if (!description || !description.trim()) {
-        msg += '<li>Παρακαλώ συμπληρώστε το πεδίο "Περιγραφή".</li>';
+    if (!description || !description.trim()) {
+        msg += '<li>' + Lang.get('admin_pages.addDescription') + '</li>';
         isValid = false;
     }
     if (!$("input[name='mission_type']:checked").val()) {
-        msg += '<li>Παρακαλώ επιλέξτε τύπο αποστολής.</li>';
+        msg += '<li>' + Lang.get('admin_pages.addType') + '</li>';
         isValid = false;
     }
 

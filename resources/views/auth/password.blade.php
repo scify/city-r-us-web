@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- Title -->
-    <title>Reset Password | City-R-US</title>
+    <title>{{trans('passwords.resetPassword')}} | {{trans('admin_login.title')}}</title>
 
     @include('template.default.headerIncludes')
 </head>
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" />
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">Send Password Reset Link</button>
+                            <button type="submit" class="btn btn-success btn-block">{{trans('passwords.sendReset')}}</button>
                         </form>
                     </div>
                 </div>

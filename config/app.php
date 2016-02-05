@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
         'Illuminate\Html\HtmlServiceProvider',
+        'Illuminate\Broadcasting\BroadcastServiceProvider',
 
         /*
          * Application Service Providers...
@@ -148,6 +149,7 @@ return [
         'App\Providers\RouteServiceProvider',
 
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+        'Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider',
 
 	],
 

@@ -1,7 +1,8 @@
 @extends('template.public.default')
 
 @section('title')
-Πολιτική Απορρήτου
+{{ trans('home_default.terms') }}
+
 @stop
 
 @section('headerScripts')
@@ -86,13 +87,12 @@
     </div>
 </div>
 
-
 <footer>
     <div class="container">
-        <p class="text-center no-s">2015 &copy; SciFY | <a href="{{ url('termsAndConditions') }}">Πολιτική Απορρήτου</a> | <a href="https://commons.wikimedia.org/wiki/File:Athens_-_Monastiraki_square_and_station_-_20060508.jpg" target="_blank">Πηγή εικόνας background</a></p>
+        <p class="text-center no-s">2015 &copy; SciFY | <a href="{{ url('termsAndConditions') }}">{{ trans('home_default.termsAndConditions') }}</a> | <a href="https://commons.wikimedia.org/wiki/File:Athens_-_Monastiraki_square_and_station_-_20060508.jpg" target="_blank">{{ trans('home_default.imageSrc') }}</a></p>
     </div>
     <div class="container text-center">
-        <p class=" no-s">Το έργο έχει λάβει χρηματοδότηση από το πρόγραμμα Ανταγωνιστικότητας και Καινοτομίας της Ευρωπαϊκής Ένωσης στο πλαίσιο συμφωνίας επιχορήγησης υπ' αριθμ. 325138.</p>
+        <p class=" no-s">{{ trans('home_default.funding') }}</p>
         <a href="http://www.radical-project.eu/" target="_blank"><img src="{{ asset('img/radical_logo.jpg') }}"></a>
         <img src="{{ asset('img/commission_europeenne_logo.jpg') }}">
     </div>

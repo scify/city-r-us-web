@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Services\Facades\JWTService;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\Registrar;
+
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 
@@ -14,11 +13,8 @@ class AuthController extends Controller {
     protected $redirectTo = '/missions';
     protected $redirectPath = '/missions';
 
-    public function __construct(Guard $auth, Registrar $registrar)
+    public function __construct()
 	{
-		$this->auth = $auth;
-		$this->registrar = $registrar;
-
 		$this->middleware('guest', ['except' => 'getLogout']);
     }
 
@@ -63,7 +59,7 @@ class AuthController extends Controller {
         //unset the cookie
         JWTService::unsetCookie();
 
-        $this->auth->logout();
+        \Auth::logout();
 
         return redirect('/');
     }

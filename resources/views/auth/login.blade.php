@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<?php  $lang = "auth/login."; ?> {{--  resource label path --}}
 <html>
     <head>
         <!-- Title -->
-        <title>{{trans($lang.'title')}}| {{trans($lang.'logIn')}} </title>
+        <title>{{trans('admin_login.logIn')}} | {{trans('admin_login.title')}}</title>
 
         @include('template.default.headerIncludes')
     </head>
@@ -35,11 +34,11 @@
                                             <input type="password" class="form-control" name="password" placeholder="Password" />
                                         </div>
                                         <div class="form-group">
-                                        			<label><input type="checkbox" name="remember" checked> {{trans($lang.'remember')}}</label>
+                                        			<label><input type="checkbox" name="remember" checked> {{trans('admin_login.remember')}}</label>
                                         </div>
-                                       <button type="submit" class="btn btn-success btn-block">{{trans($lang.'entrance')}}</button>
+                                       <button type="submit" class="btn btn-success btn-block">{{trans('admin_login.entrance')}}</button>
                                         <div class="form-group">
-                                            <a href="{{ url('/password/email') }}" class="display-block text-center m-t-md text-sm">{{trans($lang.'forgotPass')}}</a>
+                                            <a href="{{ url('/password/email') }}" class="display-block text-center m-t-md text-sm">{{trans('admin_login.forgotPass')}}</a>
                                         </div>
                                    </form>
                             </div>
