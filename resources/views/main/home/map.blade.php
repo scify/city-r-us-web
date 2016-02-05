@@ -87,27 +87,24 @@
                     </div>
                     <h1>Eπιλογή Περιόδου</h1>
                     <div id="period">
-                        <form action="#">
-                            <div class="datepick-wrapper">
-                                Από:
-                                <div id="from-date" class="input-group date datepicker from">
-                                    <input name="from" type="text" class="form-control">
-                                    <span class="input-group-addon">
-                                        <i class="glyphicon glyphicon-th"></i>
-                                    </span>
-                                </div>
+                        <div class="datepick-wrapper">
+                            Από:
+                            <div id="from-date" class="input-group date datepicker from">
+                                <input name="from" type="text" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
                             </div>
-                            <div class="datepick-wrapper">
-                                Έως:
-                                <div id="to-date" class="input-group date datepicker to">
-                                    <input name="to" type="text" class="form-control">
-                                    <span class="input-group-addon">
-                                        <i class="glyphicon glyphicon-th"></i>
-                                    </span>
-                                </div>
+                        </div>
+                        <div class="datepick-wrapper">
+                            Έως:
+                            <div id="to-date" class="input-group date datepicker to">
+                                <input name="to" type="text" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
                             </div>
-                            <input type="submit" class="btn btn-danger" value="Ανανέωση">
-                        </form>
+                        </div>
                     </div>
                 @else
                     <div>

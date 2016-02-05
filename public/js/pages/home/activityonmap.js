@@ -160,12 +160,17 @@ scify.ActivityOnMap.prototype = function () {
                 alert("Συνέβει ενα σφάλμα κατα την φόρτωση των δεδομένων");
             },
             getMissionData = function (e) {
+                this.showingMissions = true;
+                this.showingEvents = false;
+
                 var instance = this;
                 var url = instance.loadObservationsTemplateUrl;
-                if (typeof e !== "undefined") {
+                if (typeof e !== "undefined" && e.type === "click") {
                     var mission = $(e.target);
                     var missionId = mission.data("id");
-                    $(".mission.active").removeClass("active");
+                    $("#show-pois").removeClass("active");
+                    $(".mission").removeClass("active");
+                    $("#show-events").removeClass("active");
                     mission.addClass("active");
                     url = url.replace("{id}", missionId);
                 } else {
@@ -198,16 +203,25 @@ scify.ActivityOnMap.prototype = function () {
              * Display the near by events from getEvents API function
              */
             displayEvents = function () {
+                var avoidLoading = false;
+                if (this.showingEvents) {
+                    avoidLoading = true;
+                }
+                this.showingMissions = false;
+                this.showingEvents = true;
+
                 var instance = this;
                 var marker = null;
                 maCenterLatLng = {lat: instance.map.getCenter().lat(), lng: instance.map.getCenter().lng()};
-                clearMarkersAndPaths.call(instance);
 
-                $(".loading").show();
+                if (!avoidLoading) {
+                    $(".loading").show();
+                }
                 $.ajax({
                     //url here with api results and center of map
                     url: instance.loadEventsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                     success: function (data) {
+                        clearMarkersAndPaths.call(instance);
                         $(".loading").hide();
                         var i;
                         var iconGreen = baseUrl + '/img/marker_green.png';
@@ -237,7 +251,7 @@ scify.ActivityOnMap.prototype = function () {
 
                                     infowindow.setContent(content);
                                     infowindow.open(instance.map, marker);
-                                }
+                                };
                             })(marker, i));
 
                             instance.oms.addMarker(marker);
@@ -251,8 +265,10 @@ scify.ActivityOnMap.prototype = function () {
                         displayGenericErrorMsg();
                     }
                 });
-                $("#hideEvents").removeClass("hide");
-                $("#show-events").addClass("greenBack");
+//                $("#hideEvents").removeClass("hide");
+                $("#show-events").addClass("active");
+                $(".mission").removeClass("active");
+                $("#show-pois").removeClass("active");
             },
             // Sets the map on all markers in the array.
             hideEventMarkers = function () {
@@ -267,19 +283,26 @@ scify.ActivityOnMap.prototype = function () {
              * Show points of interest on click from getVenues API function
              */
             displayPoI = function () {
+                var avoidLoading = false;
+                if (!this.showingEvents && !this.showingMissions) {
+                    avoidLoading = true;
+                }
+                this.showingMissions = false;
+                this.showingEvents = false;
+
                 var instance = this;
                 var marker = null;
                 maCenterLatLng = {lat: instance.map.getCenter().lat(), lng: instance.map.getCenter().lng()};
 
-                clearMarkersVenues.call(instance);
-                clearMarkersAndPaths.call(instance);
-
-                $(".loading").show();
-
+                if (!avoidLoading) {
+                    $(".loading").show();
+                }
                 $.ajax({
                     //url here with api results and center of map
                     url: instance.loadVenuestsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                     success: function (data) {
+                        clearMarkersVenues.call(instance);
+                        clearMarkersAndPaths.call(instance);
                         $(".loading").hide();
                         //if (data.status =="success"){
                         var i;
@@ -298,7 +321,7 @@ scify.ActivityOnMap.prototype = function () {
                                             data[i].name + "</strong><br/>" + "<em>" + data[i].categories[0].name + "</em><br/>" + data[i].location.formattedAddress + "<br/>"
                                             + "Here now: " + data[i].hereNow.summary + "<br></div>");
                                     infowindow.open(instance.map, marker);
-                                }
+                                };
                             })(marker, i));
                             instance.oms.addMarker(marker);
                             instance.markersPoIs.push(marker);
@@ -306,17 +329,15 @@ scify.ActivityOnMap.prototype = function () {
                             instance.mc.clearMarkers();
                             instance.mc.addMarkers(instance.markersPoIs);
                         }
-                        //}
-                        //else{
-                        //    displayGenericErrorMsg();
-                        //}
                     },
                     error: function () {
                         displayGenericErrorMsg();
                     }
-                })
-                $("#hidePoIs").removeClass("hide");
-                $("#show-pois").addClass("purpleBack");
+                });
+//                $("#hidePoIs").removeClass("hide");
+                $("#show-pois").addClass("active");
+                $(".mission").removeClass("active");
+                $("#show-events").removeClass("active");
             },
             hidePoIsMarkers = function () {
                 var instance = this;
@@ -331,10 +352,10 @@ scify.ActivityOnMap.prototype = function () {
                 var d = new Date(date);
                 var date = [(d.getDate()),
                     d.getMonth() + 1,
-                    d.getFullYear()].join('/')
+                    d.getFullYear()].join('/');
 
                 return date;
-            }
+            };
 
     /**
      * Initialization of the whole process
@@ -364,19 +385,27 @@ scify.ActivityOnMap.prototype = function () {
             nearbyDistance: 25
         });
 
+        instance.showingMissions = true;
+        instance.showingEvents = false;
+
         $("#filters").on("click", ".mission", getMissionData.bind(instance));
         $("#filters").find(".mission").first().trigger("click");
         $("#show-events").click(displayEvents.bind(instance));
-        $("#hideEvents").click(hideEventMarkers.bind(instance));
+//        $("#hideEvents").click(hideEventMarkers.bind(instance));
         $("#show-pois").click(displayPoI.bind(instance));
-        $("#hidePoIs").click(hidePoIsMarkers.bind(instance));
+//        $("#hidePoIs").click(hidePoIsMarkers.bind(instance));
         $(".datepicker input").change(getMissionData.bind(instance));
-        instance.map.addListener('dragend', getMissionData.bind(instance));
 
-        setTimeout(function () {
-            getMissionData.bind(instance);
-            setTimeout(arguments.callee, 15000);
-        }, 15000);
+        setTimeout((function () {
+            if (this.showingMissions) {
+                getMissionData.bind(instance)();
+            } else if (this.showingEvents) {
+                displayEvents.bind(instance)();
+            } else {
+                displayPoI.bind(instance)();
+            }
+            setTimeout(arguments.callee.bind(instance), 15000);
+        }).bind(instance), 15000);
     };
 
     return {
