@@ -35,7 +35,7 @@
                                             <input type="password" class="form-control" name="password" placeholder="Password" />
                                         </div>
                                         <div class="form-group">
-                                        			<label><input type="checkbox" name="remember"> {{trans($lang.'remember')}}</label>
+                                        			<label><input type="checkbox" name="remember" checked> {{trans($lang.'remember')}}</label>
                                         </div>
                                        <button type="submit" class="btn btn-success btn-block">{{trans($lang.'entrance')}}</button>
                                         <div class="form-group">
