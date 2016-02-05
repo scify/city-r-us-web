@@ -73,23 +73,17 @@ html,body {height:100%;}
     cursor:pointer;
 }
 
+#pois-events #show-events, #pois-events #show-pois {
+    background-color: rgba(54,106,169,0.9);
+}
+
 /*.mission:nth-child(2n) {*/
     /*background-color:  rgba(178, 197, 208, 0.56);*/
 /*}*/
 
-.mission:hover, .mission.active
+.mission:hover, .mission.active, #pois-events #show-events:hover, #pois-events #show-pois:hover, #pois-events #show-events.active, #pois-events #show-pois.active
 {
     background-color: #F15A59;
-}
-
-#show-events:hover
-{
-    background-color: #409685;
-}
-
-#show-pois:hover
-{
-    background-color: #8E67FD;
 }
 
 #pois-events {
@@ -114,14 +108,6 @@ html,body {height:100%;}
     width: 245px;
     text-align: center;
     margin-bottom: 10px;
-}
-
-.purpleBack{
-    background-color: #8E67FD !important;
-}
-
-.greenBack{
-    background-color: #409685 !important;
 }
 
 #hideEvents, #hidePoIs{
