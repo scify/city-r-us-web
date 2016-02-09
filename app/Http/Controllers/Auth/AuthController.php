@@ -1,21 +1,23 @@
-<?php namespace App\Http\Controllers\Auth;
+<?php
+
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\Facades\JWTService;
-
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller {
 
-	use AuthenticatesAndRegistersUsers;
+    use AuthenticatesAndRegistersUsers;
 
     protected $redirectTo = '/missions';
     protected $redirectPath = '/missions';
 
-    public function __construct()
-	{
-		$this->middleware('guest', ['except' => 'getLogout']);
+    public function __construct(Guard $auth) {
+        $this->auth = $auth;
+        $this->middleware('guest', ['except' => 'getLogout']);
     }
 
     /**
@@ -25,16 +27,14 @@ class AuthController extends Controller {
      * @param Request $request
      * @return $this
      */
-    public function postLogin(Request $request)
-    {
+    public function postLogin(Request $request) {
         $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',
         ]);
 
         $credentials = $request->only('email', 'password');
 
-        if ($this->auth->attempt($credentials, $request->has('remember')))
-        {
+        if ($this->auth->attempt($credentials, $request->has('remember'))) {
             //if the login is successful, save the jwt at a cookie
             $jwt = JWTService::setCookie();
 
@@ -42,10 +42,10 @@ class AuthController extends Controller {
         }
 
         return redirect($this->loginPath())
-            ->withInput($request->only('email', 'remember'))
-            ->withErrors([
-                'email' => $this->getFailedLoginMessage(),
-            ]);
+                        ->withInput($request->only('email', 'remember'))
+                        ->withErrors([
+                            'email' => $this->getFailedLoginMessage(),
+        ]);
     }
 
     /**
@@ -54,18 +54,14 @@ class AuthController extends Controller {
      *
      * @return $this
      */
-    public function getLogout()
-    {
+    public function getLogout() {
         //unset the cookie
         JWTService::unsetCookie();
-
-        \Auth::logout();
-
+        $this->auth->logout();
         return redirect('/');
     }
 
-    public function getRegister()
-    {
+    public function getRegister() {
         return redirect('auth/login');
     }
 

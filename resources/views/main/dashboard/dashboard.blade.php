@@ -1,8 +1,6 @@
 @extends('template.default')
 @section('title')
 {{trans('admin_pages.home')}}
-@stop
-{{trans('admin_pages.home')}}
 Αρχική
 @stop
 
