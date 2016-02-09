@@ -69,5 +69,11 @@
 
 
 @section('footerScripts')
+<script src="{{ asset('messages.js')}}"></script>
+<script>
+    Lang.setLocale('el');
+    msg = Lang.has('messages.el.passwords.password');
+    console.log(msg);
+</script>
 <script src="{{ asset('/js/pages/missions/delete.js')}}"></script>
 @append
