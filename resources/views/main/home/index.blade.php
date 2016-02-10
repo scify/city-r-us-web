@@ -37,7 +37,7 @@
                 <div class="home-text col-md-8">
                     <h1 class="wow fadeInDown" data-wow-delay="1.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.title') }}</h1>
                     <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">{!! trans('home_default.subtitle') !!}</p>
-                    <a href="https://play.google.com/apps/testing/gr.scify.cityrus" target="_blank" class="btn btn-default btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.download') }}</a>
+                    <a href="https://play.google.com/store/apps/details?id=gr.scify.cityrus" target="_blank" class="btn btn-default btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.download') }}</a>
                     <a href="{{ action("HomeController@citymap") }}" target="_blank" class="btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.map') }}</a>
                 </div>
                 <div class="scroller">
@@ -49,26 +49,26 @@
 
     <div class="container" id="features">
         <div class="row features-list">
-            <div class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.5s">
+            <a href="https://play.google.com/store/apps/details?id=gr.scify.cityrus" class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.5s">
                 <div class="feature-icon">
                     <i class="fa fa-flag"></i>
                 </div>
                 {!! trans('home_default.feature1') !!}
-            </div>
-            <div class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.7s">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=gr.scify.cityrus" class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.7s">
                 <div class="feature-icon">
                     <i class="fa fa-map-marker"></i>
                 </div>
                 {!! trans('home_default.feature2') !!}
-            </div>
-            <div class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.9s">
+            </a>
+            <a href="{{ action("HomeController@citymap") }}" class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.9s">
                 <div class="feature-icon">
                     <i class="fa fa-globe"></i>
                 </div>
                 {!! trans('home_default.feature3', [
                 'link' => '<a href="'.url('/city-map').'" target="_blank">εδώ</a>'
                 ]) !!}
-            </div>
+            </a>
         </div>
     </div>
     <section id="section-1">
