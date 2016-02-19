@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         if (\Auth::attempt($credentials, $request->has('remember'))) {
 
-            if (\Auth::user()->roles() == null || !in_array('admin', \Auth::user()->roles()->lists('name', 'id')->toArray())) {
+            if (\Auth::user()->roles() == null || !in_array('web', \Auth::user()->roles()->lists('name', 'id')->toArray())) {
                 \Auth::logout();
                 return redirect($this->loginPath())
                     ->withErrors([
