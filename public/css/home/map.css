@@ -1,4 +1,7 @@
-html,body {height:100%;}
+html,body {
+    height:100%;
+}
+
 #header{
     margin-bottom: 0;
 }
@@ -78,7 +81,7 @@ html,body {height:100%;}
 }
 
 /*.mission:nth-child(2n) {*/
-    /*background-color:  rgba(178, 197, 208, 0.56);*/
+/*background-color:  rgba(178, 197, 208, 0.56);*/
 /*}*/
 
 .mission:hover, .mission.active, #pois-events #show-events:hover, #pois-events #show-pois:hover, #pois-events #show-events.active, #pois-events #show-pois.active
@@ -92,7 +95,6 @@ html,body {height:100%;}
     right: 20px;
     text-align: right;
     top: 10px;
-
     z-index: 100;
 }
 
@@ -235,5 +237,66 @@ html,body {height:100%;}
         -ms-transform: rotate(360deg);
         -o-transform: rotate(360deg);
         transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 765px) {
+
+    #pois-events {
+        top: auto;
+        bottom: 52px;
+        right: auto;
+        left: 20px;
+        position: fixed;
+    }
+
+    #map-filter {
+        display: block;
+        position: initial;
+        margin: auto;
+        width: 100%;
+        height: auto;
+    }
+
+    #map-filter h1 {
+        padding: 15px 10px;
+    }
+
+    #missions::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    #map-filter .mission {
+        width: 50%;
+        float: left;
+    }
+
+    #map-container {
+        min-height: calc(100% + 30px);
+        height: calc(100% + 30px);
+    }
+
+    #period {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    #period .datepick-wrapper::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    #period .datepicker {
+        float: right;
+    }
+
+    #puller {
+        display: block;
+        text-align: center;
+        color: grey;
+        padding: 6px 0;
     }
 }

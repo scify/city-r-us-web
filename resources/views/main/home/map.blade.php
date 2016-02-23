@@ -17,7 +17,11 @@
     <script src="{{ asset('/plugins/googleMapsMarkerClusterer/markerclusterer.js')}}"></script>
     <script src="{{ asset('/js/pages/home/activityonmap.js')}}"></script>
     <script>
-        $(function () {
+        $(window).load(function() {
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+        
+        $(function () {            
             $('.datepicker').datepicker({autoclose: true, format: 'dd-mm-yyyy', clearBtn: true});
             
             var query = location.search;
@@ -106,6 +110,7 @@
                             </div>
                         </div>
                     </div>
+                    <div id="puller"><span class="fa fa-bars"></span></div>
                 @else
                     <div>
                       {{ trans('home_default.error') }}
