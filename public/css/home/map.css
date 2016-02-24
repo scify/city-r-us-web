@@ -117,7 +117,9 @@ html,body {
     background-color: #F15A59 !important;
 }
 
-
+#puller {
+    display: none;
+}
 
 /* Absolute Center Spinner */
 .loading {
