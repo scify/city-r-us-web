@@ -15,12 +15,16 @@ scify.ActivityOnMap = function (mapId, markericon, lat, long, zoom, loadObservat
     this.loadObservationsTemplateUrl = loadObservationsTemplateUrl; //this should contain a parameter ({id}) that will be replaces with the mission id
     this.loadEventsUrl = loadEventsUrl;
     this.loadVenuestsUrl = loadVenuestsUrl;
+    this.showEvents = false;
+    this.showPois = false;
+    this.updatePoint = 0;
 };
 scify.ActivityOnMap.prototype = function () {
     var baseUrl = $("#map-section").attr("data-url");
 
     var getMapStyles = function () {
-        return [{
+        return [
+            {
                 "featureType": "administrative",
                 "elementType": "labels.text.fill",
                 "stylers": [{"color": "#444444"}]
@@ -44,52 +48,73 @@ scify.ActivityOnMap.prototype = function () {
                 "featureType": "transit",
                 "elementType": "all",
                 "stylers": [{"visibility": "off"}]
-            }, {"featureType": "water", "elementType": "all", "stylers": [{"color": "#46bcec"}, {"visibility": "on"}]}]
+            }, {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [{"color": "#46bcec"}, {"visibility": "on"}]
+            }
+        ];
     },
-            clearMarkersAndPaths = function () {
-                this.oms.clearMarkers(); // Removes every marker from being tracked.
-                //remove listeners on markers
-                // this.oms.clearListeners(mapTeamOnMap);
-
-                for (var i = 0; i < this.markers.length; i++) {
-                    this.markers[i].setMap(null);
+            selectMission = function (e) {
+                if (e.type === "click") {
+                    var mission = $(e.target);
+                    $(".mission").removeClass("active");
+                    mission.addClass("active");
                 }
-                this.markers = [];
-
-                for (var i = 0; i < this.paths.length; i++) {
-                    this.paths[i].setMap(null);
-                }
-                this.paths = [];
+                updateMap.bind(this)();
             },
-            /**
-             * Clears all markers saved in an array
-             * @param markers
-             */
-            clearMarkersEvents = function () {
-                this.oms.clearMarkers(); // Removes every marker from being tracked.
-                //remove listeners on markers
-                // this.oms.clearListeners(mapTeamOnMap);
-
-                for (var i = 0; i < this.markersEvents.length; i++) {
-                    this.markersEvents[i].setMap(null);
-                }
-                this.markersEvents = [];
-                ;
+            updateMap = function () {
+                var instance = this;
+                instance.updatePoint++;
+                var curUpdatePoint = instance.updatePoint;
+                var url = instance.loadObservationsTemplateUrl.replace("{id}", $(".mission.active").data("id"));
+                $.ajax({
+                    url: url,
+                    data: {
+                        from: $('.datepicker.from input').val(),
+                        to: $('.datepicker.to input').val()},
+                    success: function (data) {
+                        if (instance.updatePoint !== curUpdatePoint) {
+                            return;
+                        }
+                        if (data !== null && data.status === "success") {
+                            clearPaths(instance.paths);
+                            instance.paths = [];
+                            clearMarkers.bind(instance)(instance.markers);
+                            instance.markers = [];
+                            if (data.message.type_id === 1) {
+                                displayLocationData.call(instance, data.message.devices);
+                            }
+                            else {
+                                displayRouteData.call(instance, data.message.devices);
+                            }
+                            if (instance.showEvents) {
+                                loadEvents.bind(instance)();
+                            }
+                            if (instance.showPois) {
+                                loadPois.bind(instance)();
+                            }
+                        }
+                        else {
+                            displayGenericErrorMsg();
+                        }
+                    },
+                    error: function () {
+                        displayGenericErrorMsg();
+                    }
+                });
             },
-            /**
-             * Clears all markers saved in an array
-             * @param markers
-             */
-            clearMarkersVenues = function () {
-                this.oms.clearMarkers(); // Removes every marker from being tracked.
-                //remove listeners on markers
-                // this.oms.clearListeners(mapTeamOnMap);
-
-                for (var i = 0; i < this.markersPoIs.length; i++) {
-                    this.markersPoIs[i].setMap(null);
+            clearMarkers = function (markers) {
+                for (var i = 0; i < markers.length; i++) {
+                    this.oms.removeMarker(markers[i]);
+                    this.mc.removeMarker(markers[i]);
+                    markers[i].setMap(null);
                 }
-                this.markersPoIs = [];
-                ;
+            },
+            clearPaths = function (paths) {
+                for (var i = 0; i < paths.length; i++) {
+                    paths[i].setMap(null);
+                }
             },
             displayLocationData = function (devices) {
                 var instance = this;
@@ -107,23 +132,18 @@ scify.ActivityOnMap.prototype = function () {
                             });
                             instance.oms.addMarker(marker);
                             instance.markers.push(marker);
-
-
                         });
                     });
-                    //add listeners on markers
-                    // instance.oms.addListener('click',mapTeamOnMap);
                 });
-                instance.mc.clearMarkers();
                 instance.mc.addMarkers(instance.markers);
             },
             displayRouteData = function (devices) {
                 var instance = this;
                 var path = null;
+
                 $.each(devices, function (deviceIndex, device) {
                     $.each(device.observations, function (observationIndex, observation) {
-                        if (observation.measurements.length > 1) //this should never happen. ROute data have always more than one location measurement attached
-                        {
+                        if (observation.measurements.length > 1) {
                             var coordinates = [];
                             $.each(observation.measurements, function (index, element) {
                                 coordinates.push({lat: parseFloat(element.latitude), lng: parseFloat(element.longitude)});
@@ -151,81 +171,26 @@ scify.ActivityOnMap.prototype = function () {
                             instance.paths.push(path);
                         }
                     });
-                    //add listeners on markers
-                    // instance.oms.addListener('click',mapTeamOnMap);
                 });
-                instance.mc.clearMarkers();
             },
             displayGenericErrorMsg = function () {
                 alert("Συνέβει ενα σφάλμα κατα την φόρτωση των δεδομένων");
             },
-            getMissionData = function (e) {
-                this.showingMissions = true;
-                this.showingEvents = false;
-
-                var instance = this;
-                var url = instance.loadObservationsTemplateUrl;
-                if (typeof e !== "undefined" && e.type === "click") {
-                    var mission = $(e.target);
-                    var missionId = mission.data("id");
-                    $("#show-pois").removeClass("active");
-                    $(".mission").removeClass("active");
-                    $("#show-events").removeClass("active");
-                    mission.addClass("active");
-                    url = url.replace("{id}", missionId);
-                } else {
-                    url = url.replace("{id}", $(".mission.active").data("id"));
-                }
-
-                clearMarkersAndPaths.call(instance);
-
-                $.ajax({
-                    url: url,
-                    data: {
-                        from: $('.datepicker.from input').val(),
-                        to: $('.datepicker.to input').val()},
-                    success: function (data) {
-                        if (data != null && data.status == "success") {
-                            if (data.message.type_id == 1)
-                                displayLocationData.call(instance, data.message.devices);
-                            else
-                                displayRouteData.call(instance, data.message.devices);
-                        }
-                        else
-                            displayGenericErrorMsg();
-                    },
-                    error: function () {
-                        displayGenericErrorMsg();
-                    }
-                });
-            },
-            /**
-             * Display the near by events from getEvents API function
-             */
-            displayEvents = function () {
-                var avoidLoading = false;
-                if (this.showingEvents) {
-                    avoidLoading = true;
-                }
-                this.showingMissions = false;
-                this.showingEvents = true;
-
+            loadEvents = function () {
                 var instance = this;
                 var marker = null;
-                maCenterLatLng = {lat: instance.map.getCenter().lat(), lng: instance.map.getCenter().lng()};
-
-                if (!avoidLoading) {
-                    $(".loading").show();
-                }
+                var curUpdatePoint = instance.updatePoint;
+                var maCenterLatLng = {lat: instance.map.getCenter().lat(), lng: instance.map.getCenter().lng()};
                 $.ajax({
-                    //url here with api results and center of map
                     url: instance.loadEventsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                     success: function (data) {
-                        clearMarkersAndPaths.call(instance);
-                        $(".loading").hide();
-                        var i;
+                        if (instance.updatePoint !== curUpdatePoint) {
+                            return;
+                        }
+                        clearMarkers.bind(instance)(instance.markersEvents);
+                        instance.markersEvents = [];
                         var iconGreen = baseUrl + '/img/marker_green.png';
-                        for (i = 0; i < data.length; i++) {
+                        for (var i = 0; i < data.length; i++) {
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
                                 map: instance.map,
@@ -256,55 +221,27 @@ scify.ActivityOnMap.prototype = function () {
 
                             instance.oms.addMarker(marker);
                             instance.markersEvents.push(marker);
-
-                            instance.mc.clearMarkers();
-                            instance.mc.addMarkers(instance.markersEvents);
                         }
+                        instance.mc.addMarkers(instance.markersEvents);
                     },
                     error: function () {
                         displayGenericErrorMsg();
                     }
                 });
-//                $("#hideEvents").removeClass("hide");
-                $("#show-events").addClass("active");
-                $(".mission").removeClass("active");
-                $("#show-pois").removeClass("active");
             },
-            // Sets the map on all markers in the array.
-            hideEventMarkers = function () {
-                var instance = this;
-                for (var i = 0; i < instance.markersEvents.length; i++) {
-                    instance.markersEvents[i].setMap(null);
-                }
-                $("#hideEvents").addClass("hide");
-                $("#show-events").removeClass("greenBack");
-            },
-            /**
-             * Show points of interest on click from getVenues API function
-             */
-            displayPoI = function () {
-                var avoidLoading = false;
-                if (!this.showingEvents && !this.showingMissions) {
-                    avoidLoading = true;
-                }
-                this.showingMissions = false;
-                this.showingEvents = false;
-
+            loadPois = function () {
                 var instance = this;
                 var marker = null;
+                var curUpdatePoint = instance.updatePoint;
                 maCenterLatLng = {lat: instance.map.getCenter().lat(), lng: instance.map.getCenter().lng()};
-
-                if (!avoidLoading) {
-                    $(".loading").show();
-                }
                 $.ajax({
-                    //url here with api results and center of map
                     url: instance.loadVenuestsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                     success: function (data) {
-                        clearMarkersVenues.call(instance);
-                        clearMarkersAndPaths.call(instance);
-                        $(".loading").hide();
-                        //if (data.status =="success"){
+                        if (instance.updatePoint !== curUpdatePoint) {
+                            return;
+                        }
+                        clearMarkers.bind(instance)(instance.markersPoIs);
+                        instance.markersPoIs = [];
                         var i;
                         var iconPurple = baseUrl + '/img/marker_purple.png';
                         for (i = 0; i < data.length; i++) {
@@ -325,28 +262,33 @@ scify.ActivityOnMap.prototype = function () {
                             })(marker, i));
                             instance.oms.addMarker(marker);
                             instance.markersPoIs.push(marker);
-
-                            instance.mc.clearMarkers();
-                            instance.mc.addMarkers(instance.markersPoIs);
                         }
+                        instance.mc.addMarkers(instance.markersPoIs);
                     },
                     error: function () {
                         displayGenericErrorMsg();
                     }
                 });
-//                $("#hidePoIs").removeClass("hide");
-                $("#show-pois").addClass("active");
-                $(".mission").removeClass("active");
-                $("#show-events").removeClass("active");
             },
-            hidePoIsMarkers = function () {
-                var instance = this;
-                for (var i = 0; i < instance.markersPoIs.length; i++) {
-                    instance.markersPoIs[i].setMap(null);
+            displayEvents = function () {
+                this.showEvents = !this.showEvents;
+                if (this.showEvents) {
+                    $('#show-events').addClass('active');
+                } else {
+                    $('#show-events').removeClass('active');
+                    clearMarkers.bind(this)(this.markersEvents);
                 }
-                $("#hidePoIs").addClass("hide");
-                $("#show-pois").removeClass("purpleBack");
-
+                updateMap.bind(this)();
+            },
+            displayPoI = function () {
+                this.showPois = !this.showPois;
+                if (this.showPois) {
+                    $('#show-pois').addClass('active');
+                } else {
+                    $('#show-pois').removeClass('active');
+                    clearMarkers.bind(this)(this.markersPoIs);
+                }
+                updateMap.bind(this)();
             },
             formatDate = function (date) {
                 var d = new Date(date);
@@ -385,25 +327,14 @@ scify.ActivityOnMap.prototype = function () {
             nearbyDistance: 25
         });
 
-        instance.showingMissions = true;
-        instance.showingEvents = false;
-
-        $("#filters").on("click", ".mission", getMissionData.bind(instance));
-        $("#filters").find(".mission").first().trigger("click");
+        $("#filters").on("click", ".mission", selectMission.bind(instance));
         $("#show-events").click(displayEvents.bind(instance));
-//        $("#hideEvents").click(hideEventMarkers.bind(instance));
         $("#show-pois").click(displayPoI.bind(instance));
-//        $("#hidePoIs").click(hidePoIsMarkers.bind(instance));
-        $(".datepicker input").change(getMissionData.bind(instance));
+        $("#filters").find(".mission").first().trigger("click");
+        $(".datepicker input").change(selectMission.bind(instance));
 
         setTimeout((function () {
-            if (this.showingMissions) {
-                getMissionData.bind(instance)();
-            } else if (this.showingEvents) {
-                displayEvents.bind(instance)();
-            } else {
-                displayPoI.bind(instance)();
-            }
+            updateMap.bind(instance)();
             setTimeout(arguments.callee.bind(instance), 15000);
         }).bind(instance), 15000);
     };
