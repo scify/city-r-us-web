@@ -6,6 +6,7 @@ scify.ActivityOnMap = function (mapId, markericon, lat, long, zoom, loadObservat
     this.markersEvents = [];
     this.markersPoIs = [];
     this.paths = [];
+    this.observations = [];
     this.markericon = markericon;
     this.map = null;
     this.oms = null; //https://github.com/jawj/OverlappingMarkerSpiderfier
@@ -61,9 +62,9 @@ scify.ActivityOnMap.prototype = function () {
                     $(".mission").removeClass("active");
                     mission.addClass("active");
                 }
-                updateMap.bind(this)();
+                resetMap.bind(this)();
             },
-            updateMap = function () {
+            resetMap = function () {
                 var instance = this;
                 instance.updatePoint++;
                 var curUpdatePoint = instance.updatePoint;
@@ -78,11 +79,12 @@ scify.ActivityOnMap.prototype = function () {
                             return;
                         }
                         if (data !== null && data.status === "success") {
+                            instance.observations = [];
                             clearPaths(instance.paths);
                             instance.paths = [];
                             clearMarkers.bind(instance)(instance.markers);
                             instance.markers = [];
-                            if (data.message.type_id === 1) {
+                            if (data.message.type_id === "1") {
                                 displayLocationData.call(instance, data.message.devices);
                             }
                             else {
@@ -122,7 +124,12 @@ scify.ActivityOnMap.prototype = function () {
 
                 $.each(devices, function (deviceIndex, device) {
                     $.each(device.observations, function (observationIndex, observation) {
+                        if (typeof observation === 'undefined') {
+                            return;
+                        }
+                        instance.observations.push(observation.id);
                         $.each(observation.measurements, function (index, element) {
+                            console.log("added");
                             var icon = baseUrl + '/img/marker.png';
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(element.latitude, element.longitude),
@@ -143,6 +150,10 @@ scify.ActivityOnMap.prototype = function () {
 
                 $.each(devices, function (deviceIndex, device) {
                     $.each(device.observations, function (observationIndex, observation) {
+                        if (typeof observation === 'undefined') {
+                            return;
+                        }
+                        instance.observations.push(observation.id);
                         if (observation.measurements.length > 1) {
                             var coordinates = [];
                             $.each(observation.measurements, function (index, element) {
@@ -278,7 +289,7 @@ scify.ActivityOnMap.prototype = function () {
                     $('#show-events').removeClass('active');
                     clearMarkers.bind(this)(this.markersEvents);
                 }
-                updateMap.bind(this)();
+                resetMap.bind(this)();
             },
             displayPoI = function () {
                 this.showPois = !this.showPois;
@@ -288,7 +299,7 @@ scify.ActivityOnMap.prototype = function () {
                     $('#show-pois').removeClass('active');
                     clearMarkers.bind(this)(this.markersPoIs);
                 }
-                updateMap.bind(this)();
+                resetMap.bind(this)();
             },
             formatDate = function (date) {
                 var d = new Date(date);
@@ -297,6 +308,46 @@ scify.ActivityOnMap.prototype = function () {
                     d.getFullYear()].join('/');
 
                 return date;
+            },
+            addMarkers = function () {
+                var instance = this;
+                var curUpdatePoint = instance.updatePoint;
+                var url = instance.loadObservationsTemplateUrl.replace("{id}", $(".mission.active").data("id"));
+                $.ajax({
+                    url: url,
+                    data: {
+                        from: $('.datepicker.from input').val(),
+                        to: $('.datepicker.to input').val()},
+                    success: function (data) {
+                        if (instance.updatePoint !== curUpdatePoint) {
+                            return;
+                        }
+                        if (data !== null && data.status === "success") {
+                            $.each(data.message.devices, function (deviceIndex, device) {
+                                $.each(device.observations, function (observationIndex, observation) {
+                                    for (var i = 0; i < instance.observations.length; i++) {
+                                        if (instance.observations[i] === observation.id) {
+                                            delete device.observations[observationIndex];
+                                            break;
+                                        }
+                                    }
+                                });
+                            });
+                            if (data.message.type_id === "1") {
+                                displayLocationData.call(instance, data.message.devices);
+                            }
+                            else {
+                                displayRouteData.call(instance, data.message.devices);
+                            }
+                        }
+                        else {
+                            displayGenericErrorMsg();
+                        }
+                    },
+                    error: function () {
+                        displayGenericErrorMsg();
+                    }
+                });
             };
 
     /**
@@ -316,6 +367,9 @@ scify.ActivityOnMap.prototype = function () {
             styles: getMapStyles()
         };
         instance.map = new google.maps.Map(instance.mapId[0], mapOptions);
+        instance.map.addListener('dragend', function () {
+            resetMap.bind(instance)();
+        });
 
         var mcOptions = {gridSize: 50, maxZoom: 15};
         instance.mc = new MarkerClusterer(instance.map, [], mcOptions);
@@ -327,16 +381,16 @@ scify.ActivityOnMap.prototype = function () {
             nearbyDistance: 25
         });
 
+        setTimeout((function () {
+            addMarkers.bind(instance)();
+            setTimeout(arguments.callee.bind(instance), 15000);
+        }).bind(instance), 15000);
+
         $("#filters").on("click", ".mission", selectMission.bind(instance));
         $("#show-events").click(displayEvents.bind(instance));
         $("#show-pois").click(displayPoI.bind(instance));
         $("#filters").find(".mission").first().trigger("click");
         $(".datepicker input").change(selectMission.bind(instance));
-
-        setTimeout((function () {
-            updateMap.bind(instance)();
-            setTimeout(arguments.callee.bind(instance), 15000);
-        }).bind(instance), 15000);
     };
 
     return {
