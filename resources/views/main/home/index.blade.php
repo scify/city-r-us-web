@@ -140,19 +140,19 @@
                 <div class="col-sm-6 col-sm-offset-3 wow rotateInUpLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.5s">
                     <a href="#contact" class="btn btn-success btn-lg btn-rounded contact-button"><i class="fa fa-envelope-o"></i></a>
                     <h2>{{ trans('home_default.suggest') }}</h2>
-                    <form class="m-t-md">
+                    <form class="m-t-md" action="#" method="post">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control input-lg contact-name" placeholder="{{ trans('home_default.name') }}">
+                                    <input type="text" name="name" class="form-control input-lg contact-name" placeholder="{{ trans('home_default.name') }}">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="email" class="form-control input-lg" placeholder="{{ trans('home_default.email') }}">
+                                    <input type="email" name="mail" class="form-control input-lg" placeholder="{{ trans('home_default.email') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="4=6" placeholder="{{ trans('home_default.iWouldSuggest') }}"></textarea>
+                            <textarea class="form-control" name="description" rows="4=6" placeholder="{{ trans('home_default.iWouldSuggest') }}"></textarea>
                         </div>
                         <button type="submit" class="btn btn-default btn-lg">{{ trans('home_default.submit') }}</button>
                     </form>

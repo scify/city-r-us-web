@@ -7,7 +7,6 @@ use App\Services\MissionService;
 
 class HomeController extends Controller {
 
-
     private $curl;
 
     /**
@@ -26,6 +25,12 @@ class HomeController extends Controller {
      * @return Response
      */
     public function index() {
+        return view('main.home.index');
+    }
+    
+    public function mail() {
+        $missionService = new MissionService();
+        $missionService->suggestMission();
         return view('main.home.index');
     }
 

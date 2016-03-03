@@ -1,5 +1,6 @@
-<?php namespace App\Services;
+<?php
 
+namespace App\Services;
 
 class MissionService {
 
@@ -10,7 +11,6 @@ class MissionService {
         $this->curl = new Curl();
         $this->jwtService = new JWTService();
     }
-
 
     /**
      * Store a mission
@@ -23,13 +23,11 @@ class MissionService {
         if ($jwt == null)
             return 'logout';
 
-        $response = $this->curl->post('/missions/store',
-            [
-                'name' => \Request::get('name'),
-                'description' => \Request::get('description'),
-                'mission_type' => \Request::get('mission_type')
-            ],
-            ['Authorization: Bearer ' . $jwt]);
+        $response = $this->curl->post('/missions/store', [
+            'name' => \Request::get('name'),
+            'description' => \Request::get('description'),
+            'mission_type' => \Request::get('mission_type')
+                ], ['Authorization: Bearer ' . $jwt]);
 
         if (isset($response->error))
             return 'logout';
@@ -49,14 +47,13 @@ class MissionService {
 
         $response = $this->curl->post('/missions/update', \Request::all(), ['Authorization: Bearer ' . $jwt]);
 
-        if(isset($response->error) || $response->status === "error") {
+        if (isset($response->error) || $response->status === "error") {
             \Auth::logout();
             \Session::flush();
             return 'logout';
         }
         return $response->message;
     }
-
 
     /**
      * After a mission has been created,
@@ -72,11 +69,9 @@ class MissionService {
                 return 'logout';
 
             //save the filename to the db
-            $id = $this->curl->post('/missions/' . $id . '/update',
-                ['id' => $id,
-                    'img_name' => $file->getClientOriginalName()
-                ],
-                ['Authorization: Bearer ' . $jwt]);
+            $id = $this->curl->post('/missions/' . $id . '/update', ['id' => $id,
+                'img_name' => $file->getClientOriginalName()
+                    ], ['Authorization: Bearer ' . $jwt]);
 
             //save the file to the file system
             $path = public_path() . '/uploads/missions';
@@ -86,7 +81,6 @@ class MissionService {
         }
         return $id;
     }
-
 
     /**
      * Remove the image for a certain mission.
@@ -114,11 +108,9 @@ class MissionService {
             }
 
             //make the img_name column null
-            $id = $this->curl->post('/missions/' . $mission->id . '/update',
-                ['id' => $mission->id,
-                    'img_name' => ''
-                ],
-                ['Authorization: Bearer ' . $jwt]);
+            $id = $this->curl->post('/missions/' . $mission->id . '/update', ['id' => $mission->id,
+                'img_name' => ''
+                    ], ['Authorization: Bearer ' . $jwt]);
         }
         return $mission->id;
     }
@@ -158,20 +150,18 @@ class MissionService {
             $file->move($path, $fileName);
 
             //update the img_name column
-            $id = $this->curl->post('/missions/update',
-                ['id' => $mission->id,
-                    'img_name' => $file->getClientOriginalName()
-                ],
-                ['Authorization: Bearer ' . $jwt]);
+            $id = $this->curl->post('/missions/update', ['id' => $mission->id,
+                'img_name' => $file->getClientOriginalName()
+                    ], ['Authorization: Bearer ' . $jwt]);
         }
         return $id;
     }
 
-    public function deleteMission($id){
+    public function deleteMission($id) {
 
         $mission = $this->curl->get('/missions/byId', ['id' => $id]);
 
-        if(!isset($mission->code)) {
+        if (!isset($mission->code)) {
             $mission = $mission->message;
             //if there are users participating in the mission, do not delete
             if (sizeof($mission->users) > 0) {
@@ -183,21 +173,27 @@ class MissionService {
                 return 'logout';
 
             //update the img_name column
-            $response = $this->curl->post('/missions/' . $id . '/delete', [],
-                ['Authorization: Bearer ' . $jwt]);
+            $response = $this->curl->post('/missions/' . $id . '/delete', [], ['Authorization: Bearer ' . $jwt]);
 
             return $mission->img_name;
         }
         return;
     }
 
-    public function getMissions()
-    {
+    public function getMissions() {
         return $this->curl->get('/missions', []);
     }
 
-    public function getObservations($missionid)
-    {
-        return $this->curl->get('/missions/'.$missionid."/observations",[]);
+    public function getObservations($missionid) {
+        return $this->curl->get('/missions/' . $missionid . "/observations", []);
     }
+
+    public function suggestMission() {
+        return $this->curl->post('/missions/suggestWeb', [
+                    'name' => \Request::get('name'),
+                    'description' => \Request::get('description'),
+                    'mail' => \Request::get('mail')
+        ]);
+    }
+
 }
