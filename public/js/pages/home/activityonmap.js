@@ -146,7 +146,6 @@ scify.ActivityOnMap.prototype = function () {
             },
             displayRouteData = function (devices) {
                 var instance = this;
-                var path = null;
                 var color = '#1133cc';
 
                 $.each(devices, function (deviceIndex, device) {
@@ -172,17 +171,29 @@ scify.ActivityOnMap.prototype = function () {
                                     instance.markers.push(marker);
                                 }
                             });
-                            path = new google.maps.Polyline({
+                            var path = new google.maps.Polyline({
                                 path: coordinates,
                                 geodesic: true,
                                 strokeColor: color,
                                 strokeOpacity: 1.0,
                                 strokeWeight: 4
                             });
+                            var curColor = color;
+                            path.addListener('mouseover', function() {
+                                path.setOptions({
+                                    strokeColor: "#ddcc33",
+                                    strokeWeight: 6
+                                });
+                            });
+                            path.addListener('mouseout', function() {
+                                path.setOptions({
+                                    strokeColor: curColor,
+                                    strokeWeight: 4
+                                });
+                            });
                             path.setMap(instance.map);
                             instance.paths.push(path);
                             color = mutateColor(color);
-                            console.log(color);
                         }
                     });
                 });
