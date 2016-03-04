@@ -147,6 +147,7 @@ scify.ActivityOnMap.prototype = function () {
             displayRouteData = function (devices) {
                 var instance = this;
                 var path = null;
+                var color = '#1133cc';
 
                 $.each(devices, function (deviceIndex, device) {
                     $.each(device.observations, function (observationIndex, observation) {
@@ -174,15 +175,51 @@ scify.ActivityOnMap.prototype = function () {
                             path = new google.maps.Polyline({
                                 path: coordinates,
                                 geodesic: true,
-                                strokeColor: '#3B6FA4',
+                                strokeColor: color,
                                 strokeOpacity: 1.0,
-                                strokeWeight: 2
+                                strokeWeight: 4
                             });
                             path.setMap(instance.map);
                             instance.paths.push(path);
+                            color = mutateColor(color);
+                            console.log(color);
                         }
                     });
                 });
+            },
+            componentToHex = function (c) {
+                var hex = c.toString(16);
+                return hex.length === 1 ? "0" + hex : hex;
+            },
+            rgbToHex = function (r, g, b) {
+                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+            },
+            hexToRgb = function (hex) {
+                var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : null;
+            },
+            mutateColor = function (color) {
+                var rgb = hexToRgb(color);
+                if (rgb.r > rgb.g) {
+                    if (rgb.r > rgb.b) {
+                        rgb.r -= ~~Math.random() * 40 + 40;
+                        rgb.g += ~~Math.random() * 40 + 40;
+                    } else {
+                        rgb.b -= ~~Math.random() * 40 + 40;
+                        rgb.r += ~~Math.random() * 40 + 40;
+                    }
+                } else if (rgb.g > rgb.b) {
+                    rgb.g -= ~~Math.random() * 40 + 40;
+                    rgb.b += ~~Math.random() * 40 + 40;
+                } else {
+                    rgb.b -= ~~Math.random() * 40 + 40;
+                    rgb.r += ~~Math.random() * 40 + 40;
+                }
+                return rgbToHex(rgb.r, rgb.g, rgb.b);
             },
             displayGenericErrorMsg = function () {
                 alert("Συνέβει ενα σφάλμα κατα την φόρτωση των δεδομένων");
