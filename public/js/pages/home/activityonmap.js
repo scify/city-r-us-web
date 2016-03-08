@@ -130,7 +130,12 @@ scify.ActivityOnMap.prototype = function () {
                         instance.observations.push(observation.id);
                         $.each(observation.measurements, function (index, element) {
                             console.log("added");
-                            var icon = baseUrl + '/img/marker.png';
+                            var icon = {
+                                url: baseUrl + '/img/marker.png',
+                                scaledSize: new google.maps.Size(30, 36),
+                                origin: new google.maps.Point(0, 0),
+                                anchor: new google.maps.Point(0, 36)
+                            };
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(element.latitude, element.longitude),
                                 title: element.displayName,
@@ -160,7 +165,12 @@ scify.ActivityOnMap.prototype = function () {
                                 coordinates.push({lat: parseFloat(element.latitude), lng: parseFloat(element.longitude)});
 
                                 if (index == 0 || index == observation.measurements.length - 1) {
-                                    var icon = baseUrl + '/img/marker.png';
+                                    var icon = {
+                                        url: baseUrl + '/img/marker.png',
+                                        scaledSize: new google.maps.Size(30, 36),
+                                        origin: new google.maps.Point(0, 0),
+                                        anchor: new google.maps.Point(0, 36)
+                                    };
                                     marker = new google.maps.Marker({
                                         position: new google.maps.LatLng(element.latitude, element.longitude),
                                         title: element.displayName,
@@ -179,13 +189,13 @@ scify.ActivityOnMap.prototype = function () {
                                 strokeWeight: 4
                             });
                             var curColor = color;
-                            path.addListener('mouseover', function() {
+                            path.addListener('mouseover', function () {
                                 path.setOptions({
                                     strokeColor: "#ddcc33",
                                     strokeWeight: 6
                                 });
                             });
-                            path.addListener('mouseout', function() {
+                            path.addListener('mouseout', function () {
                                 path.setOptions({
                                     strokeColor: curColor,
                                     strokeWeight: 4
@@ -248,7 +258,12 @@ scify.ActivityOnMap.prototype = function () {
                         }
                         clearMarkers.bind(instance)(instance.markersEvents);
                         instance.markersEvents = [];
-                        var iconGreen = baseUrl + '/img/marker_green.png';
+                        var iconGreen = {
+                            url: baseUrl + '/img/marker_green.png',
+                            scaledSize: new google.maps.Size(30, 36),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(0, 36)
+                        };
                         for (var i = 0; i < data.length; i++) {
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
@@ -302,7 +317,12 @@ scify.ActivityOnMap.prototype = function () {
                         clearMarkers.bind(instance)(instance.markersPoIs);
                         instance.markersPoIs = [];
                         var i;
-                        var iconPurple = baseUrl + '/img/marker_purple.png';
+                        var iconPurple = {
+                            url: baseUrl + '/img/marker_purple.png',
+                            scaledSize: new google.maps.Size(30, 36),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(0, 36)
+                        };
                         for (i = 0; i < data.length; i++) {
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(data[i].location.lat, data[i].location.lng),
