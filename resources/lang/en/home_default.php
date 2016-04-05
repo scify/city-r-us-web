@@ -16,55 +16,55 @@ return [
 
 
     /* section 2 - features */
-    "feature1" => "<h2>Βρες αποστολές</h2><p>Ο Δήμος τις Αθήνας προτείνει αποστολές για να βελτιώσουμε την πόλη.</p>",
-    "feature2" => "<h2>Ανέβασε διαδρομή</h2><p>Μπορείς να συνεισφέρεις σ'ενα δημόσιο χάρτη, στέλνοντας είτε ενα σημείο ή μια διαδρομή (ανάλογα με την αποστολή)</p>",
-    "feature3" => "<h2>Δες τον χάρτη της πόλης</h2><p>Η συνεισφορά όλων των πολιτών φαίνεται σένα δημόσιο χάρτη. Κλικ :link</p>",
+    "feature1" => "<h2>Find missions</h2><p>The municipality of Athens suggests missions to improve the city.</p>",
+    "feature2" => "<h2>Upload a route</h2><p>You can contribute on a public map by sending either a point or a route (depending on the mission)</p>",
+    "feature3" => "<h2>See the city map</h2><p>All contributions are on display on a public map. Click :link</p>",
 
 
     /* section 3 - few words */
-    "fewWords" => "Λίγα λόγια για την εφαρμογή",
-    "subFewWords" => " <p>Το City-R-US ειναι μια εφαρμογή που επιτρέπει στους κατοίκους της Αθήνας να συμμετέχουν σε αποστολές.
-                       Επίλεξε την αποστολή που σε ενδιαφέρει και βοήθησε τη πόλη σου!
-                       Τα δεδομένα των αποστολών συλλέγονται σ'έναν δημόσιο χάρτη διαθέσιμο :link</p>",
+    "fewWords" => "About City-R-US",
+    "subFewWords" => " <p>City-R-US is an application that enables residents of Athens to participate in missions.
+                       Select a mission you like and help your city!
+                       Mission data are recorded on a public map available here :link</p>",
 
 
-    "list1" => "Μοντέρνα αισθητική",
-    "list2" => "Μπορείς να προτείνεις κ εσύ αποστολές!",
-    "list3" => "Επιβράβευση των πολιτών που συνεισφέρουν περισσότερο",
-    "list4" => "Εύκολο στη χρήση του",
+    "list1" => "Modern design",
+    "list2" => "You can add missions!",
+    "list3" => "Rewards for the citizens with high participation",
+    "list4" => "Easy to use",
 
 
     /* section 4 - testimonials */
-    "testimonial1" => " <p class='text-white'>Πολύ καλή ιδέα!<br> Θα είναι εξαιρετικό να έχουμε χαρτογραφημένα σημεία και διαδρομές που είναι προσβάσιμες από ΑμεΑ στην πόλη.<br> Πείτε μου πως να βοηθήσω.</p><span>Dr. Γιώργος Χρηστάκης<br>Χορογράφος, <br>χορευτής σε αναπ.αμαξίδιο, <br>ιδρυτής του Χοροθεάτρου ΔΑΓΙΠΟΛΗ</span>",
+    "testimonial1" => " <p class='text-white'>Greate idea!<br> It would be great to have mapped points and routes, that are accessible to the disabled, in the city.<br> Tell me how to help.</p><span>Dr. George Christakis<br>Choreographer, <br>dancer in wheelchair, <br>founder if the Dance Theatre DAGIPOLI</span>",
 
 
     /* section 5 - suggest a mission form */
-    "suggest" => "Πρότεινε μια αποστολή",
-    "name" => "Όνομα",
+    "suggest" => "Suggest a mission",
+    "name" => "Name",
     "email" => "Email",
-    "iWouldSuggest" => "Θα σας πρότεινα να...",
-    "submit" => "Aποστολή",
+    "iWouldSuggest" => "I'd recomend...",
+    "submit" => "Submit",
 
     /* footer */
-    "termsAndConditions" => "Πολιτική Απορρήτου",
-    "imageSrc" => "Πηγή εικόνας background",
-    "funding" => "Το έργο έχει λάβει χρηματοδότηση από το πρόγραμμα Ανταγωνιστικότητας και Καινοτομίας της Ευρωπαϊκής Ένωσης στο πλαίσιο συμφωνίας επιχορήγησης υπ' αριθμ. 325138.",
+    "termsAndConditions" => "Privacy Policy",
+    "imageSrc" => "Background image source",
+    "funding" => "This project has received funding from the European Union's Competitiveness and Innovation Programme under grant agreement np. 325138",
 
 
     /* map page */
-    "city-map" => "Ο χάρτης της πόλης",
-    "actionsInCity" => "Δράσεις στην περιοχή",
-    "pois" => "Σημεία ενδιαφέροντος στην περιοχή",
-    "selectMission" => "Eπιλογή αποστολής",
-    "selectDate" => "Eπιλογή Περιόδου",
-    "from" => "Από",
-    "to" => "Έως",
-    "error" => "Συνέβει ένα λάθος κατά την φόρτωση αποστολών...",
-    "refresh" => "Ανανέωση",
+    "city-map" => "City Map",
+    "actionsInCity" => "missions in the area",
+    "pois" => "Points of interest in the area",
+    "selectMission" => "Mission selecion",
+    "selectDate" => "Time period selection",
+    "from" => "From",
+    "to" => "To",
+    "error" => "There was an error while loading missions...",
+    "refresh" => "Refresh",
 
 
     /* map page */
-    "terms" => "Πολιτική Απορρήτου",
+    "terms" => "Privacy Policy",
     
     
 ];

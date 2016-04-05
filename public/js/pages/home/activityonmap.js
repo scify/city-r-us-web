@@ -155,7 +155,7 @@ scify.ActivityOnMap.prototype = function () {
 
                 $.each(devices, function (deviceIndex, device) {
                     $.each(device.observations, function (observationIndex, observation) {
-                        if (typeof observation === 'undefined') {
+                        if (typeof observation === 'undefined' || observation.deleted_at !== null) {
                             return;
                         }
                         instance.observations.push(observation.id);
