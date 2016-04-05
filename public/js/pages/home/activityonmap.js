@@ -190,6 +190,7 @@ scify.ActivityOnMap.prototype = function () {
                             });
                             var curColor = color;
                             path.addListener('mouseover', function () {
+                                console.log(observation.id);
                                 path.setOptions({
                                     strokeColor: "#ddcc33",
                                     strokeWeight: 6

@@ -4,7 +4,6 @@ return [
 
     "pageTitle" => "City-R-US",
 
-
     "home" => "Αρχική",
     "viewMap" => "Δες τον χάρτη",
     "adminInterface" => "Περιβάλλον Διαχειριστή",

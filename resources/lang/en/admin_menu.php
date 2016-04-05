@@ -14,5 +14,12 @@ return [
     'home' => 'Home',
 
     'logOut' => 'Log out',
+    'title' => 'Title',
+    'youHave' => 'You have',
+    'notifications' => 'notifications',
+    'allNotifications' => 'All notifications',
+    'lockScreen' => 'Lock Screen',
+    'profile' => 'Profile',
+    'tasks' => 'Tasks',
 
 ];

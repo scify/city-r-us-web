@@ -24,6 +24,9 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'missionNotFound' => 'Mission not found',
+    'addName' => 'Please fill out the field "Name".',
+    'addDescription' => 'Please fill out the field "Description".',
+    'addType' => 'Please select a mission type.',
 
     /* mission form */
     'name' => 'Name',
@@ -32,6 +35,7 @@ return [
     'editMission' => 'Edit mission',
     'missionDetails' => 'Mission details',
     'save' => 'Save',
+    'deleteMission' => 'Are you certain you want to delete this mission?',
 
     /* users*/
     'selectMission' => 'Select mission',
