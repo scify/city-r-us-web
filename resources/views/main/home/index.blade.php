@@ -61,13 +61,11 @@
                 </div>
                 {!! trans('home_default.feature2') !!}
             </a>
-            <a href="{{ action("HomeController@citymap") }}" class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.9s">
+            <a href="{{ action("HomeController@citymap") }}" target="_blank" class="col-sm-4 wow fadeInLeft" data-wow-duration="1.5s" data-wow-offset="10" data-wow-delay="0.9s">
                 <div class="feature-icon">
                     <i class="fa fa-globe"></i>
                 </div>
-                {!! trans('home_default.feature3', [
-                'link' => '<a href="'.url('/city-map').'" target="_blank">εδώ</a>'
-                ]) !!}
+                {!! trans('home_default.feature3') !!}
             </a>
         </div>
     </div>

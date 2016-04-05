@@ -10,7 +10,7 @@
                   <div id="navbar" class="navbar-collapse collapse navbar-right">
                       <ul class="nav navbar-nav">
 
-                           <li {{ $active=="home" ? 'class=active' : ''}}><a href="{{ url('/') }}">{{trans('home_default.home')}}</a></li>
+                           <li {{ $active=="home" ? 'class=active' : ''}}><a href="{{action("HomeController@index")}}">{{trans('home_default.home')}}</a></li>
                            <li {{ $active=="map" ? 'class=active' : ''}}><a href="{{action("HomeController@citymap")}}">{{trans('home_default.viewMap')}}</a></li>
                       </ul>
                   </div>
