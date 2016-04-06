@@ -12,6 +12,7 @@
     <link href="{{ asset('/plugins/tabstylesinspiration/css/tabstyles.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/css/template/public/common.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('/css/home/landing.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/css/flag-icon.min.css') }}" rel="stylesheet" type="text/css"/>
     <script src="{{ asset('/plugins/pricing-tables/js/modernizr.js') }}"></script>
 @stop
 
@@ -33,7 +34,14 @@
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
-                <a href="{{ action("AdminController@index") }}" class="admin-entry btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.adminInterface') }}</a>
+                <div class="top-right-container">
+                    <a href="{{ action("AdminController@index") }}" class="admin-entry btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.adminInterface') }}</a>
+                    @if (\Cookie::get('locale') === 'el')
+                        <a href="{{ url("/en") }}" class="language btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">English <img src="{{ asset('img/flags/gb.svg') }}"/></a>
+                    @else
+                        <a href="{{ url("/el") }}" class="language btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Ελληνικά <img src="{{ asset('img/flags/gr.svg') }}"/></a>
+                    @endif
+                </div>
                 <div class="home-text col-md-8">
                     <h1 class="wow fadeInDown" data-wow-delay="1.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.title') }}</h1>
                     <p class="lead wow fadeInDown" data-wow-delay="2s" data-wow-duration="1.5s" data-wow-offset="10">{!! trans('home_default.subtitle') !!}</p>

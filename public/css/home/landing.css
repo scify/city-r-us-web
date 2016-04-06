@@ -44,10 +44,20 @@ html {
     background: rgba(0,0,0,0.8);
 }
 
-.admin-entry {
+.top-right-container {
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+.top-right-button {
+    float: right;
+    margin-left: 10px;
+}
+
+.language img {
+    margin-left: 0.5em;
+    height: 1.3em;
 }
 
 .home-text {
