@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="top-right-container">
                     <a href="{{ action("AdminController@index") }}" class="admin-entry btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">{{ trans('home_default.adminInterface') }}</a>
-                    @if (\Cookie::get('locale') === 'el')
+                    @if (\Cookie::get('locale') === 'el' || is_null(\Cookie::get('locale')))
                         <a href="{{ url("/en") }}" class="language btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">English <img src="{{ asset('img/flags/gb.svg') }}"/></a>
                     @else
                         <a href="{{ url("/el") }}" class="language btn btn-success btn-rounded btn-lg wow fadeInUp" data-wow-delay="2.5s" data-wow-duration="1.5s" data-wow-offset="10">Ελληνικά <img src="{{ asset('img/flags/gr.svg') }}"/></a>
