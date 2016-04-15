@@ -57,6 +57,7 @@ scify.ActivityOnMap.prototype = function () {
         ];
     },
             selectMission = function (e) {
+                $(".loading").show();
                 if (e.type === "click") {
                     var mission = $(e.target);
                     $(".mission").removeClass("active");
@@ -79,6 +80,7 @@ scify.ActivityOnMap.prototype = function () {
                             return;
                         }
                         if (data !== null && data.status === "success") {
+                            $(".loading").hide();
                             instance.observations = [];
                             clearPaths(instance.paths);
                             instance.paths = [];
@@ -169,7 +171,7 @@ scify.ActivityOnMap.prototype = function () {
                                         url: baseUrl + '/img/marker.png',
                                         scaledSize: new google.maps.Size(30, 36),
                                         origin: new google.maps.Point(0, 0),
-                                        anchor: new google.maps.Point(0, 36)
+                                        anchor: new google.maps.Point(15, 36)
                                     };
                                     marker = new google.maps.Marker({
                                         position: new google.maps.LatLng(element.latitude, element.longitude),
@@ -179,6 +181,9 @@ scify.ActivityOnMap.prototype = function () {
                                     });
                                     instance.oms.addMarker(marker);
                                     instance.markers.push(marker);
+                                    marker.addListener('mouseover', function () {
+                                        console.log(observation.id);
+                                    });
                                 }
                             });
                             var path = new google.maps.Polyline({
@@ -244,6 +249,7 @@ scify.ActivityOnMap.prototype = function () {
                 return rgbToHex(rgb.r, rgb.g, rgb.b);
             },
             displayGenericErrorMsg = function () {
+                $(".loading").hide();
                 alert("Συνέβει ενα σφάλμα κατα την φόρτωση των δεδομένων");
             },
             loadEvents = function () {
