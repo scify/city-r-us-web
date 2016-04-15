@@ -55,7 +55,7 @@ return [
     "city-map" => "City Map",
     "actionsInCity" => "missions in the area",
     "pois" => "Points of interest in the area",
-    "selectMission" => "Mission selecion",
+    "selectMission" => "Mission selection",
     "selectDate" => "Time period selection",
     "from" => "From",
     "to" => "To",
