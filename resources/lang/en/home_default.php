@@ -53,7 +53,7 @@ return [
 
     /* map page */
     "city-map" => "City Map",
-    "actionsInCity" => "missions in the area",
+    "actionsInCity" => "Events in the area",
     "pois" => "Points of interest in the area",
     "selectMission" => "Mission selection",
     "selectDate" => "Time period selection",
