@@ -70,7 +70,7 @@
                 data: $("#emailUser").serialize(),
                 success: function (response) {
                     $(".modal-footer").hide();
-                    $(".sendEmail").html('<p>Το μήνυμα απεστάλλει.</p>');
+                    $(".sendEmail").html('<p>{{trans('admin_pages.sent')}}</p>');
                 }
             });
         }
@@ -82,12 +82,12 @@
         var flag = true;
 
         if (!$("#email_subject").val() || !$("#email_subject").val().length) {
-            msg += "<p>Συμπληρώστε το θέμα του email<p>";
+            msg += "<p>{{trans('admin_pages.fill_subject')}}<p>";
             flag = false;
         }
 
         if (!$("#email_body").val() || !$("#email_body").val().length) {
-            msg += "<p>Συμπληρώστε το κείμενο του email<p>";
+            msg += "<p>{{trans('admin_pages.fill_body')}}<p>";
             flag = false;
         }
 

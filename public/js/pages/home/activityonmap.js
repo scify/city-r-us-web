@@ -18,6 +18,9 @@ scify.ActivityOnMap = function (mapId, markericon, lat, long, zoom, loadObservat
     this.loadVenuestsUrl = loadVenuestsUrl;
     this.showEvents = false;
     this.showPois = false;
+    this.toggleEvents = false;
+    this.togglePois = false;
+    this.test = "testString";
     this.updatePoint = 0;
 };
 scify.ActivityOnMap.prototype = function () {
@@ -80,7 +83,9 @@ scify.ActivityOnMap.prototype = function () {
                             return;
                         }
                         if (data !== null && data.status === "success") {
-                            $(".loading").hide();
+                            if (!instance.toggleEvents && !instance.togglePois) {
+                                $(".loading").hide();
+                            }
                             instance.observations = [];
                             clearPaths(instance.paths);
                             instance.paths = [];
@@ -260,6 +265,10 @@ scify.ActivityOnMap.prototype = function () {
                 $.ajax({
                     url: instance.loadEventsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                     success: function (data) {
+                        if (instance.toggleEvents) {
+                            instance.toggleEvents = false;
+                            $(".loading").hide();
+                        }
                         if (instance.updatePoint !== curUpdatePoint) {
                             return;
                         }
@@ -318,6 +327,10 @@ scify.ActivityOnMap.prototype = function () {
                 $.ajax({
                     url: instance.loadVenuestsUrl + "?lat=" + maCenterLatLng.lat + "&lon=" + maCenterLatLng.lng,
                     success: function (data) {
+                        if (instance.togglePois) {
+                            instance.togglePois = false;
+                            $(".loading").hide();
+                        }
                         if (instance.updatePoint !== curUpdatePoint) {
                             return;
                         }
@@ -360,21 +373,25 @@ scify.ActivityOnMap.prototype = function () {
                 this.showEvents = !this.showEvents;
                 if (this.showEvents) {
                     $('#show-events').addClass('active');
+                    $('.loading').show();
+                    this.toggleEvents = true;
+                    resetMap.bind(this)();
                 } else {
                     $('#show-events').removeClass('active');
                     clearMarkers.bind(this)(this.markersEvents);
                 }
-                resetMap.bind(this)();
             },
             displayPoI = function () {
                 this.showPois = !this.showPois;
                 if (this.showPois) {
                     $('#show-pois').addClass('active');
+                    $('.loading').show();
+                    this.togglePois = true;
+                    resetMap.bind(this)();
                 } else {
                     $('#show-pois').removeClass('active');
                     clearMarkers.bind(this)(this.markersPoIs);
                 }
-                resetMap.bind(this)();
             },
             formatDate = function (date) {
                 var d = new Date(date);

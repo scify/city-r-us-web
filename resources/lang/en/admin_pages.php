@@ -47,5 +47,8 @@ return [
     'body' => 'Message',
     'send' => 'Send',
     'back' => 'Back',
-
+    'sent' => 'Email sent',
+    'fill_subject' => 'Fill out the subject',
+    'fill_body' => 'Fill out the message'
+    
 ];
